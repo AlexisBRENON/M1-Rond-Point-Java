@@ -20,20 +20,20 @@
     </calendar>
   </calendars>
   <tasks>
-    <task id="1" name="Sc&#xE9;narios d'utilisation" note="" work="156600" start="20121107T000000Z" end="20121114T113000Z" work-start="20121107T080000Z" percent-complete="10" priority="0" type="normal" scheduling="fixed-work">
-      <task id="2" name="Sc&#xE9;nario nominal" note="" work="1800" start="20121107T000000Z" end="20121107T083000Z" work-start="20121107T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
-      <task id="3" name="Sc&#xE9;narios alternatifs" note="" work="154800" start="20121107T083000Z" end="20121114T113000Z" work-start="20121107T083000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+    <task id="1" name="Sc&#xE9;narios d'utilisation" note="" work="156600" start="20121107T000000Z" end="20121114T113000Z" work-start="20121107T080000Z" percent-complete="100" priority="0" type="normal" scheduling="fixed-work">
+      <task id="2" name="Sc&#xE9;nario nominal" note="" work="1800" start="20121107T000000Z" end="20121107T083000Z" work-start="20121107T080000Z" percent-complete="100" priority="0" type="normal" scheduling="fixed-work"/>
+      <task id="3" name="Sc&#xE9;narios alternatifs" note="" work="154800" start="20121107T083000Z" end="20121114T113000Z" work-start="20121107T083000Z" percent-complete="100" priority="0" type="normal" scheduling="fixed-work">
         <predecessors>
           <predecessor id="1" predecessor-id="2" type="FS"/>
         </predecessors>
       </task>
     </task>
-    <task id="4" name="Diagramme de s&#xE9;quence" note="" work="154800" duration="154800" start="20121114T113000Z" end="20121121T153000Z" work-start="20121114T113000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-duration">
+    <task id="4" name="Diagramme de s&#xE9;quence" note="" work="154800" duration="154800" start="20121114T113000Z" end="20121121T153000Z" work-start="20121114T113000Z" percent-complete="99" priority="0" type="normal" scheduling="fixed-duration">
       <predecessors>
         <predecessor id="1" predecessor-id="1" type="FS"/>
       </predecessors>
     </task>
-    <task id="5" name="Diagramme de classes" note="" work="154800" duration="154800" start="20121121T153000Z" end="20121129T093000Z" work-start="20121121T153000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-duration">
+    <task id="5" name="Diagramme de classes" note="" work="154800" duration="154800" start="20121121T153000Z" end="20121129T093000Z" work-start="20121121T153000Z" percent-complete="70" priority="0" type="normal" scheduling="fixed-duration">
       <predecessors>
         <predecessor id="1" predecessor-id="4" type="FS"/>
       </predecessors>
