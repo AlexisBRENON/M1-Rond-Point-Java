@@ -1,0 +1,6 @@
+Diagramme d'état : incrémentation du compteur ?
+Diagramme de classes : association navigable (voiture -> voie externe)
+
+multiplicite visibilite des attribute
+
+: es que si on met 1 n ca empeche que la voiture soit mise 2 fois dans la Voie
