@@ -94,6 +94,7 @@ class VoieInterne extends Voie {
 		//Verifier quelle est bien en droit de sortir (arriver au croisement)
 		_suivante._vehicules[0] = v;
 		_vehicules[_vehicules.length - 1] = null;
+		v.setEstSur(_suivante);
 	}
 
 	/**
