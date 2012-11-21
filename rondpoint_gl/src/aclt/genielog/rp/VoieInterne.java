@@ -82,16 +82,39 @@ class VoieInterne extends Voie {
 		}
 	}
 
+	private Voiture waittingForInsertion = null;
 	/**
 	 * La voiture continue sur la voie interne suivante
 	 *
 	 * @param v
+	 * @return
 	 */
-	public void Continuer(Voiture v) {
-		//Verifier quelle est bien en droit de sortir (arriver au croisement)
-		_suivante._vehicules[0] = v;
+	public VoieInterne Continuer(Voiture v) {
 		_vehicules[_vehicules.length - 1] = null;
-		v.setEstSur(_suivante);
+		waittingForInsertion = v;
+		return _suivante;
+	}
+
+	public Voiture circule(Voiture voiture, boolean fin) {
+		Voiture v;
+		int length = _vehicules.length;
+
+		if (!fin) {
+			for (int i = length - 1; i >= 0; i = i - 1) {
+				v = _vehicules[i];
+				if (v != null) {
+					v.Avancer();
+				}
+			}
+		}
+
+		_vehicules[0] = voiture;
+		if (waittingForInsertion != null) {
+			v =  waittingForInsertion;
+			waittingForInsertion = null;
+			return v;
+		}
+		return null;
 	}
 
 	/**
