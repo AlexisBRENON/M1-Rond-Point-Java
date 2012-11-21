@@ -62,7 +62,7 @@ public class Simulateur {
 
 	public static void main(String argv[]) {
 
-		Simulateur sim = new Simulateur(1);
+		Simulateur sim = new Simulateur(5);
 		ArrayList<Voiture> voitures = new ArrayList<Voiture>();
 		for (int i = 0; i < 10; i = i + 1) {
 			voitures.add(Voiture.factory(sim.rp, 0, 0));
