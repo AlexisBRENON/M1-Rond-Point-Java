@@ -37,6 +37,20 @@ public class RondPoint {
 		}
 	}
 
+	public void tourneInterne() {
+		Voiture voitureDeTete = null;
 
+		for (VoieInterne voieInterne: voieInternes) {
+			voitureDeTete = voieInterne.circule(voitureDeTete, false);
+		}
+		voieInternes[0].circule(voitureDeTete, true);
+	}
 
+	public void tourneExterne() {
+		for (VoieExterne voieExterne: voieExternes) {
+			if (!voieExterne.getVoitures().isEmpty()) {
+				voieExterne.getVoitures().getFirst().Avancer();
+			}
+		}
+	}
 }
