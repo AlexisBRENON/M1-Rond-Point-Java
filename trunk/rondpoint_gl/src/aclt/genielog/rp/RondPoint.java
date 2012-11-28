@@ -3,15 +3,17 @@ package aclt.genielog.rp;
 import java.util.ArrayList;
 
 /**
- * Le Systeme
- * @author tiph
+ * @author Alexis Brenon
+ * @author Cécilia Martin
+ * @author Luc Chante
+ * @author Tiphaine Teyssier
  */
 public class RondPoint {
 	/**
 	 * Liste des voies externes (entrée/sortie) du rond point.
 	 */
 	private final ArrayList<VoieExterne> voieExternes;
-	
+
 	/**
 	 * Liste des voies internes du rond point.
 	 */
@@ -42,31 +44,27 @@ public class RondPoint {
 			voieInternes.get(j).config(suivante, sortie);
 		}
 	}
-	
+
 	/**
 	 * Crée une voiture au départ de la voie depart, sortant à la voie destination
-	 * 
+	 *
 	 * @param depart Numéro de la voie de départ
 	 * @param destination Numéro de la voie de sortie
 	 * @return Retourne la voiture nouvellement crée.
 	 */
-	Voiture ajouterVoiture(int depart, int destination) {
+	Voiture ajouterVoiture(VoieEnum depart, VoieEnum destination) {
 		VoieExterne entree, sortie;
-		
-		if (voieExternes.size() < depart) {
-			throw new IllegalArgumentException("depart doit être inférieur à " + voieExternes.size());
-		}
-		if (voieExternes.size() < destination) {
-			throw new IllegalArgumentException("destination doit être inférieur à " + voieExternes.size());
-		}
-		
-		entree = voieExternes.get(depart);
-		sortie = voieExternes.get(destination);
+
+		entree = voieExternes.get(depart.ordinal());
+		sortie = voieExternes.get(destination.ordinal());
 		Voiture voiture = new Voiture(entree, sortie);
 		entree.rentrer(voiture);
 		return voiture;
 	}
 
+	/**
+	 * Déclenche la circulation des voitures sur les voies internes.
+	 */
 	void tourneInterne() {
 		Voiture voitureDeTete = null;
 
@@ -76,11 +74,12 @@ public class RondPoint {
 		voieInternes.get(0).circule(voitureDeTete, true);
 	}
 
+	/**
+	 * Déclenche la circulation des voitures sur les voies externes.
+	 */
 	void tourneExterne() {
 		for (VoieExterne voieExterne: voieExternes) {
-			if (!voieExterne.getVoitures().isEmpty()) {
-				voieExterne.getVoitures().getFirst().Avancer();
-			}
+			voieExterne.circule();
 		}
 	}
 }

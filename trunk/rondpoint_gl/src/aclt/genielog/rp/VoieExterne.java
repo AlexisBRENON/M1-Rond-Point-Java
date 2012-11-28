@@ -3,46 +3,57 @@ package aclt.genielog.rp;
 import java.util.LinkedList;
 
 /**
- * 
- * @author tiph
+ * @author Alexis Brenon
+ * @author Cécilia Martin
+ * @author Luc Chante
+ * @author Tiphaine Teyssier
  */
 class VoieExterne extends Voie {
 
 	private static int ID = 0;
 
+	/**
+	 * Voie interne d'insertion dans le rond point.
+	 */
 	private VoieInterne interne;
+
+	/**
+	 * File d'attente des voitures.
+	 */
 	private LinkedList<Voiture> voitures = new LinkedList<Voiture>();
 
-	public VoieExterne(VoieInterne v) {
+	VoieExterne(VoieInterne v) {
 		super("Externe " + ID);
 		ID++;
 		interne = v;
 	}
 
-	public LinkedList<Voiture> getVoitures() {
-		return voitures;
-	}
-
 	/**
 	 * Indique si la voiture est la premiere sur la voie
-	 * 
+	 *
 	 * @param v
 	 * @return
 	 */
-	public boolean isFirst(Voiture v) {
+	boolean isFirst(Voiture v) {
 		return voitures.getFirst() == v;
 	}
 
-	public VoieInterne GetVoieInterne() {
+	VoieInterne getVoieInterne() {
 		return interne;
 	}
 
-	public void Sortir(Voiture v) {
+	void sortir(Voiture v) {
 		voitures.remove(v);
 	}
 
-	public void rentrer(Voiture v) {
+	void rentrer(Voiture v) {
 		voitures.addLast(v);
+	}
+
+	void circule() {
+		if (!voitures.isEmpty()) {
+			voitures.getFirst().avancer();
+		}
 	}
 
 }
