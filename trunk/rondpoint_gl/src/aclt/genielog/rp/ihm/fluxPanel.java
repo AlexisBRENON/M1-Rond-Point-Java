@@ -1,11 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package aclt.genielog.rp.ihm;
 
 /**
- *
+ * Il s'agit d'un componsant graphique regroupant tous les items utilisés
+ * pour gérer les flux de voitures dans la simulation.
  * @author alexis
  */
 public class fluxPanel extends javax.swing.JPanel {
