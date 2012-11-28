@@ -1,6 +1,6 @@
 package aclt.genielog.rp.ihm;
 
-import javax.swing.JFrame;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Il s'agit d'un componsant graphique regroupant tous les items utilisés
@@ -27,10 +27,10 @@ public class VitessePanel extends javax.swing.JPanel {
 
         titreLabel = new javax.swing.JLabel();
         vitesseSpinner = new javax.swing.JSpinner();
-        uniteLabel = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
+        jComboBox1 = new javax.swing.JComboBox();
 
-        titreLabel.setText("Vitesse de simulation :");
+        titreLabel.setText("Temps de pause :");
 
         vitesseSpinner.setModel(new javax.swing.SpinnerNumberModel(1, 0, 100, 1));
         vitesseSpinner.setToolTipText("Permet de modifier la vitesse de simulation.");
@@ -40,7 +40,8 @@ public class VitessePanel extends javax.swing.JPanel {
             }
         });
 
-        uniteLabel.setText("deplacement/sec");
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(TimeUnit.values()));
+        jComboBox1.setSelectedItem(TimeUnit.SECONDS);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -49,15 +50,15 @@ public class VitessePanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(titreLabel)
+                        .addGap(0, 81, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(12, 12, 12)
                         .addComponent(vitesseSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(uniteLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(titreLabel)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jSeparator1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -68,7 +69,7 @@ public class VitessePanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(vitesseSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(uniteLabel))
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -79,9 +80,9 @@ public class VitessePanel extends javax.swing.JPanel {
     }//GEN-LAST:event_vitesseSpinnerStateChanged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel titreLabel;
-    private javax.swing.JLabel uniteLabel;
     private javax.swing.JSpinner vitesseSpinner;
     // End of variables declaration//GEN-END:variables
 }
