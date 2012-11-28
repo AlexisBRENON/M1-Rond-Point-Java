@@ -1,11 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package aclt.genielog.rp.ihm;
 
 /**
- *
+ * Il s'agit d'un componsant graphique regroupant tous les items utilisés
+ * pour gérer la vitesse de la simulation.
  * @author alexis
  */
 public class vitessePanel extends javax.swing.JPanel {
