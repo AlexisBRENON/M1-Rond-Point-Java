@@ -12,10 +12,9 @@ public class AjoutPanel extends javax.swing.JPanel {
     /**
      * Creates new form AjoutPanel
      */
-    public AjoutPanel(JFrame parent) {
+    public AjoutPanel() {
         initComponents();
-        this.parentFrame = parent;
-    }
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -34,6 +33,7 @@ public class AjoutPanel extends javax.swing.JPanel {
         sortieLabel = new javax.swing.JLabel();
         sortieComboBox = new javax.swing.JComboBox();
         ajouterButton = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
 
         titreLabel.setText("Ajouter des voitures");
 
@@ -66,7 +66,6 @@ public class AjoutPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(ajouterButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(titreLabel)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(12, 12, 12)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -76,14 +75,18 @@ public class AjoutPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(sortieComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(nombreSpinner, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
-                            .addComponent(entreeComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(nombreSpinner, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
+                            .addComponent(entreeComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(titreLabel)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jSeparator1))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(titreLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -99,7 +102,8 @@ public class AjoutPanel extends javax.swing.JPanel {
                     .addComponent(sortieComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(ajouterButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -120,11 +124,11 @@ public class AjoutPanel extends javax.swing.JPanel {
     private javax.swing.JButton ajouterButton;
     private javax.swing.JComboBox entreeComboBox;
     private javax.swing.JLabel entreeLabel;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel nombreLabel;
     private javax.swing.JSpinner nombreSpinner;
     private javax.swing.JComboBox sortieComboBox;
     private javax.swing.JLabel sortieLabel;
     private javax.swing.JLabel titreLabel;
     // End of variables declaration//GEN-END:variables
-    private javax.swing.JFrame parentFrame;
 }

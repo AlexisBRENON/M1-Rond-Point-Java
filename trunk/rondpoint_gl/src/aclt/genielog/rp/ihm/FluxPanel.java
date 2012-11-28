@@ -8,13 +8,8 @@ import javax.swing.JFrame;
  * @author alexis
  */
 public class FluxPanel extends javax.swing.JPanel {
-
-    /**
-     * Creates new form FluxPanel
-     */
-    public FluxPanel(JFrame parent) {
+    public FluxPanel() {
         initComponents();
-        this.parentFrame = parent;
         this.setVisible(true);
     }
 
@@ -41,6 +36,7 @@ public class FluxPanel extends javax.swing.JPanel {
         estSpinner = new javax.swing.JSpinner();
         estButton = new javax.swing.JButton();
         crashButton = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
 
         titreLabel.setText("Flux :");
 
@@ -91,7 +87,6 @@ public class FluxPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(crashButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(titreLabel)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(12, 12, 12)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -114,13 +109,17 @@ public class FluxPanel extends javax.swing.JPanel {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(nordSpinner)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(nordButton)))))
+                                .addComponent(nordButton))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(titreLabel)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jSeparator1))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(titreLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -144,7 +143,8 @@ public class FluxPanel extends javax.swing.JPanel {
                     .addComponent(estButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(crashButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -152,6 +152,7 @@ public class FluxPanel extends javax.swing.JPanel {
     private javax.swing.JButton estButton;
     private javax.swing.JLabel estLabel;
     private javax.swing.JSpinner estSpinner;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JButton nordButton;
     private javax.swing.JLabel nordLabel;
     private javax.swing.JSpinner nordSpinner;
@@ -163,5 +164,4 @@ public class FluxPanel extends javax.swing.JPanel {
     private javax.swing.JSpinner sudSpinner;
     private javax.swing.JLabel titreLabel;
     // End of variables declaration//GEN-END:variables
-    private javax.swing.JFrame parentFrame;
 }

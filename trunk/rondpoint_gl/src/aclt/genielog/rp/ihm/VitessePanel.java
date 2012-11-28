@@ -12,9 +12,8 @@ public class VitessePanel extends javax.swing.JPanel {
     /**
      * Creates new form VitessePanel
      */
-    public VitessePanel(JFrame parent) {
+    public VitessePanel() {
         initComponents();
-        this.parentFrame = parent;
     }
 
     /**
@@ -29,6 +28,7 @@ public class VitessePanel extends javax.swing.JPanel {
         titreLabel = new javax.swing.JLabel();
         vitesseSpinner = new javax.swing.JSpinner();
         uniteLabel = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
 
         titreLabel.setText("Vitesse de simulation :");
 
@@ -56,19 +56,21 @@ public class VitessePanel extends javax.swing.JPanel {
                         .addComponent(uniteLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(titreLabel)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jSeparator1))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(titreLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(vitesseSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(uniteLabel))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -77,9 +79,9 @@ public class VitessePanel extends javax.swing.JPanel {
     }//GEN-LAST:event_vitesseSpinnerStateChanged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel titreLabel;
     private javax.swing.JLabel uniteLabel;
     private javax.swing.JSpinner vitesseSpinner;
     // End of variables declaration//GEN-END:variables
-    private javax.swing.JFrame parentFrame;
 }

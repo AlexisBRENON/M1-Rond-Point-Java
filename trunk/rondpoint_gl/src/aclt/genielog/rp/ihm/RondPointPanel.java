@@ -17,20 +17,19 @@ public class RondPointPanel extends javax.swing.JPanel {
     /**
      * Creates new form RondPointPanel
      */
-    public RondPointPanel(JFrame parent) {
+    public RondPointPanel() {
 	initComponents();
-        this.parentFrame = parent;
-	//this.repaint();
+	this.repaint();
     }
 
 
-    /*@Override
+    @Override
     public void paintComponent(Graphics g) {
 	// Appel de la méthode paintComponent de la classe mère
-	//super.paintComponent(g);
+	super.paintComponent(g);
 	g.setColor(Color.red);
 	g.drawRect(295, 500, 100, 100);
-    }*/
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -75,5 +74,4 @@ public class RondPointPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel font;
     // End of variables declaration//GEN-END:variables
-    private javax.swing.JFrame parentFrame;
 }
