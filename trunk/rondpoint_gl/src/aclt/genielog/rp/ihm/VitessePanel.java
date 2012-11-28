@@ -1,17 +1,20 @@
 package aclt.genielog.rp.ihm;
 
+import javax.swing.JFrame;
+
 /**
  * Il s'agit d'un componsant graphique regroupant tous les items utilisés
  * pour gérer la vitesse de la simulation.
  * @author alexis
  */
-public class vitessePanel extends javax.swing.JPanel {
+public class VitessePanel extends javax.swing.JPanel {
 
     /**
-     * Creates new form vitessePanel
+     * Creates new form VitessePanel
      */
-    public vitessePanel() {
+    public VitessePanel(JFrame parent) {
         initComponents();
+        this.parentFrame = parent;
     }
 
     /**
@@ -30,6 +33,12 @@ public class vitessePanel extends javax.swing.JPanel {
         titreLabel.setText("Vitesse de simulation :");
 
         vitesseSpinner.setModel(new javax.swing.SpinnerNumberModel(1, 0, 100, 1));
+        vitesseSpinner.setToolTipText("Permet de modifier la vitesse de simulation.");
+        vitesseSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                vitesseSpinnerStateChanged(evt);
+            }
+        });
 
         uniteLabel.setText("deplacement/sec");
 
@@ -62,9 +71,15 @@ public class vitessePanel extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void vitesseSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_vitesseSpinnerStateChanged
+        //parentFrame.changeVitesseSimu((Integer) vitesseSpinner.getValue());
+    }//GEN-LAST:event_vitesseSpinnerStateChanged
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel titreLabel;
     private javax.swing.JLabel uniteLabel;
     private javax.swing.JSpinner vitesseSpinner;
     // End of variables declaration//GEN-END:variables
+    private javax.swing.JFrame parentFrame;
 }
