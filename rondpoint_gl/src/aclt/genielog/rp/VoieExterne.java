@@ -41,7 +41,7 @@ class VoieExterne extends Voie {
 		voitures.remove(v);
 	}
 
-	public void Rentrer(Voiture v) {
+	public void rentrer(Voiture v) {
 		voitures.addLast(v);
 	}
 

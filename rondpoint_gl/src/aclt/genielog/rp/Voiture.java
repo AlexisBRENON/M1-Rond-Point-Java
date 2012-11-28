@@ -9,9 +9,7 @@ class Voiture {
 	private static int ID = 0;
 
 	public static Voiture factory(RondPoint rp, int depart, int destination) {
-		Voiture v = new Voiture(rp.getVoieExternes()[depart],
-				rp.getVoieExternes()[destination]);
-		rp.getVoieExternes()[depart].Rentrer(v);
+		Voiture v = rp.ajouterVoiture(depart, destination);
 		System.out.println(v + " entre sur " + depart + " et va sortir en " + destination);
 		return v;
 	}

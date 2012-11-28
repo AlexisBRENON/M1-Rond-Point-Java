@@ -1,52 +1,82 @@
 package aclt.genielog.rp;
 
+import java.util.ArrayList;
+
 /**
  * Le Systeme
  * @author tiph
  */
 public class RondPoint {
-	private VoieExterne[] voieExternes;
-	private VoieInterne[] voieInternes;
-
-	public VoieExterne[] getVoieExternes() {
-		return voieExternes;
-	}
-
-	public VoieInterne[] getVoieInternes() {
-		return voieInternes;
-	}
+	/**
+	 * Liste des voies externes (entrée/sortie) du rond point.
+	 */
+	private final ArrayList<VoieExterne> voieExternes;
+	
+	/**
+	 * Liste des voies internes du rond point.
+	 */
+	private final ArrayList<VoieInterne> voieInternes;
 
 	/**
 	 * Crée un rond point à 4 voie
 	 * @param taille la taille entre les voies
 	 */
-	public RondPoint(int taille){
-		int j;
+	RondPoint(int taille){
+		int j, i;
+		VoieInterne vi, suivante;
+		VoieExterne sortie;
 
-		voieExternes = new VoieExterne[4];
-		voieInternes = new VoieInterne[4];
+		voieExternes = new ArrayList<VoieExterne>();
+		voieInternes = new ArrayList<VoieInterne>();
 
-		for(int i=0; i<4; i++){
-			voieInternes[i] = new VoieInterne(taille);
-			voieExternes[i] = new VoieExterne(voieInternes[i]);
+		for (i = 0; i < 4; i = i + 1) {
+			vi = new VoieInterne(taille);
+			voieInternes.add(vi);
+			voieExternes.add(new VoieExterne(vi));
 		}
 
-		for(int i=0; i<4;i++){
+		for (i = 0; i < 4; i = i + 1) {
 			j = (i + 1) % 4;
-			voieInternes[i].config(voieInternes[j], voieExternes[j]);
+			suivante = voieInternes.get(j);
+			sortie = voieExternes.get(j);
+			voieInternes.get(j).config(suivante, sortie);
 		}
 	}
+	
+	/**
+	 * Crée une voiture au départ de la voie depart, sortant à la voie destination
+	 * 
+	 * @param depart Numéro de la voie de départ
+	 * @param destination Numéro de la voie de sortie
+	 * @return Retourne la voiture nouvellement crée.
+	 */
+	Voiture ajouterVoiture(int depart, int destination) {
+		VoieExterne entree, sortie;
+		
+		if (voieExternes.size() < depart) {
+			throw new IllegalArgumentException("depart doit être inférieur à " + voieExternes.size());
+		}
+		if (voieExternes.size() < destination) {
+			throw new IllegalArgumentException("destination doit être inférieur à " + voieExternes.size());
+		}
+		
+		entree = voieExternes.get(depart);
+		sortie = voieExternes.get(destination);
+		Voiture voiture = new Voiture(entree, sortie);
+		entree.rentrer(voiture);
+		return voiture;
+	}
 
-	public void tourneInterne() {
+	void tourneInterne() {
 		Voiture voitureDeTete = null;
 
 		for (VoieInterne voieInterne: voieInternes) {
 			voitureDeTete = voieInterne.circule(voitureDeTete, false);
 		}
-		voieInternes[0].circule(voitureDeTete, true);
+		voieInternes.get(0).circule(voitureDeTete, true);
 	}
 
-	public void tourneExterne() {
+	void tourneExterne() {
 		for (VoieExterne voieExterne: voieExternes) {
 			if (!voieExterne.getVoitures().isEmpty()) {
 				voieExterne.getVoitures().getFirst().Avancer();

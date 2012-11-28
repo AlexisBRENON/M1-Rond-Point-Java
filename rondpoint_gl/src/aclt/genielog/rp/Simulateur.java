@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
  * @author tiph
  */
 public class Simulateur extends Thread {
-
+	
 	private final RondPoint rp;
 
 	public Simulateur(int taille) {
@@ -25,6 +25,12 @@ public class Simulateur extends Thread {
 		}
 	}
 
+	/**
+	 * Mets en pause pendant un temps donné.
+	 * 
+	 * @param duration Le nombre d'unité de temps à attendre.
+	 * @param unit L'untité de temps.
+	 */
 	private void pause(long duration, TimeUnit unit) {
 		long pause;
 		pause = TimeUnit.NANOSECONDS.toMillis(System.nanoTime()) + unit.toMillis(duration);
