@@ -1,4 +1,4 @@
-package aclt.genielog.rp;
+package aclt.genielog.rp.system;
 
 /**
  * @author Alexis Brenon

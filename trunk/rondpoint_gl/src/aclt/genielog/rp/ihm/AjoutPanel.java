@@ -1,6 +1,7 @@
 package aclt.genielog.rp.ihm;
 
-import aclt.genielog.rp.VoieEnum;
+import aclt.genielog.rp.system.VoieEnum;
+
 import javax.swing.JFrame;
 
 /**

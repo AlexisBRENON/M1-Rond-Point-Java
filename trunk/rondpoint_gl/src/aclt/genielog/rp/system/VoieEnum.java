@@ -1,4 +1,4 @@
-package aclt.genielog.rp;
+package aclt.genielog.rp.system;
 
 public enum VoieEnum {
 	NORD("Nord"), OUEST("Ouest"), SUD("Sud"),  EST("Est"), ALEAT("Alétaoire");

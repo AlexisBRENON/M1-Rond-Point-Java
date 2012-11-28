@@ -1,4 +1,4 @@
-package aclt.genielog.rp;
+package aclt.genielog.rp.system;
 
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
@@ -45,7 +45,7 @@ public class Simulateur extends Thread {
 			System.out.println("Tour n°" + tour);
 			rp.tourneInterne();
 			rp.tourneExterne();
-			pause(start);
+			pause(start, config.duration, config.unit);
 		}
 	}
 
@@ -58,9 +58,9 @@ public class Simulateur extends Thread {
 	 * @param unit
 	 *            L'untité de temps.
 	 */
-	private void pause(long start) {
+	private void pause(long start, long duration, TimeUnit unit) {
 		long pause;
-		pause = start + config.unit.toNanos(config.duration);
+		pause = start + unit.toNanos(duration);
 		while (System.nanoTime() < pause) {
 			try {
 				sleep(TimeUnit.NANOSECONDS.toMillis(pause - System.nanoTime()));
@@ -105,7 +105,7 @@ public class Simulateur extends Thread {
 	 * @param entree La voie d'insertion
 	 * @param sortie Le voie de sortie.
 	 */
-	public void ajout(int nb_voitures, VoieEnum entree, VoieEnum sortie) {
+	public synchronized void ajout(int nb_voitures, VoieEnum entree, VoieEnum sortie) {
 
 		for (int i = 0; i < nb_voitures; i = i + 1) {
 			if (entree == VoieEnum.ALEAT) {
