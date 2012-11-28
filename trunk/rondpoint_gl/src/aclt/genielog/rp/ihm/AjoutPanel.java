@@ -1,5 +1,6 @@
 package aclt.genielog.rp.ihm;
 
+import aclt.genielog.rp.VoieEnum;
 import javax.swing.JFrame;
 
 /**
@@ -14,6 +15,7 @@ public class AjoutPanel extends javax.swing.JPanel {
      */
     public AjoutPanel() {
         initComponents();
+
 }
 
     /**
@@ -39,15 +41,19 @@ public class AjoutPanel extends javax.swing.JPanel {
 
         nombreLabel.setText("Nombre :");
 
-        nombreSpinner.setModel(new javax.swing.SpinnerNumberModel(0, 0, 100, 1));
+        nombreSpinner.setModel(new javax.swing.SpinnerNumberModel(1, 1, 100, 1));
         nombreSpinner.setToolTipText("Nombre de voitures à ajouter.");
 
         entreeLabel.setText("Entrée :");
 
+        entreeComboBox.setModel(new javax.swing.DefaultComboBoxModel(VoieEnum.values()));
+        entreeComboBox.setSelectedItem(VoieEnum.ALEAT);
         entreeComboBox.setToolTipText("Voie d'entrée des voitures ajoutées.");
 
         sortieLabel.setText("Sortie :");
 
+        sortieComboBox.setModel(new javax.swing.DefaultComboBoxModel(VoieEnum.values()));
+        sortieComboBox.setSelectedItem(VoieEnum.ALEAT);
         sortieComboBox.setToolTipText("Voie de sortie des voitures ajoutées.");
 
         ajouterButton.setText("Ajouter");
@@ -108,16 +114,18 @@ public class AjoutPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ajouterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajouterButtonActionPerformed
-        /*if (nombreSpinner.getValue() instanceof Integer &&
+        System.out.println("Ajouter Button Action PErformed");
+        if (nombreSpinner.getValue() instanceof Integer &&
                 entreeComboBox.getSelectedItem() instanceof VoieEnum &&
-                sortieComboBox.getSelectedItem() instanceof VoieEnum) {
-            parentFrame.ajouterVoitures((Integer) nombreSpinner.getValue(),
+                sortieComboBox.getSelectedItem() instanceof VoieEnum &&
+                getTopLevelAncestor() instanceof SimulateurUI) {
+            ((SimulateurUI)getTopLevelAncestor()).ajouterVoitures((Integer) nombreSpinner.getValue(),
                     (VoieEnum) entreeComboBox.getSelectedItem(),
                     (VoieEnum) sortieComboBox.getSelectedItem());
-            nombreSpinner.setValue(0);
-            entreeComboBox.setSelectedIndex(0);
-            sortieComboBox.setSelectedIndex(0);
-        }*/
+            nombreSpinner.setValue(1);
+            entreeComboBox.setSelectedItem(VoieEnum.ALEAT);
+            sortieComboBox.setSelectedItem(VoieEnum.ALEAT);
+        }
     }//GEN-LAST:event_ajouterButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
