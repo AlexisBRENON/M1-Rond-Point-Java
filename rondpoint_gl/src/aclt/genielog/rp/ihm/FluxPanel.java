@@ -1,17 +1,21 @@
 package aclt.genielog.rp.ihm;
 
+import javax.swing.JFrame;
+
 /**
  * Il s'agit d'un componsant graphique regroupant tous les items utilisés
  * pour gérer les flux de voitures dans la simulation.
  * @author alexis
  */
-public class fluxPanel extends javax.swing.JPanel {
+public class FluxPanel extends javax.swing.JPanel {
 
     /**
-     * Creates new form fluxPanel
+     * Creates new form FluxPanel
      */
-    public fluxPanel() {
+    public FluxPanel(JFrame parent) {
         initComponents();
+        this.parentFrame = parent;
+        this.setVisible(true);
     }
 
     /**
@@ -41,22 +45,43 @@ public class fluxPanel extends javax.swing.JPanel {
         titreLabel.setText("Flux :");
 
         nordLabel.setText("Nord :");
+        nordLabel.setToolTipText("Voie du haut.");
+
+        nordSpinner.setModel(new javax.swing.SpinnerNumberModel(0, 0, 100, 1));
+        nordSpinner.setToolTipText("Nombre de voitures arrivant de cette voie à chaque déplacement.");
 
         nordButton.setText("Vider");
+        nordButton.setToolTipText("Réinitialiser le flux d'entrée.");
 
         ouestLabel.setText("Ouest :");
+        ouestLabel.setToolTipText("Voie de gauche.");
+
+        ouestSpinner.setModel(new javax.swing.SpinnerNumberModel(0, 0, 100, 1));
+        ouestSpinner.setToolTipText("Nombre de voitures arrivant de cette voie à chaque déplacement.");
 
         ouestButton.setText("Vider");
+        ouestButton.setToolTipText("Réinitialiser le flux d'entrée.");
 
         sudLabel.setText("Sud :");
+        sudLabel.setToolTipText("Voie du bas.");
+
+        sudSpinner.setModel(new javax.swing.SpinnerNumberModel(0, 0, 100, 1));
+        sudSpinner.setToolTipText("Nombre de voitures arrivant de cette voie à chaque déplacement.");
 
         sudButton.setText("Vider");
+        sudButton.setToolTipText("Réinitialiser le flux d'entrée.");
 
         estLabel.setText("Est :");
+        estLabel.setToolTipText("Voie de droite.");
+
+        estSpinner.setModel(new javax.swing.SpinnerNumberModel(0, 0, 100, 1));
+        estSpinner.setToolTipText("Nombre de voitures arrivant de cette voie à chaque déplacement.");
 
         estButton.setText("Vider");
+        estButton.setToolTipText("Réinitialiser le flux d'entrée.");
 
         crashButton.setText("Car crash");
+        crashButton.setToolTipText("Tout réinitialiser.");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -138,4 +163,5 @@ public class fluxPanel extends javax.swing.JPanel {
     private javax.swing.JSpinner sudSpinner;
     private javax.swing.JLabel titreLabel;
     // End of variables declaration//GEN-END:variables
+    private javax.swing.JFrame parentFrame;
 }

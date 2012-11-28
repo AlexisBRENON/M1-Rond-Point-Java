@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.8" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+<Form version="1.5" maxVersion="1.8" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -101,54 +101,87 @@
     <Component class="javax.swing.JLabel" name="nordLabel">
       <Properties>
         <Property name="text" type="java.lang.String" value="Nord :"/>
+        <Property name="toolTipText" type="java.lang.String" value="Voie du haut."/>
       </Properties>
     </Component>
     <Component class="javax.swing.JSpinner" name="nordSpinner">
+      <Properties>
+        <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+          <SpinnerModel initial="0" maximum="100" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
+        </Property>
+        <Property name="toolTipText" type="java.lang.String" value="Nombre de voitures arrivant de cette voie &#xe0; chaque d&#xe9;placement."/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="nordButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Vider"/>
+        <Property name="toolTipText" type="java.lang.String" value="R&#xe9;initialiser le flux d&apos;entr&#xe9;e."/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="ouestLabel">
       <Properties>
         <Property name="text" type="java.lang.String" value="Ouest :"/>
+        <Property name="toolTipText" type="java.lang.String" value="Voie de gauche."/>
       </Properties>
     </Component>
     <Component class="javax.swing.JSpinner" name="ouestSpinner">
+      <Properties>
+        <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+          <SpinnerModel initial="0" maximum="100" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
+        </Property>
+        <Property name="toolTipText" type="java.lang.String" value="Nombre de voitures arrivant de cette voie &#xe0; chaque d&#xe9;placement."/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="ouestButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Vider"/>
+        <Property name="toolTipText" type="java.lang.String" value="R&#xe9;initialiser le flux d&apos;entr&#xe9;e."/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="sudLabel">
       <Properties>
         <Property name="text" type="java.lang.String" value="Sud :"/>
+        <Property name="toolTipText" type="java.lang.String" value="Voie du bas."/>
       </Properties>
     </Component>
     <Component class="javax.swing.JSpinner" name="sudSpinner">
+      <Properties>
+        <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+          <SpinnerModel initial="0" maximum="100" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
+        </Property>
+        <Property name="toolTipText" type="java.lang.String" value="Nombre de voitures arrivant de cette voie &#xe0; chaque d&#xe9;placement."/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="sudButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Vider"/>
+        <Property name="toolTipText" type="java.lang.String" value="R&#xe9;initialiser le flux d&apos;entr&#xe9;e."/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="estLabel">
       <Properties>
         <Property name="text" type="java.lang.String" value="Est :"/>
+        <Property name="toolTipText" type="java.lang.String" value="Voie de droite."/>
       </Properties>
     </Component>
     <Component class="javax.swing.JSpinner" name="estSpinner">
+      <Properties>
+        <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+          <SpinnerModel initial="0" maximum="100" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
+        </Property>
+        <Property name="toolTipText" type="java.lang.String" value="Nombre de voitures arrivant de cette voie &#xe0; chaque d&#xe9;placement."/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="estButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Vider"/>
+        <Property name="toolTipText" type="java.lang.String" value="R&#xe9;initialiser le flux d&apos;entr&#xe9;e."/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="crashButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Car crash"/>
+        <Property name="toolTipText" type="java.lang.String" value="Tout r&#xe9;initialiser."/>
       </Properties>
     </Component>
   </SubComponents>

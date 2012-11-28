@@ -6,22 +6,24 @@ package aclt.genielog.rp.ihm;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import javax.swing.JFrame;
 
 /**
  *
  * @author tiph
  */
-public class VueRondPoint extends javax.swing.JPanel {
+public class RondPointPanel extends javax.swing.JPanel {
 
     /**
-     * Creates new form VueRondPoint
+     * Creates new form RondPointPanel
      */
-    public VueRondPoint() {
+    public RondPointPanel(JFrame parent) {
 	initComponents();
-	this.repaint();
+        this.parentFrame = parent;
+	//this.repaint();
     }
-    
-    
+
+
     @Override
     public void paintComponent(Graphics g) {
 	// Appel de la méthode paintComponent de la classe mère
@@ -73,4 +75,5 @@ public class VueRondPoint extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel font;
     // End of variables declaration//GEN-END:variables
+    private javax.swing.JFrame parentFrame;
 }

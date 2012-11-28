@@ -1,17 +1,20 @@
 package aclt.genielog.rp.ihm;
 
+import javax.swing.JFrame;
+
 /**
  * Il s'agit d'un componsant graphique regroupant tous les items utilisés
  * pour gérer l'ajout de voitures dans la simulation.
  * @author alexis
  */
-public class ajoutPanel extends javax.swing.JPanel {
+public class AjoutPanel extends javax.swing.JPanel {
 
     /**
-     * Creates new form ajoutPanel
+     * Creates new form AjoutPanel
      */
-    public ajoutPanel() {
+    public AjoutPanel(JFrame parent) {
         initComponents();
+        this.parentFrame = parent;
     }
 
     /**
@@ -36,15 +39,24 @@ public class ajoutPanel extends javax.swing.JPanel {
 
         nombreLabel.setText("Nombre :");
 
+        nombreSpinner.setModel(new javax.swing.SpinnerNumberModel(0, 0, 100, 1));
+        nombreSpinner.setToolTipText("Nombre de voitures à ajouter.");
+
         entreeLabel.setText("Entrée :");
 
-        entreeComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aléatoire", "Nord", "Ouest", "Est", "Sud" }));
+        entreeComboBox.setToolTipText("Voie d'entrée des voitures ajoutées.");
 
         sortieLabel.setText("Sortie :");
 
-        sortieComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aléatoire", "Nord", "Ouest", "Sud", "Est" }));
+        sortieComboBox.setToolTipText("Voie de sortie des voitures ajoutées.");
 
         ajouterButton.setText("Ajouter");
+        ajouterButton.setToolTipText("Ajouter les voitures.");
+        ajouterButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ajouterButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -64,7 +76,7 @@ public class ajoutPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(sortieComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(nombreSpinner)
+                            .addComponent(nombreSpinner, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
                             .addComponent(entreeComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
@@ -90,6 +102,20 @@ public class ajoutPanel extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void ajouterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajouterButtonActionPerformed
+        /*if (nombreSpinner.getValue() instanceof Integer &&
+                entreeComboBox.getSelectedItem() instanceof VoieEnum &&
+                sortieComboBox.getSelectedItem() instanceof VoieEnum) {
+            parentFrame.ajouterVoitures((Integer) nombreSpinner.getValue(),
+                    (VoieEnum) entreeComboBox.getSelectedItem(),
+                    (VoieEnum) sortieComboBox.getSelectedItem());
+            nombreSpinner.setValue(0);
+            entreeComboBox.setSelectedIndex(0);
+            sortieComboBox.setSelectedIndex(0);
+        }*/
+    }//GEN-LAST:event_ajouterButtonActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ajouterButton;
     private javax.swing.JComboBox entreeComboBox;
@@ -100,4 +126,5 @@ public class ajoutPanel extends javax.swing.JPanel {
     private javax.swing.JLabel sortieLabel;
     private javax.swing.JLabel titreLabel;
     // End of variables declaration//GEN-END:variables
+    private javax.swing.JFrame parentFrame;
 }
