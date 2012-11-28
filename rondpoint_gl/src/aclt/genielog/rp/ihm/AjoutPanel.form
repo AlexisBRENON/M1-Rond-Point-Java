@@ -86,7 +86,7 @@
     <Component class="javax.swing.JSpinner" name="nombreSpinner">
       <Properties>
         <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
-          <SpinnerModel initial="0" maximum="100" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
+          <SpinnerModel initial="1" maximum="100" minimum="1" numberType="java.lang.Integer" stepSize="1" type="number"/>
         </Property>
         <Property name="toolTipText" type="java.lang.String" value="Nombre de voitures &#xe0; ajouter."/>
       </Properties>
@@ -98,8 +98,11 @@
     </Component>
     <Component class="javax.swing.JComboBox" name="entreeComboBox">
       <Properties>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="0"/>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="new javax.swing.DefaultComboBoxModel(VoieEnum.values())" type="code"/>
+        </Property>
+        <Property name="selectedItem" type="java.lang.Object" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="VoieEnum.ALEAT" type="code"/>
         </Property>
         <Property name="toolTipText" type="java.lang.String" value="Voie d&apos;entr&#xe9;e des voitures ajout&#xe9;es."/>
       </Properties>
@@ -111,8 +114,11 @@
     </Component>
     <Component class="javax.swing.JComboBox" name="sortieComboBox">
       <Properties>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="0"/>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="new javax.swing.DefaultComboBoxModel(VoieEnum.values())" type="code"/>
+        </Property>
+        <Property name="selectedItem" type="java.lang.Object" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="VoieEnum.ALEAT" type="code"/>
         </Property>
         <Property name="toolTipText" type="java.lang.String" value="Voie de sortie des voitures ajout&#xe9;es."/>
       </Properties>
