@@ -42,12 +42,19 @@ class VoieExterne extends Voie {
 		return interne;
 	}
 
-	void sortir(Voiture v) {
+	void sort(Voiture v) {
+		v.sengager(this);
+	}
+
+	@Override
+	void quitter(Voiture v) {
 		voitures.remove(v);
 	}
 
-	void rentrer(Voiture v) {
+	@Override
+	void entrer(Voiture v) {
 		voitures.addLast(v);
+		v.sengager(this);
 	}
 
 	void circule() {

@@ -11,6 +11,8 @@ import java.util.concurrent.TimeUnit;
  */
 public class Simulateur extends Thread {
 
+	private static final Random random = new Random(System.nanoTime());
+
 	/**
 	 * Le rond point du simulateur.
 	 */
@@ -23,14 +25,17 @@ public class Simulateur extends Thread {
 
 	public Simulateur(int taille) {
 		rp = new RondPoint(taille);
+		rp.attachStats();
 	}
 
 	/**
 	 * Modifie la configuration actuelle du simulateur.
-	 *
-	 * @param duration Le nombre d'unité de temps pour la durée de la pause
-	 * 			entre deux tour.
-	 * @param unit L'unité de temps pour la pause entre deux tour.
+	 * 
+	 * @param duration
+	 *            Le nombre d'unité de temps pour la durée de la pause
+	 *            entre deux tour.
+	 * @param unit
+	 *            L'unité de temps pour la pause entre deux tour.
 	 */
 	public void setConfig(long duration, TimeUnit unit) {
 		config.duration = duration;
@@ -42,7 +47,7 @@ public class Simulateur extends Thread {
 		long start;
 		for (long tour = 1; true; tour = tour + 1) {
 			start = System.nanoTime();
-			System.out.println("Tour n°" + tour);
+			Simulateur.log("Tour n°" + tour);
 			rp.tourneInterne();
 			rp.tourneExterne();
 			pause(start, config.duration, config.unit);
@@ -52,7 +57,7 @@ public class Simulateur extends Thread {
 	/**
 	 * Mets en pause pendant le temp défini dans la configuration depuis le
 	 * temps donnée.
-	 *
+	 * 
 	 * @param start
 	 *            La date en nanosecondes à laquelle a commencé le tour.
 	 * @param unit
@@ -72,13 +77,12 @@ public class Simulateur extends Thread {
 
 	/**
 	 * Choisi une voie (Nord, Sud, Est, Ouest) aléatoirement.
-	 *
+	 * 
 	 * @return Une voie choisie aléatoirement.
 	 */
 	private static VoieEnum voieAleatoire() {
-		Random r = new Random();
-		VoieEnum v=VoieEnum.NORD;
-		switch (r.nextInt(4)) {
+		VoieEnum v = VoieEnum.NORD;
+		switch (random.nextInt(4)) {
 		case 0:
 			v = VoieEnum.NORD;
 			break;
@@ -94,28 +98,39 @@ public class Simulateur extends Thread {
 		}
 		return v;
 
-
 	}
 
 	/**
 	 * Ajoute des voitures dans le rond point.
 	 * Si entree et sortie sont différents d'{@link VoieEnum.ALEAT}
-	 *
-	 * @param nb_voitures Le nombre de voiture à inserer
-	 * @param entree La voie d'insertion
-	 * @param sortie Le voie de sortie.
+	 * 
+	 * @param nb_voitures
+	 *            Le nombre de voiture à inserer
+	 * @param entree
+	 *            La voie d'insertion
+	 * @param sortie
+	 *            Le voie de sortie.
 	 */
 	public synchronized void ajout(int nb_voitures, VoieEnum entree, VoieEnum sortie) {
 
+		VoieEnum e = entree;
+		VoieEnum s = sortie;
+
 		for (int i = 0; i < nb_voitures; i = i + 1) {
 			if (entree == VoieEnum.ALEAT) {
-				entree = voieAleatoire();
+				e = voieAleatoire();
 			}
 			if (sortie == VoieEnum.ALEAT) {
-				sortie = voieAleatoire();
+				s = voieAleatoire();
 			}
 
-			Voiture.factory(rp, entree, sortie);
+			Voiture.factory(rp, e, s);
+		}
+	}
+
+	static void log(String s) {
+		synchronized (random) {
+			System.out.println(s);
 		}
 	}
 
@@ -123,7 +138,36 @@ public class Simulateur extends Thread {
 
 		Simulateur sim = new Simulateur(1);
 		sim.start();
-		sim.ajout(5, VoieEnum.ALEAT, VoieEnum.ALEAT);
+		final Stats stats = sim.rp.getStats();
+
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				while (true) {
+					synchronized (random) {
+						System.out.println("Voitures en attente: "
+								+ stats.voituresEnAttente());
+						System.out.println("Attente moyenne: "
+								+ (stats.attenteMoyenne() / 1000) + "s");
+						System.out.println("Voitures engagées: "
+								+ stats.voituresEngagees());
+						System.out.println("Voitures entrées: "
+								+ stats.voituresEntrees());
+						System.out.println("Voitures sorties: "
+								+ stats.voituresSorties());
+					}
+					try {
+						sleep(1000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}).start();
+
+		sim.ajout(10, VoieEnum.ALEAT, VoieEnum.ALEAT);
+
 	}
 
 	/**

@@ -19,11 +19,15 @@ public class RondPoint {
 	 */
 	private final ArrayList<VoieInterne> voieInternes;
 
+	private Stats stats = null;
+
 	/**
 	 * Crée un rond point à 4 voie
-	 * @param taille la taille entre les voies
+	 * 
+	 * @param taille
+	 *            la taille entre les voies
 	 */
-	RondPoint(int taille){
+	RondPoint(int taille) {
 		int j, i;
 		VoieInterne vi, suivante;
 		VoieExterne sortie;
@@ -41,15 +45,25 @@ public class RondPoint {
 			j = (i + 1) % 4;
 			suivante = voieInternes.get(j);
 			sortie = voieExternes.get(j);
-			voieInternes.get(j).config(suivante, sortie);
+			voieInternes.get(i).config(suivante, sortie);
 		}
+	}
+
+	void attachStats() {
+		stats = new Stats(voieExternes);
+	}
+
+	public Stats getStats() {
+		return stats;
 	}
 
 	/**
 	 * Crée une voiture au départ de la voie depart, sortant à la voie destination
-	 *
-	 * @param depart Numéro de la voie de départ
-	 * @param destination Numéro de la voie de sortie
+	 * 
+	 * @param depart
+	 *            Numéro de la voie de départ
+	 * @param destination
+	 *            Numéro de la voie de sortie
 	 * @return Retourne la voiture nouvellement crée.
 	 */
 	Voiture ajouterVoiture(VoieEnum depart, VoieEnum destination) {
@@ -57,8 +71,11 @@ public class RondPoint {
 
 		entree = voieExternes.get(depart.ordinal());
 		sortie = voieExternes.get(destination.ordinal());
-		Voiture voiture = new Voiture(entree, sortie);
-		entree.rentrer(voiture);
+		Voiture voiture = new Voiture(sortie);
+		if (stats != null) {
+			voiture.addObserver(stats);
+		}
+		entree.entrer(voiture);
 		return voiture;
 	}
 
@@ -68,7 +85,7 @@ public class RondPoint {
 	void tourneInterne() {
 		Voiture voitureDeTete = null;
 
-		for (VoieInterne voieInterne: voieInternes) {
+		for (VoieInterne voieInterne : voieInternes) {
 			voitureDeTete = voieInterne.circule(voitureDeTete, false);
 		}
 		voieInternes.get(0).circule(voitureDeTete, true);
@@ -78,7 +95,7 @@ public class RondPoint {
 	 * Déclenche la circulation des voitures sur les voies externes.
 	 */
 	void tourneExterne() {
-		for (VoieExterne voieExterne: voieExternes) {
+		for (VoieExterne voieExterne : voieExternes) {
 			voieExterne.circule();
 		}
 	}
