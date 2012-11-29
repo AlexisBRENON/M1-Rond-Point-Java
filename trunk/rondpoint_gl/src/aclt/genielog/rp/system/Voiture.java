@@ -1,27 +1,35 @@
 package aclt.genielog.rp.system;
 
+import java.util.Observable;
+
+import aclt.genielog.rp.system.Stats.Route;
+
 /**
  * @author Alexis Brenon
  * @author Cécilia Martin
  * @author Luc Chante
  * @author Tiphaine Teyssier
  */
-class Voiture {
+class Voiture extends Observable {
 
 	private static int ID = 0;
 
 	/**
 	 * Crée une nouvelle voiture, l'insére sur la voie de départ à destination
 	 * de la voie de destination.
-	 *
-	 * @param rp Le rond dans lequel on va insérer la voiture
-	 * @param depart Le numéro de la voie de départ
-	 * @param destination Le numéro de la voie d'arrivée
+	 * 
+	 * @param rp
+	 *            Le rond dans lequel on va insérer la voiture
+	 * @param depart
+	 *            Le numéro de la voie de départ
+	 * @param destination
+	 *            Le numéro de la voie d'arrivée
 	 * @return La voiture nouvellement créée.
 	 */
 	static Voiture factory(RondPoint rp, VoieEnum depart, VoieEnum destination) {
 		Voiture v = rp.ajouterVoiture(depart, destination);
-		System.out.println(v + " entre sur " + depart + " et va sortir en " + destination);
+		Simulateur.log(v + " entre sur " + depart + " et va sortir en "
+				+ destination);
 		return v;
 	}
 
@@ -34,24 +42,33 @@ class Voiture {
 	 */
 	private Voie voieCourante;
 
+	private Route route;
+
 	/**
 	 * Le nom de la voiture (utile pour les logs de réroulement du simulateur)
 	 */
 	private String name;
 
-	Voiture(VoieExterne dep, VoieExterne dest) {
-		voieCourante = dep;
-		destination = dest;
+	Voiture(VoieExterne dest) {
 		name = "Voiture#" + (ID++);
+		destination = dest;
 	}
 
-	/**
-	 * Retourne la voie sur laquelle la voiture se trouve.
-	 *
-	 * @return
-	 */
-	Voie getEstSur() {
-		return voieCourante;
+	void sengager(VoieExterne voie) {
+		majVoieSuivante(voie);
+	}
+
+	protected void majVoieSuivante(Voie voie) {
+		if (route == null) {
+			route = new Route(voie);
+			setChanged();
+			notifyObservers(route);
+		}
+		else if (route.setTo(voie)) {
+			setChanged();
+			notifyObservers(route);
+		}
+		voieCourante = voie;
 	}
 
 	/**
@@ -70,8 +87,8 @@ class Voiture {
 	 * Effectue l'action de sortie de la voiture.
 	 */
 	void sortir() {
-		((VoieInterne) voieCourante).sortir(this);
-		voieCourante = destination;
+		((VoieInterne) voieCourante).quitter(this);
+		majVoieSuivante(voieCourante);
 	}
 
 	/**
@@ -80,9 +97,10 @@ class Voiture {
 	private void avancer(VoieExterne voie) {
 		if (voie.isFirst(this)) {
 			if (voie.getVoieInterne().estLibre()) {
-				voie.getVoieInterne().inserer(this);
-				voieCourante = voie.getVoieInterne();
-				System.out.println(this + " s'insère sur " + voieCourante);
+				voieCourante.quitter(this);
+				voie.getVoieInterne().entrer(this);
+				majVoieSuivante(voie.getVoieInterne());
+				Simulateur.log(this + " s'insère sur " + voieCourante);
 			}
 		}
 	}
@@ -94,12 +112,14 @@ class Voiture {
 		if (voie.croisement(this)) {
 			if (voie.maSortie(destination)) {
 				sortir();
-				System.out.println(this + " sort sur " + voieCourante);
-			} else {
-				voieCourante = voie.continuer(this);
-				System.out.println(this + " continue sur " + voieCourante);
+				Simulateur.log(this + " sort sur " + voieCourante);
 			}
-		} else {
+			else {
+				majVoieSuivante(voie.continuer(this));
+				Simulateur.log(this + " continue sur " + voieCourante);
+			}
+		}
+		else {
 			voie.avancer(this);
 		}
 	}

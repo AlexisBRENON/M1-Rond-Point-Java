@@ -32,9 +32,11 @@ class VoieInterne extends Voie {
 	/**
 	 * Retourne si la voie de sortie accessible par cette voie interne est la
 	 * même que la voie passé en paramètre.
-	 * @param sortie La voie extern attendue
+	 * 
+	 * @param sortie
+	 *            La voie extern attendue
 	 * @return Si la voie externe attendu correspond à celle accessible par
-	 * 			cette voie.
+	 *         cette voie.
 	 */
 	boolean maSortie(VoieExterne sortie) {
 		return voieDeSortie.equals(sortie);
@@ -48,7 +50,7 @@ class VoieInterne extends Voie {
 	/**
 	 * Retourne s'il est possible de s'insérer dans cette voie. c.a.d. la
 	 * première place est libre.
-	 *
+	 * 
 	 * @return true si il y a une place pour s'inserer, false sinon.
 	 */
 	boolean estLibre() {
@@ -58,8 +60,9 @@ class VoieInterne extends Voie {
 	/**
 	 * Teste si la voiture donnée est au croisement de cette voie, de la voie
 	 * interne suivante et la voie externe accessible par cette voie.
-	 *
-	 * @param v La voiture pour laquelle on veut savoir si elle est au croisement.
+	 * 
+	 * @param v
+	 *            La voiture pour laquelle on veut savoir si elle est au croisement.
 	 * @return true si la voiture est au croisement, false sinon.
 	 */
 	boolean croisement(Voiture v) {
@@ -68,32 +71,34 @@ class VoieInterne extends Voie {
 
 	/**
 	 * La voiture s'insère dans le rond point par cette voie.
-	 *
-	 * @param v La voiture a insérer
+	 * 
+	 * @param v
+	 *            La voiture a insérer
 	 */
-	void inserer(Voiture v) {
-		assert (v.getEstSur() instanceof VoieExterne) : "la voiture n'est pas sur une voie externe";
-
+	@Override
+	void entrer(Voiture v) {
 		vehicules[0] = v;
-		((VoieExterne) v.getEstSur()).sortir(v);
 	}
 
 	/**
 	 * La voiture sort du rond point
-	 *
+	 * 
 	 * @param v
 	 */
-	void sortir(Voiture v) {
-		//Verifier quelle est bien en droit de sortir (arriver au croisement)
+	@Override
+	void quitter(Voiture v) {
+		// Verifier quelle est bien en droit de sortir (arriver au croisement)
 		if (croisement(v)) {
 			vehicules[vehicules.length - 1] = null;
+			voieDeSortie.sort(v);
 		}
 	}
 
 	private Voiture waittingForInsertion = null;
+
 	/**
 	 * La voiture continue sur la voie interne suivante
-	 *
+	 * 
 	 * @param v
 	 * @return
 	 */
@@ -105,16 +110,17 @@ class VoieInterne extends Voie {
 
 	/**
 	 * Avance la voiture d'un tour
-	 *
+	 * 
 	 * @param v
 	 */
 	void avancer(Voiture v) {
+		System.out.println("avancer(" + v + ")");
 		int i = 0;
-		while(i < vehicules.length && !v.equals(vehicules[i])){
+		while (i < vehicules.length && !v.equals(vehicules[i])) {
 			i++;
 		}
 		vehicules[i] = null;
-		vehicules[i+1] = v;
+		vehicules[i + 1] = v;
 	}
 
 	Voiture circule(Voiture voiture, boolean fin) {
@@ -132,7 +138,7 @@ class VoieInterne extends Voie {
 
 		vehicules[0] = voiture;
 		if (waittingForInsertion != null) {
-			v =  waittingForInsertion;
+			v = waittingForInsertion;
 			waittingForInsertion = null;
 			return v;
 		}
