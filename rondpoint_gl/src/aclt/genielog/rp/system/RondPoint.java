@@ -27,7 +27,7 @@ public class RondPoint {
 	 * @param taille
 	 *            la taille entre les voies
 	 */
-	RondPoint(int taille) {
+	public RondPoint(int taille) {
 		int j, i;
 		VoieInterne vi, suivante;
 		VoieExterne sortie;
@@ -49,7 +49,7 @@ public class RondPoint {
 		}
 	}
 
-	void attachStats() {
+	public void attachStats() {
 		stats = new Stats(voieExternes);
 	}
 
@@ -66,7 +66,7 @@ public class RondPoint {
 	 *            Numéro de la voie de sortie
 	 * @return Retourne la voiture nouvellement crée.
 	 */
-	Voiture ajouterVoiture(VoieEnum depart, VoieEnum destination) {
+	public Voiture ajouterVoiture(VoieEnum depart, VoieEnum destination) {
 		VoieExterne entree, sortie;
 
 		entree = voieExternes.get(depart.ordinal());
@@ -82,7 +82,7 @@ public class RondPoint {
 	/**
 	 * Déclenche la circulation des voitures sur les voies internes.
 	 */
-	void tourneInterne() {
+	public void tourneInterne() {
 		Voiture voitureDeTete = null;
 
 		for (VoieInterne voieInterne : voieInternes) {
@@ -94,7 +94,7 @@ public class RondPoint {
 	/**
 	 * Déclenche la circulation des voitures sur les voies externes.
 	 */
-	void tourneExterne() {
+	public void tourneExterne() {
 		for (VoieExterne voieExterne : voieExternes) {
 			voieExterne.circule();
 		}

@@ -1,4 +1,4 @@
-package aclt.genielog.rp.system;
+package aclt.genielog.rp;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -6,6 +6,10 @@ import java.util.HashMap;
 import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
+
+import aclt.genielog.rp.system.RondPoint;
+import aclt.genielog.rp.system.Stats;
+import aclt.genielog.rp.system.VoieEnum;
 
 /**
  * @author Alexis Brenon
@@ -35,7 +39,7 @@ public class Simulateur extends Thread {
 
 	/**
 	 * Modifie la configuration actuelle du simulateur.
-	 *
+	 * 
 	 * @param duration
 	 *            Le nombre d'unité de temps pour la durée de la pause
 	 *            entre deux tour.
@@ -60,7 +64,7 @@ public class Simulateur extends Thread {
 
 		final Thread parent = Thread.currentThread();
 		Set<VoieEnum> voies = config.flux.keySet();
-		for (VoieEnum v: voies) {
+		for (VoieEnum v : voies) {
 			final VoieEnum voie = v;
 			new Thread() {
 				@Override
@@ -78,7 +82,7 @@ public class Simulateur extends Thread {
 						long start = System.nanoTime();
 						ajout(1, voie, VoieEnum.ALEAT);
 						long lapse = (long) ((1 / (double) config.flux.get(voie)) * 1000);
-						pause(start, lapse , TimeUnit.MILLISECONDS);
+						pause(start, lapse, TimeUnit.MILLISECONDS);
 					}
 				}
 			}.start();
@@ -96,7 +100,7 @@ public class Simulateur extends Thread {
 	/**
 	 * Mets en pause pendant le temp défini dans la configuration depuis le
 	 * temps donnée.
-	 *
+	 * 
 	 * @param start
 	 *            La date en nanosecondes à laquelle a commencé le tour.
 	 * @param unit
@@ -116,7 +120,7 @@ public class Simulateur extends Thread {
 
 	/**
 	 * Choisi une voie (Nord, Sud, Est, Ouest) aléatoirement.
-	 *
+	 * 
 	 * @return Une voie choisie aléatoirement.
 	 */
 	private static VoieEnum voieAleatoire() {
@@ -142,7 +146,7 @@ public class Simulateur extends Thread {
 	/**
 	 * Ajoute des voitures dans le rond point.
 	 * Si entree et sortie sont différents d'{@link VoieEnum.ALEAT}
-	 *
+	 * 
 	 * @param nb_voitures
 	 *            Le nombre de voiture à inserer
 	 * @param entree
@@ -163,11 +167,12 @@ public class Simulateur extends Thread {
 				s = voieAleatoire();
 			}
 
-			Voiture.factory(rp, e, s);
+			Object v = rp.ajouterVoiture(e, s);
+			log(v + " entre sur " + e + " et va sortir en " + s);
 		}
 	}
 
-	static void log(String s) {
+	public static void log(String s) {
 		synchronized (random) {
 			System.out.println(s);
 		}
@@ -219,7 +224,7 @@ public class Simulateur extends Thread {
 
 		public Config(Collection<VoieEnum> voies) {
 			flux = new HashMap<VoieEnum, Integer>();
-			for (VoieEnum voie: voies) {
+			for (VoieEnum voie : voies) {
 				if (VoieEnum.ALEAT.compareTo(voie) != 0) {
 					flux.put(voie, 0);
 				}
