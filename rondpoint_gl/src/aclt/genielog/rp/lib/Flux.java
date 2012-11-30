@@ -30,7 +30,7 @@ public class Flux extends PausableThread {
 				hz = simulateur.getConfig(maVoie);
 				while (hz < 1) {
 					try {
-						wait();
+						maVoie.wait();
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
