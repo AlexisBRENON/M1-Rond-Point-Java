@@ -1,6 +1,6 @@
 package aclt.genielog.rp.ihm;
 
-import aclt.genielog.rp.system.Simulateur;
+import aclt.genielog.rp.Simulateur;
 import aclt.genielog.rp.system.VoieEnum;
 
 /**

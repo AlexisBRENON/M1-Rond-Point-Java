@@ -2,6 +2,7 @@ package aclt.genielog.rp.system;
 
 import java.util.Observable;
 
+import aclt.genielog.rp.Simulateur;
 import aclt.genielog.rp.system.Stats.Route;
 
 /**
@@ -13,25 +14,6 @@ import aclt.genielog.rp.system.Stats.Route;
 class Voiture extends Observable {
 
 	private static int ID = 0;
-
-	/**
-	 * Crée une nouvelle voiture, l'insére sur la voie de départ à destination
-	 * de la voie de destination.
-	 * 
-	 * @param rp
-	 *            Le rond dans lequel on va insérer la voiture
-	 * @param depart
-	 *            Le numéro de la voie de départ
-	 * @param destination
-	 *            Le numéro de la voie d'arrivée
-	 * @return La voiture nouvellement créée.
-	 */
-	static Voiture factory(RondPoint rp, VoieEnum depart, VoieEnum destination) {
-		Voiture v = rp.ajouterVoiture(depart, destination);
-		Simulateur.log(v + " entre sur " + depart + " et va sortir en "
-				+ destination);
-		return v;
-	}
 
 	/**
 	 * La voie de destination de la voiture.
