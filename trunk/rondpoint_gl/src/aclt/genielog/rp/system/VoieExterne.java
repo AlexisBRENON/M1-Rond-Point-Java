@@ -52,7 +52,7 @@ class VoieExterne extends Voie {
 	}
 
 	@Override
-	void entrer(Voiture v) {
+	synchronized void entrer(Voiture v) {
 		voitures.addLast(v);
 		v.sengager(this);
 	}
