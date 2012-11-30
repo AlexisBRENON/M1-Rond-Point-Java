@@ -1,6 +1,10 @@
 package aclt.genielog.rp.system;
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.Random;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -21,16 +25,17 @@ public class Simulateur extends Thread {
 	/**
 	 * La configuration du simulateur.
 	 */
-	private final Config config = new Config();
+	private final Config config;
 
 	public Simulateur(int taille) {
 		rp = new RondPoint(taille);
 		rp.attachStats();
+		config = new Config(Arrays.asList(VoieEnum.values()));
 	}
 
 	/**
 	 * Modifie la configuration actuelle du simulateur.
-	 * 
+	 *
 	 * @param duration
 	 *            Le nombre d'unité de temps pour la durée de la pause
 	 *            entre deux tour.
@@ -42,9 +47,43 @@ public class Simulateur extends Thread {
 		config.unit = unit;
 	}
 
+	public void setConfig(VoieEnum voie, int flux) {
+		synchronized (config) {
+			config.flux.put(voie, flux);
+			config.notifyAll();
+		}
+	}
+
 	@Override
 	public void run() {
 		long start;
+
+		final Thread parent = Thread.currentThread();
+		Set<VoieEnum> voies = config.flux.keySet();
+		for (VoieEnum v: voies) {
+			final VoieEnum voie = v;
+			new Thread() {
+				@Override
+				public void run() {
+					while (!parent.isInterrupted()) {
+						synchronized (config) {
+							while (config.flux.get(voie) < 1) {
+								try {
+									config.wait();
+								} catch (InterruptedException e) {
+									e.printStackTrace();
+								}
+							}
+						}
+						long start = System.nanoTime();
+						ajout(1, voie, VoieEnum.ALEAT);
+						long lapse = (long) ((1 / (double) config.flux.get(voie)) * 1000);
+						pause(start, lapse , TimeUnit.MILLISECONDS);
+					}
+				}
+			}.start();
+		}
+
 		for (long tour = 1; true; tour = tour + 1) {
 			start = System.nanoTime();
 			Simulateur.log("Tour n°" + tour);
@@ -57,7 +96,7 @@ public class Simulateur extends Thread {
 	/**
 	 * Mets en pause pendant le temp défini dans la configuration depuis le
 	 * temps donnée.
-	 * 
+	 *
 	 * @param start
 	 *            La date en nanosecondes à laquelle a commencé le tour.
 	 * @param unit
@@ -77,7 +116,7 @@ public class Simulateur extends Thread {
 
 	/**
 	 * Choisi une voie (Nord, Sud, Est, Ouest) aléatoirement.
-	 * 
+	 *
 	 * @return Une voie choisie aléatoirement.
 	 */
 	private static VoieEnum voieAleatoire() {
@@ -103,7 +142,7 @@ public class Simulateur extends Thread {
 	/**
 	 * Ajoute des voitures dans le rond point.
 	 * Si entree et sortie sont différents d'{@link VoieEnum.ALEAT}
-	 * 
+	 *
 	 * @param nb_voitures
 	 *            Le nombre de voiture à inserer
 	 * @param entree
@@ -111,7 +150,7 @@ public class Simulateur extends Thread {
 	 * @param sortie
 	 *            Le voie de sortie.
 	 */
-	public synchronized void ajout(int nb_voitures, VoieEnum entree, VoieEnum sortie) {
+	public void ajout(int nb_voitures, VoieEnum entree, VoieEnum sortie) {
 
 		VoieEnum e = entree;
 		VoieEnum s = sortie;
@@ -166,7 +205,7 @@ public class Simulateur extends Thread {
 			}
 		}).start();
 
-		sim.ajout(10, VoieEnum.ALEAT, VoieEnum.ALEAT);
+		sim.setConfig(VoieEnum.NORD, 2);
 
 	}
 
@@ -176,5 +215,15 @@ public class Simulateur extends Thread {
 	private class Config {
 		long duration = 1;
 		TimeUnit unit = TimeUnit.SECONDS;
+		final HashMap<VoieEnum, Integer> flux;
+
+		public Config(Collection<VoieEnum> voies) {
+			flux = new HashMap<VoieEnum, Integer>();
+			for (VoieEnum voie: voies) {
+				if (VoieEnum.ALEAT.compareTo(voie) != 0) {
+					flux.put(voie, 0);
+				}
+			}
+		}
 	}
 }
