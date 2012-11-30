@@ -7,6 +7,8 @@ import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
+import aclt.genielog.rp.lib.Flux;
+import aclt.genielog.rp.lib.PausableThread;
 import aclt.genielog.rp.system.RondPoint;
 import aclt.genielog.rp.system.Stats;
 import aclt.genielog.rp.system.VoieEnum;
@@ -17,7 +19,7 @@ import aclt.genielog.rp.system.VoieEnum;
  * @author Luc Chante
  * @author Tiphaine Teyssier
  */
-public class Simulateur extends Thread {
+public class Simulateur extends PausableThread {
 
 	private static final Random random = new Random(System.nanoTime());
 
@@ -51,41 +53,39 @@ public class Simulateur extends Thread {
 		config.unit = unit;
 	}
 
+	/**
+	 * Modifie la configuration d'un flux.
+	 * 
+	 * @param voie
+	 *            La voie pour laquelle le flux est modifié.
+	 * @param flux
+	 *            La nouvelle frèquence du flux.
+	 */
 	public void setConfig(VoieEnum voie, int flux) {
-		synchronized (config) {
+		synchronized (voie) {
 			config.flux.put(voie, flux);
-			config.notifyAll();
+			notify();
 		}
+	}
+
+	/**
+	 * Retourne la fréquence du flux d'une voie.
+	 * 
+	 * @param voie
+	 *            La voie concernée
+	 * @return La fréquence du flux de cette voie.
+	 */
+	public int getConfig(VoieEnum voie) {
+		return config.flux.get(voie);
 	}
 
 	@Override
 	public void run() {
 		long start;
 
-		final Thread parent = Thread.currentThread();
 		Set<VoieEnum> voies = config.flux.keySet();
-		for (VoieEnum v : voies) {
-			final VoieEnum voie = v;
-			new Thread() {
-				@Override
-				public void run() {
-					while (!parent.isInterrupted()) {
-						synchronized (config) {
-							while (config.flux.get(voie) < 1) {
-								try {
-									config.wait();
-								} catch (InterruptedException e) {
-									e.printStackTrace();
-								}
-							}
-						}
-						long start = System.nanoTime();
-						ajout(1, voie, VoieEnum.ALEAT);
-						long lapse = (long) ((1 / (double) config.flux.get(voie)) * 1000);
-						pause(start, lapse, TimeUnit.MILLISECONDS);
-					}
-				}
-			}.start();
+		for (VoieEnum voie : voies) {
+			new Flux(this, voie).start();
 		}
 
 		for (long tour = 1; true; tour = tour + 1) {
@@ -94,27 +94,6 @@ public class Simulateur extends Thread {
 			rp.tourneInterne();
 			rp.tourneExterne();
 			pause(start, config.duration, config.unit);
-		}
-	}
-
-	/**
-	 * Mets en pause pendant le temp défini dans la configuration depuis le
-	 * temps donnée.
-	 * 
-	 * @param start
-	 *            La date en nanosecondes à laquelle a commencé le tour.
-	 * @param unit
-	 *            L'untité de temps.
-	 */
-	private void pause(long start, long duration, TimeUnit unit) {
-		long pause;
-		pause = start + unit.toNanos(duration);
-		while (System.nanoTime() < pause) {
-			try {
-				sleep(TimeUnit.NANOSECONDS.toMillis(pause - System.nanoTime()));
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
 		}
 	}
 
