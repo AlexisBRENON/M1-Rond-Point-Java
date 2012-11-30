@@ -12,12 +12,12 @@ public class RondPoint {
 	/**
 	 * Liste des voies externes (entrée/sortie) du rond point.
 	 */
-	private final ArrayList<VoieExterne> voieExternes;
+	private final ArrayList<VoieExterne> voiesExternes;
 
 	/**
 	 * Liste des voies internes du rond point.
 	 */
-	private final ArrayList<VoieInterne> voieInternes;
+	private final ArrayList<VoieInterne> voiesInternes;
 
 	private Stats stats = null;
 
@@ -32,25 +32,25 @@ public class RondPoint {
 		VoieInterne vi, suivante;
 		VoieExterne sortie;
 
-		voieExternes = new ArrayList<VoieExterne>();
-		voieInternes = new ArrayList<VoieInterne>();
+		voiesExternes = new ArrayList<VoieExterne>();
+		voiesInternes = new ArrayList<VoieInterne>();
 
 		for (i = 0; i < 4; i = i + 1) {
 			vi = new VoieInterne(taille);
-			voieInternes.add(vi);
-			voieExternes.add(new VoieExterne(vi));
+			voiesInternes.add(vi);
+			voiesExternes.add(new VoieExterne(vi));
 		}
 
 		for (i = 0; i < 4; i = i + 1) {
 			j = (i + 1) % 4;
-			suivante = voieInternes.get(j);
-			sortie = voieExternes.get(j);
-			voieInternes.get(i).config(suivante, sortie);
+			suivante = voiesInternes.get(j);
+			sortie = voiesExternes.get(j);
+			voiesInternes.get(i).config(suivante, sortie);
 		}
 	}
 
 	public void attachStats() {
-		stats = new Stats(voieExternes);
+		stats = new Stats(voiesExternes);
 	}
 
 	public Stats getStats() {
@@ -69,8 +69,8 @@ public class RondPoint {
 	public Voiture ajouterVoiture(VoieEnum depart, VoieEnum destination) {
 		VoieExterne entree, sortie;
 
-		entree = voieExternes.get(depart.ordinal());
-		sortie = voieExternes.get(destination.ordinal());
+		entree = voiesExternes.get(depart.ordinal());
+		sortie = voiesExternes.get(destination.ordinal());
 		Voiture voiture = new Voiture(sortie);
 		if (stats != null) {
 			voiture.addObserver(stats);
@@ -85,18 +85,30 @@ public class RondPoint {
 	public void tourneInterne() {
 		Voiture voitureDeTete = null;
 
-		for (VoieInterne voieInterne : voieInternes) {
+		for (VoieInterne voieInterne : voiesInternes) {
 			voitureDeTete = voieInterne.circule(voitureDeTete, false);
 		}
-		voieInternes.get(0).circule(voitureDeTete, true);
+		voiesInternes.get(0).circule(voitureDeTete, true);
 	}
 
 	/**
 	 * Déclenche la circulation des voitures sur les voies externes.
 	 */
 	public void tourneExterne() {
-		for (VoieExterne voieExterne : voieExternes) {
+		for (VoieExterne voieExterne : voiesExternes) {
 			voieExterne.circule();
 		}
+	}
+
+	/**
+	 * Vide la file d'attente d'une voie
+	 * 
+	 * @param voie
+	 *            La voie concernée
+	 */
+	public void viderFile(VoieEnum voie) {
+		VoieExterne v = voiesExternes.get(voie.ordinal());
+		int taille = v.vider();
+		stats.vidageVoie(v, taille);
 	}
 }

@@ -133,6 +133,17 @@ public class Stats implements Observer {
 		return voituresSorties.get(voie).get();
 	}
 
+	/**
+	 * Corrige les stats par rapport à un vidage des voie.
+	 * 
+	 * @param voie
+	 *            La voie vidée
+	 * @param taille
+	 */
+	public void vidageVoie(VoieExterne voie, int taille) {
+		voituresEnAttentes.get(voie).addAndGet(-taille);
+	}
+
 	@Override
 	public void update(Observable o, Object arg) {
 		Route route = (Route) arg;

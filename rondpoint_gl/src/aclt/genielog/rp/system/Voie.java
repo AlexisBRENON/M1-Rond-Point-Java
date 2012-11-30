@@ -1,6 +1,5 @@
 package aclt.genielog.rp.system;
 
-
 /**
  * Classe abstraite Voie.
  * 
