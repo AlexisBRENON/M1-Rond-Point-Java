@@ -30,7 +30,7 @@ class VoieExterne extends Voie {
 
 	/**
 	 * Indique si la voiture est la premiere sur la voie
-	 *
+	 * 
 	 * @param v
 	 * @return
 	 */
@@ -61,6 +61,12 @@ class VoieExterne extends Voie {
 		if (!voitures.isEmpty()) {
 			voitures.getFirst().avancer();
 		}
+	}
+
+	public synchronized int vider() {
+		int taille = voitures.size();
+		voitures.clear();
+		return taille;
 	}
 
 }

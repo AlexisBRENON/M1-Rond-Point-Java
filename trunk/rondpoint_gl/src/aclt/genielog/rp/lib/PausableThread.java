@@ -2,7 +2,19 @@ package aclt.genielog.rp.lib;
 
 import java.util.concurrent.TimeUnit;
 
+import aclt.genielog.rp.Simulateur;
+
 public class PausableThread extends Thread {
+
+	private final Simulateur simulateur;
+
+	public PausableThread(Simulateur simulateur) {
+		this.simulateur = simulateur;
+	}
+
+	protected Simulateur getSimulateur() {
+		return simulateur;
+	}
 
 	/**
 	 * Mets en pause pendant le temp défini dans la configuration depuis le
@@ -20,7 +32,6 @@ public class PausableThread extends Thread {
 			try {
 				sleep(TimeUnit.NANOSECONDS.toMillis(pause - System.nanoTime()));
 			} catch (InterruptedException e) {
-				e.printStackTrace();
 			}
 		}
 	}

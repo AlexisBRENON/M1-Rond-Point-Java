@@ -1,16 +1,13 @@
 package aclt.genielog.rp;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.Random;
-import java.util.Set;
-import java.util.concurrent.TimeUnit;
 
+import javax.swing.UIManager;
+
+import aclt.genielog.rp.ihm.SimulateurUI;
 import aclt.genielog.rp.lib.Flux;
-import aclt.genielog.rp.lib.PausableThread;
+import aclt.genielog.rp.lib.Tour;
 import aclt.genielog.rp.system.RondPoint;
-import aclt.genielog.rp.system.Stats;
 import aclt.genielog.rp.system.VoieEnum;
 
 /**
@@ -19,7 +16,7 @@ import aclt.genielog.rp.system.VoieEnum;
  * @author Luc Chante
  * @author Tiphaine Teyssier
  */
-public class Simulateur extends PausableThread {
+public class Simulateur {
 
 	private static final Random random = new Random(System.nanoTime());
 
@@ -28,73 +25,58 @@ public class Simulateur extends PausableThread {
 	 */
 	private final RondPoint rp;
 
-	/**
-	 * La configuration du simulateur.
-	 */
-	private final Config config;
+	private final SimulateurUI UI;
+
+	private final Tour tour;
 
 	public Simulateur(int taille) {
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		rp = new RondPoint(taille);
 		rp.attachStats();
-		config = new Config(Arrays.asList(VoieEnum.values()));
+		tour = new Tour(this);
+		UI = new SimulateurUI(this);
 	}
 
 	/**
-	 * Modifie la configuration actuelle du simulateur.
-	 * 
-	 * @param duration
-	 *            Le nombre d'unité de temps pour la durée de la pause
-	 *            entre deux tour.
-	 * @param unit
-	 *            L'unité de temps pour la pause entre deux tour.
-	 */
-	public void setConfig(long duration, TimeUnit unit) {
-		config.duration = duration;
-		config.unit = unit;
-	}
-
-	/**
-	 * Modifie la configuration d'un flux.
-	 * 
-	 * @param voie
-	 *            La voie pour laquelle le flux est modifié.
-	 * @param flux
-	 *            La nouvelle frèquence du flux.
-	 */
-	public void setConfig(VoieEnum voie, int flux) {
-		synchronized (voie) {
-			config.flux.put(voie, flux);
-			voie.notify();
-		}
-	}
-
-	/**
-	 * Retourne la fréquence du flux d'une voie.
+	 * Vide la file d'attente d'une voie
 	 * 
 	 * @param voie
 	 *            La voie concernée
-	 * @return La fréquence du flux de cette voie.
 	 */
-	public int getConfig(VoieEnum voie) {
-		return config.flux.get(voie);
+	public void viderFile(VoieEnum voie) {
+		rp.viderFile(voie);
 	}
 
-	@Override
-	public void run() {
-		long start;
+	/**
+	 * Déclenche le tour suivant.
+	 */
+	public void tourSuivant() {
+		rp.tourneInterne();
+		rp.tourneExterne();
+	}
 
-		Set<VoieEnum> voies = config.flux.keySet();
-		for (VoieEnum voie : voies) {
-			new Flux(this, voie).start();
-		}
+	/**
+	 * Démarre la simulation.
+	 */
+	public void lancer() {
+		UI.setVisible(true);
+		tour.start();
 
-		for (long tour = 1; true; tour = tour + 1) {
-			start = System.nanoTime();
-			Simulateur.log("Tour n°" + tour);
-			rp.tourneInterne();
-			rp.tourneExterne();
-			pause(start, config.duration, config.unit);
-		}
+		Flux nord = new Flux(this, VoieEnum.NORD);
+		Flux est = new Flux(this, VoieEnum.EST);
+		Flux sud = new Flux(this, VoieEnum.SUD);
+		Flux ouest = new Flux(this, VoieEnum.OUEST);
+		UI.setFluxListener(nord, est, sud, ouest);
+		nord.start();
+		est.start();
+		sud.start();
+		ouest.start();
+
+		UI.setVitesseListener(tour);
 	}
 
 	/**
@@ -158,56 +140,6 @@ public class Simulateur extends PausableThread {
 	}
 
 	public static void main(String argv[]) {
-
-		Simulateur sim = new Simulateur(1);
-		sim.start();
-		final Stats stats = sim.rp.getStats();
-
-		new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-				while (true) {
-					synchronized (random) {
-						System.out.println("Voitures en attente: "
-								+ stats.voituresEnAttente());
-						System.out.println("Attente moyenne: "
-								+ (stats.attenteMoyenne() / 1000) + "s");
-						System.out.println("Voitures engagées: "
-								+ stats.voituresEngagees());
-						System.out.println("Voitures entrées: "
-								+ stats.voituresEntrees());
-						System.out.println("Voitures sorties: "
-								+ stats.voituresSorties());
-					}
-					try {
-						sleep(1000);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-				}
-			}
-		}).start();
-
-		sim.setConfig(VoieEnum.NORD, 2);
-
-	}
-
-	/**
-	 * Classe de configuration du simulateur.
-	 */
-	private class Config {
-		long duration = 1;
-		TimeUnit unit = TimeUnit.SECONDS;
-		final HashMap<VoieEnum, Integer> flux;
-
-		public Config(Collection<VoieEnum> voies) {
-			flux = new HashMap<VoieEnum, Integer>();
-			for (VoieEnum voie : voies) {
-				if (VoieEnum.ALEAT.compareTo(voie) != 0) {
-					flux.put(voie, 0);
-				}
-			}
-		}
+		new Simulateur(1).lancer();
 	}
 }
