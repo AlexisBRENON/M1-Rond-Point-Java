@@ -64,7 +64,7 @@ public class Simulateur extends PausableThread {
 	public void setConfig(VoieEnum voie, int flux) {
 		synchronized (voie) {
 			config.flux.put(voie, flux);
-			notify();
+			voie.notify();
 		}
 	}
 
