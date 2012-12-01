@@ -1,8 +1,16 @@
 package aclt.genielog.rp.system;
 
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.Observable;
+import java.util.Random;
+
+import javax.imageio.ImageIO;
+
 import aclt.genielog.rp.Simulateur;
 import aclt.genielog.rp.system.Stats.Route;
-import java.util.Observable;
 
 /**
  * @author Alexis Brenon
@@ -13,6 +21,33 @@ import java.util.Observable;
 class Voiture extends Observable {
 
 	private static int ID = 0;
+
+	private static Image rouge = null;
+	private static Image noire = null;
+	private static Image verte = null;
+	private static Image jaune = null;
+
+	static {
+		Class<Voiture> cv = Voiture.class;
+		String path = "/aclt/genielog/rp/ihm/img/rouge.png";
+		try {
+			path = cv.getResource(path).toURI().getPath();
+			rouge = ImageIO.read(new File(path));
+			path = "/aclt/genielog/rp/ihm/img/noire.png";
+			path = cv.getResource(path).toURI().getPath();
+			noire = ImageIO.read(new File(path));
+			path = "/aclt/genielog/rp/ihm/img/verte.png";
+			path = cv.getResource(path).toURI().getPath();
+			verte = ImageIO.read(new File(path));
+			path = "/aclt/genielog/rp/ihm/img/jaune.png";
+			path = cv.getResource(path).toURI().getPath();
+			jaune = ImageIO.read(new File(path));
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	/**
 	 * La voie de destination de la voiture.
@@ -30,9 +65,25 @@ class Voiture extends Observable {
 	 */
 	private String name;
 
+	private Image picture;
+
 	Voiture(VoieExterne dest) {
 		name = "Voiture#" + (ID++);
 		destination = dest;
+		switch (new Random().nextInt(4)) {
+		case 0:
+			picture = rouge;
+			break;
+		case 1:
+			picture = noire;
+			break;
+		case 2:
+			picture = verte;
+			break;
+		case 3:
+		default:
+			picture = jaune;
+		}
 	}
 
 	void sengager(VoieExterne voie) {
@@ -103,6 +154,10 @@ class Voiture extends Observable {
 		else {
 			voie.avancer(this);
 		}
+	}
+
+	Image getPicture() {
+		return picture;
 	}
 
 	@Override

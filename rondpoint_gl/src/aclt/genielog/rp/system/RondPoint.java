@@ -2,6 +2,8 @@ package aclt.genielog.rp.system;
 
 import java.util.ArrayList;
 
+import aclt.genielog.rp.ihm.SimulateurUI;
+
 /**
  * @author Alexis Brenon
  * @author Cécilia Martin
@@ -38,7 +40,7 @@ public class RondPoint {
 		for (i = 0; i < 4; i = i + 1) {
 			vi = new VoieInterne(taille);
 			voiesInternes.add(vi);
-			voiesExternes.add(new VoieExterne(vi));
+			voiesExternes.add(new VoieExterne(VoieEnum.values()[i], vi));
 		}
 
 		for (i = 0; i < 4; i = i + 1) {
@@ -123,5 +125,11 @@ public class RondPoint {
 			voie.vider();
 		}
 		statistiques.reset();
+	}
+
+	public void updateUI(SimulateurUI ui) {
+		for (VoieExterne voie : voiesExternes) {
+			ui.ajouterVoie(voie);
+		}
 	}
 }
