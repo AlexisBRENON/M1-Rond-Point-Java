@@ -43,7 +43,7 @@ public class Flux extends PausableThread implements ChangeListener, ActionListen
 				}
 			}
 			start = System.nanoTime();
-			getSimulateur().ajout(1, maVoie, VoieEnum.ALEAT);
+			getSimulateur().actionPerformed(null, 1, maVoie, VoieEnum.ALEAT);
 			lapse = (long) ((1 / frequence.doubleValue()) * 1000);
 			pause(start, lapse, TimeUnit.MILLISECONDS);
 		}
