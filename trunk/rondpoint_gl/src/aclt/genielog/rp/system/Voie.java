@@ -1,5 +1,7 @@
 package aclt.genielog.rp.system;
 
+import javax.swing.JComponent;
+
 /**
  * Classe abstraite Voie.
  * 
@@ -10,7 +12,7 @@ package aclt.genielog.rp.system;
  * @author Luc Chante
  * @author Tiphaine Teyssier
  */
-abstract class Voie {
+abstract class Voie extends JComponent {
 
 	/**
 	 * Le nom de la voie (utile pour les logs de fonctionnement).

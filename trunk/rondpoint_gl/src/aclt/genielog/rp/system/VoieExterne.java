@@ -1,5 +1,8 @@
 package aclt.genielog.rp.system;
 
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 import java.util.LinkedList;
 
 /**
@@ -10,7 +13,7 @@ import java.util.LinkedList;
  */
 class VoieExterne extends Voie {
 
-	private static int ID = 0;
+	private final VoieEnum identifiant;
 
 	/**
 	 * Voie interne d'insertion dans le rond point.
@@ -28,9 +31,9 @@ class VoieExterne extends Voie {
 	 * @param v
 	 *            La voie interne à laquelle cette voie est reliée.
 	 */
-	VoieExterne(VoieInterne v) {
-		super("Externe " + ID);
-		ID++;
+	VoieExterne(VoieEnum id, VoieInterne v) {
+		super(id.name());
+		identifiant = id;
 		interne = v;
 	}
 
@@ -61,6 +64,7 @@ class VoieExterne extends Voie {
 	 */
 	void sort(Voiture v) {
 		v.sengager(this);
+		getParent().repaint();
 	}
 
 	/**
@@ -69,6 +73,7 @@ class VoieExterne extends Voie {
 	@Override
 	void quitter(Voiture v) {
 		voitures.remove(v);
+		getParent().repaint();
 	}
 
 	/**
@@ -78,6 +83,7 @@ class VoieExterne extends Voie {
 	synchronized void entrer(Voiture v) {
 		voitures.addLast(v);
 		v.sengager(this);
+		getParent().repaint();
 	}
 
 	/**
@@ -108,7 +114,25 @@ class VoieExterne extends Voie {
 	public synchronized int vider() {
 		int taille = voitures.size();
 		voitures.clear();
+		getParent().repaint();
 		return taille;
 	}
 
+	/**
+	 * Retourne la tranformation de base pour l'affichage des voitures dans cette
+	 * voie.
+	 * 
+	 * @return La tranformation minimale pour cette voie.
+	 */
+	@Override
+	public void paint(Graphics g) {
+		Graphics2D g2d = (Graphics2D) g;
+		AffineTransform tx = identifiant.getBaseTransfrom();
+
+		Voiture voiture = voitures.peek();
+		if (voiture != null) {
+			g2d.transform(new AffineTransform());
+			g2d.drawImage(voiture.getPicture(), tx, this);
+		}
+	}
 }
