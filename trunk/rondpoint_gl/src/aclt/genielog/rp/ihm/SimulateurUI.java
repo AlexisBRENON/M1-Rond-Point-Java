@@ -34,7 +34,7 @@ public class SimulateurUI extends javax.swing.JFrame {
 	 *            Le listener de la voie ouest
 	 */
 	public void setFluxListener(Flux nord, Flux est, Flux sud, Flux ouest) {
-		fluxPanel.setListeners(nord, est, sud, ouest);
+		fluxPanel.setListeners(nord, est, sud, ouest, null);
 	}
 
 	/**

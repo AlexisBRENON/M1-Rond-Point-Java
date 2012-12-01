@@ -19,7 +19,7 @@ public class RondPoint {
 	 */
 	private final ArrayList<VoieInterne> voiesInternes;
 
-	private Stats stats = null;
+	private Stats statistiques = null;
 
 	/**
 	 * Crée un rond point à 4 voie
@@ -47,14 +47,16 @@ public class RondPoint {
 			sortie = voiesExternes.get(j);
 			voiesInternes.get(i).config(suivante, sortie);
 		}
+		statistiques = new Stats(voiesExternes);
 	}
 
-	public void attachStats() {
-		stats = new Stats(voiesExternes);
-	}
-
-	public Stats getStats() {
-		return stats;
+	/**
+	 * Retourne les stats du rond-point.
+	 * 
+	 * @return Les statistiques
+	 */
+	public Stats statistiques() {
+		return statistiques;
 	}
 
 	/**
@@ -72,8 +74,8 @@ public class RondPoint {
 		entree = voiesExternes.get(depart.ordinal());
 		sortie = voiesExternes.get(destination.ordinal());
 		Voiture voiture = new Voiture(sortie);
-		if (stats != null) {
-			voiture.addObserver(stats);
+		if (statistiques != null) {
+			voiture.addObserver(statistiques);
 		}
 		entree.entrer(voiture);
 		return voiture;
@@ -82,19 +84,17 @@ public class RondPoint {
 	/**
 	 * Déclenche la circulation des voitures sur les voies internes.
 	 */
-	public void tourneInterne() {
+	public void tourSuivant() {
 		Voiture voitureDeTete = null;
 
 		for (VoieInterne voieInterne : voiesInternes) {
-			voitureDeTete = voieInterne.circule(voitureDeTete, false);
+			if (voitureDeTete != null) {
+				voieInterne.entrer(voitureDeTete);
+			}
+			voitureDeTete = voieInterne.circule();
 		}
-		voiesInternes.get(0).circule(voitureDeTete, true);
-	}
+		voiesInternes.get(0).entrer(voitureDeTete);
 
-	/**
-	 * Déclenche la circulation des voitures sur les voies externes.
-	 */
-	public void tourneExterne() {
 		for (VoieExterne voieExterne : voiesExternes) {
 			voieExterne.circule();
 		}
@@ -109,6 +109,19 @@ public class RondPoint {
 	public void viderFile(VoieEnum voie) {
 		VoieExterne v = voiesExternes.get(voie.ordinal());
 		int taille = v.vider();
-		stats.vidageVoie(v, taille);
+		statistiques.vidageVoie(v, taille);
+	}
+
+	/**
+	 * Vide toutes les voies du rond-point et réinitialise les statistiques.
+	 */
+	public void viderRondPoint() {
+		for (VoieExterne voie : voiesExternes) {
+			voie.vider();
+		}
+		for (VoieInterne voie : voiesInternes) {
+			voie.vider();
+		}
+		statistiques.reset();
 	}
 }

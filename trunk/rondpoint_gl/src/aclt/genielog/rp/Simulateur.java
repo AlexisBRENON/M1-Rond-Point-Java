@@ -36,7 +36,6 @@ public class Simulateur {
 			e.printStackTrace();
 		}
 		rp = new RondPoint(taille);
-		rp.attachStats();
 		tour = new Tour(this);
 		UI = new SimulateurUI(this);
 	}
@@ -47,7 +46,7 @@ public class Simulateur {
 	 * @param voie
 	 *            La voie concernée
 	 */
-	public void viderFile(VoieEnum voie) {
+	public void viderFileDAttente(VoieEnum voie) {
 		rp.viderFile(voie);
 	}
 
@@ -55,8 +54,7 @@ public class Simulateur {
 	 * Déclenche le tour suivant.
 	 */
 	public void tourSuivant() {
-		rp.tourneInterne();
-		rp.tourneExterne();
+		rp.tourSuivant();
 	}
 
 	/**

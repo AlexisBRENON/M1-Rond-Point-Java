@@ -39,18 +39,9 @@ public class FluxPanel extends javax.swing.JPanel {
 				ouestSpinner.setValue(0);
 			}
 		});
-		crashButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				nordButton.doClick();
-				ouestButton.doClick();
-				sudButton.doClick();
-				estButton.doClick();
-			}
-		});
 	}
 
-	public void setListeners(Flux nord, Flux est, Flux sud, Flux ouest) {
+	public void setListeners(Flux nord, Flux est, Flux sud, Flux ouest, Object crash) {
 		nordSpinner.addChangeListener(nord);
 		nordButton.addActionListener(nord);
 		estSpinner.addChangeListener(est);
