@@ -1,9 +1,9 @@
 package aclt.genielog.rp.ihm;
 
 import aclt.genielog.rp.Simulateur;
+import aclt.genielog.rp.ihm.AjoutPanel.AjoutVoituresListener;
 import aclt.genielog.rp.lib.Flux;
 import aclt.genielog.rp.lib.Tour;
-import aclt.genielog.rp.system.VoieEnum;
 
 /**
  * Fenêtre principale de l'application.
@@ -49,18 +49,13 @@ public class SimulateurUI extends javax.swing.JFrame {
 	}
 
 	/**
-	 * Callback appelé par le panel d'ajout de voitures.
+	 * Définie le listener pour l'ajout de voitures.
 	 * 
-	 * @param nbVoitures
-	 *            Nombre de voitures à ajouter
-	 * @param entree
-	 *            Voie d'entrée des voitures
-	 * @param sortie
-	 *            Voie de sortie des voitures
+	 * @param listener
+	 *            Le listener
 	 */
-	public void ajouterVoitures(int nbVoitures, VoieEnum entree, VoieEnum sortie) {
-		// simulateur.ajouterVoitures(nbVoitures, entree, sortie);
-		System.err.println("Ajouter Voiture");
+	public void setAjoutVoituresListener(AjoutVoituresListener listener) {
+		ajoutPanel.addAjoutVoituresListener(listener);
 	}
 
 	/**

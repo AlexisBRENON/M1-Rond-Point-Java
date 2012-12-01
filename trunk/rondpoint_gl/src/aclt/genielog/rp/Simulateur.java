@@ -1,9 +1,11 @@
 package aclt.genielog.rp;
 
+import java.awt.event.ActionEvent;
 import java.util.Random;
 
 import javax.swing.UIManager;
 
+import aclt.genielog.rp.ihm.AjoutPanel.AjoutVoituresListener;
 import aclt.genielog.rp.ihm.SimulateurUI;
 import aclt.genielog.rp.lib.Flux;
 import aclt.genielog.rp.lib.Tour;
@@ -16,7 +18,7 @@ import aclt.genielog.rp.system.VoieEnum;
  * @author Luc Chante
  * @author Tiphaine Teyssier
  */
-public class Simulateur {
+public class Simulateur implements AjoutVoituresListener {
 
 	private static final Random random = new Random(System.nanoTime());
 
@@ -69,12 +71,14 @@ public class Simulateur {
 		Flux sud = new Flux(this, VoieEnum.SUD);
 		Flux ouest = new Flux(this, VoieEnum.OUEST);
 		UI.setFluxListener(nord, est, sud, ouest);
+		UI.setVitesseListener(tour);
+		UI.setAjoutVoituresListener(this);
+
 		nord.start();
 		est.start();
 		sud.start();
 		ouest.start();
 
-		UI.setVitesseListener(tour);
 	}
 
 	/**
@@ -106,23 +110,24 @@ public class Simulateur {
 	 * Ajoute des voitures dans le rond point.
 	 * Si entree et sortie sont différents d'{@link VoieEnum.ALEAT}
 	 * 
-	 * @param nb_voitures
+	 * @param count
 	 *            Le nombre de voiture à inserer
-	 * @param entree
+	 * @param in
 	 *            La voie d'insertion
-	 * @param sortie
+	 * @param out
 	 *            Le voie de sortie.
 	 */
-	public void ajout(int nb_voitures, VoieEnum entree, VoieEnum sortie) {
 
-		VoieEnum e = entree;
-		VoieEnum s = sortie;
+	@Override
+	public void actionPerformed(ActionEvent evt, int count, VoieEnum in, VoieEnum out) {
+		VoieEnum e = in;
+		VoieEnum s = out;
 
-		for (int i = 0; i < nb_voitures; i = i + 1) {
-			if (entree == VoieEnum.ALEAT) {
+		for (int i = 0; i < count; i = i + 1) {
+			if (in == VoieEnum.ALEAT) {
 				e = voieAleatoire();
 			}
-			if (sortie == VoieEnum.ALEAT) {
+			if (out == VoieEnum.ALEAT) {
 				s = voieAleatoire();
 			}
 
