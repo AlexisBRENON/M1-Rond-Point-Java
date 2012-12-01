@@ -86,12 +86,12 @@ public class RondPoint {
 	 */
 	public void tourSuivant() {
 		Voiture voitureDeTete = null;
+		Voiture temp;
 
 		for (VoieInterne voieInterne : voiesInternes) {
-			if (voitureDeTete != null) {
-				voieInterne.entrer(voitureDeTete);
-			}
+			temp = voitureDeTete;
 			voitureDeTete = voieInterne.circule();
+			voieInterne.entrer(temp);
 		}
 		voiesInternes.get(0).entrer(voitureDeTete);
 
