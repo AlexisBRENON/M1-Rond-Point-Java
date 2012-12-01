@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -140,8 +141,20 @@ public class Stats implements Observer {
 	 *            La voie vidée
 	 * @param taille
 	 */
-	public void vidageVoie(VoieExterne voie, int taille) {
-		voituresEnAttentes.get(voie).addAndGet(-taille);
+	void vidageVoie(VoieExterne voie, int delta) {
+		voituresEnAttentes.get(voie).addAndGet(-delta);
+	}
+
+	void reset() {
+		Set<VoieExterne> voies = voituresEnAttentes.keySet();
+		for (VoieExterne voie : voies) {
+			voituresEnAttentes.put(voie, new AtomicInteger(0));
+			attenteParVoie.put(voie, new AtomicLong(0));
+			voituresEngageesParVoies.put(voie, new AtomicInteger(0));
+			voituresEntrees.put(voie, new AtomicInteger(0));
+			voituresSorties.put(voie, new AtomicInteger(0));
+		}
+		voituresEngagees.set(0);
 	}
 
 	@Override

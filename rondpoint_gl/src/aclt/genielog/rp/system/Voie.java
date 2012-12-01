@@ -22,6 +22,13 @@ abstract class Voie {
 	}
 
 	/**
+	 * Gére la circulation sur la voie pour un tour
+	 * 
+	 * @return La voiture qui sort de cette voie pour la voie suivante.
+	 */
+	abstract Voiture circule();
+
+	/**
 	 * Insère une voiture sur la voie
 	 * 
 	 * @param v
@@ -36,6 +43,13 @@ abstract class Voie {
 	 *            La voiture a retirer
 	 */
 	abstract void entrer(Voiture v);
+
+	/**
+	 * Vide complètement la voie.
+	 * 
+	 * @return Le nombre de voitures supprimées
+	 */
+	abstract int vider();
 
 	@Override
 	public String toString() {

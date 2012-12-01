@@ -23,6 +23,13 @@ class VoieInterne extends Voie {
 	 */
 	private Voiture[] vehicules;
 
+	/**
+	 * Constructeur
+	 * 
+	 * @param taille
+	 *            La taille de la file interne de voiture (nombre de voitures pouvant
+	 *            se trouver simultanément dans un quart de rond-point).
+	 */
 	VoieInterne(int taille) {
 		super("Interne " + ID);
 		ID++;
@@ -42,6 +49,14 @@ class VoieInterne extends Voie {
 		return voieDeSortie.equals(sortie);
 	}
 
+	/**
+	 * Attribue la voie interne suivante et la voie externe (de sortie).
+	 * 
+	 * @param suivante
+	 *            La voie interne suivante
+	 * @param sortie
+	 *            La voie de sortie du rond-point.
+	 */
 	void config(VoieInterne suivante, VoieExterne sortie) {
 		voieSuivante = suivante;
 		voieDeSortie = sortie;
@@ -94,6 +109,11 @@ class VoieInterne extends Voie {
 		}
 	}
 
+	/**
+	 * Voiture en attente d'insertion sur la voie suivante.
+	 */
+	// TODO trouver une autre implémentation ce n'est pas très beau d'avoir un
+	// attribut qui sert de variable temporaire.
 	private Voiture waittingForInsertion = null;
 
 	/**
@@ -109,9 +129,11 @@ class VoieInterne extends Voie {
 	}
 
 	/**
-	 * Avance la voiture d'un tour
+	 * Avance la voiture à l'intérieur de la voie elle passe de l'emplacement i à
+	 * l'emplacement i+1.
 	 * 
 	 * @param v
+	 *            La voiture qui avance
 	 */
 	void avancer(Voiture v) {
 		System.out.println("avancer(" + v + ")");
@@ -123,25 +145,43 @@ class VoieInterne extends Voie {
 		vehicules[i + 1] = v;
 	}
 
-	Voiture circule(Voiture voiture, boolean fin) {
+	/**
+	 * Gére la circulation sur la voie pour un tour
+	 * 
+	 * @return La voiture qui sort de cette voie pour la voie suivante.
+	 */
+	synchronized Voiture circule() {
 		Voiture v;
 		int length = vehicules.length;
 
-		if (!fin) {
-			for (int i = length - 1; i >= 0; i = i - 1) {
-				v = vehicules[i];
-				if (v != null) {
-					v.avancer();
-				}
+		for (int i = length - 1; i >= 0; i = i - 1) {
+			v = vehicules[i];
+			if (v != null) {
+				v.avancer();
 			}
 		}
 
-		vehicules[0] = voiture;
-		if (waittingForInsertion != null) {
-			v = waittingForInsertion;
-			waittingForInsertion = null;
-			return v;
+		if (waittingForInsertion == null) {
+			return null;
 		}
-		return null;
+
+		v = waittingForInsertion;
+		waittingForInsertion = null;
+		return v;
+	}
+
+	/**
+	 * Vide complètement la voie.
+	 * 
+	 * @return Le nombre de voitures supprimées
+	 */
+	@Override
+	synchronized int vider() {
+		int compte = 0;
+		for (int i = 0; i < vehicules.length; i = i + 1) {
+			compte = compte + (vehicules[i] == null ? 0 : 1);
+			vehicules[i] = null;
+		}
+		return compte;
 	}
 }

@@ -60,7 +60,7 @@ public class Flux extends PausableThread implements ChangeListener, ActionListen
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		getSimulateur().viderFile(maVoie);
+		getSimulateur().viderFileDAttente(maVoie);
 	}
 
 }
