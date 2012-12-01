@@ -1,9 +1,8 @@
 package aclt.genielog.rp.system;
 
-import java.util.Observable;
-
 import aclt.genielog.rp.Simulateur;
 import aclt.genielog.rp.system.Stats.Route;
+import java.util.Observable;
 
 /**
  * @author Alexis Brenon
@@ -27,7 +26,7 @@ class Voiture extends Observable {
 	private Route route;
 
 	/**
-	 * Le nom de la voiture (utile pour les logs de réroulement du simulateur)
+	 * Le nom de la voiture (utile pour les logs de déroulement du simulateur)
 	 */
 	private String name;
 

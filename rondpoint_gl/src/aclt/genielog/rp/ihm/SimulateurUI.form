@@ -26,57 +26,54 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="1" attributes="0">
           <Group type="102" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="rondPointPanel" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="jSeparator1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="fluxPanel" alignment="1" max="32767" attributes="0"/>
-                      <Component id="ajoutPanel" alignment="1" max="32767" attributes="0"/>
-                      <Component id="vitessePanel" alignment="1" max="32767" attributes="0"/>
-                  </Group>
-                  <Component id="jButton1" alignment="0" min="-2" pref="221" max="-2" attributes="0"/>
+                  <Component id="jButton1" max="32767" attributes="0"/>
+                  <Component id="vitessePanel" max="32767" attributes="0"/>
+                  <Component id="logPanel" max="32767" attributes="0"/>
+                  <Component id="ajoutPanel" max="32767" attributes="0"/>
+                  <Component id="fluxPanel" alignment="0" max="32767" attributes="0"/>
               </Group>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
-              <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="fluxPanel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="ajoutPanel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Component id="vitessePanel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                      <Component id="logPanel" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Component id="jButton1" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="rondPointPanel" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          </Group>
-                          <Component id="jSeparator1" max="32767" attributes="0"/>
-                      </Group>
+                  <Component id="jSeparator1" alignment="0" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="rondPointPanel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="aclt.genielog.rp.ihm.FluxPanel" name="fluxPanel">
-    </Component>
-    <Component class="aclt.genielog.rp.ihm.AjoutPanel" name="ajoutPanel">
-    </Component>
-    <Component class="aclt.genielog.rp.ihm.VitessePanel" name="vitessePanel">
+    <Component class="javax.swing.JSeparator" name="jSeparator1">
+      <Properties>
+        <Property name="orientation" type="int" value="1"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="jButton1">
       <Properties>
@@ -84,12 +81,15 @@
         <Property name="toolTipText" type="java.lang.String" value="Lire/Arr&#xea;ter la simulation."/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JSeparator" name="jSeparator1">
-      <Properties>
-        <Property name="orientation" type="int" value="1"/>
-      </Properties>
-    </Component>
     <Component class="aclt.genielog.rp.ihm.RondPointPanel" name="rondPointPanel">
+    </Component>
+    <Component class="aclt.genielog.rp.ihm.LogPanel" name="logPanel">
+    </Component>
+    <Component class="aclt.genielog.rp.ihm.VitessePanel" name="vitessePanel">
+    </Component>
+    <Component class="aclt.genielog.rp.ihm.AjoutPanel" name="ajoutPanel">
+    </Component>
+    <Component class="aclt.genielog.rp.ihm.FluxPanel" name="fluxPanel">
     </Component>
   </SubComponents>
 </Form>
