@@ -44,7 +44,7 @@ public class Simulateur implements AjoutVoituresListener {
 
 	/**
 	 * Vide la file d'attente d'une voie
-	 * 
+	 *
 	 * @param voie
 	 *            La voie concernée
 	 */
@@ -83,7 +83,7 @@ public class Simulateur implements AjoutVoituresListener {
 
 	/**
 	 * Choisi une voie (Nord, Sud, Est, Ouest) aléatoirement.
-	 * 
+	 *
 	 * @return Une voie choisie aléatoirement.
 	 */
 	private static VoieEnum voieAleatoire() {
@@ -109,7 +109,7 @@ public class Simulateur implements AjoutVoituresListener {
 	/**
 	 * Ajoute des voitures dans le rond point.
 	 * Si entree et sortie sont différents d'{@link VoieEnum.ALEAT}
-	 * 
+	 *
 	 * @param count
 	 *            Le nombre de voiture à inserer
 	 * @param in
