@@ -1,5 +1,7 @@
 package aclt.genielog.rp.ihm;
 
+import java.util.Observer;
+
 import javax.swing.JComponent;
 
 import aclt.genielog.rp.Simulateur;
@@ -24,6 +26,10 @@ public class SimulateurUI extends javax.swing.JFrame {
 
 	public void ajouterVoie(JComponent voie) {
 		rondPointPanel.ajouterVoie(voie);
+	}
+
+	public Observer getPanel() {
+		return rondPointPanel;
 	}
 
 	/**

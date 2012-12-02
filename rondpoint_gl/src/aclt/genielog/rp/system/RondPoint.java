@@ -1,6 +1,7 @@
 package aclt.genielog.rp.system;
 
 import java.util.ArrayList;
+import java.util.Observable;
 
 import aclt.genielog.rp.ihm.SimulateurUI;
 
@@ -10,7 +11,7 @@ import aclt.genielog.rp.ihm.SimulateurUI;
  * @author Luc Chante
  * @author Tiphaine Teyssier
  */
-public class RondPoint {
+public class RondPoint extends Observable {
 	/**
 	 * Liste des voies externes (entrée/sortie) du rond point.
 	 */
@@ -80,6 +81,8 @@ public class RondPoint {
 			voiture.addObserver(statistiques);
 		}
 		entree.entrer(voiture);
+		setChanged();
+		notifyObservers();
 		return voiture;
 	}
 
@@ -100,6 +103,8 @@ public class RondPoint {
 		for (VoieExterne voieExterne : voiesExternes) {
 			voieExterne.circule();
 		}
+		setChanged();
+		notifyObservers();
 	}
 
 	/**
@@ -112,6 +117,8 @@ public class RondPoint {
 		VoieExterne v = voiesExternes.get(voie.ordinal());
 		int taille = v.vider();
 		statistiques.vidageVoie(v, taille);
+		setChanged();
+		notifyObservers();
 	}
 
 	/**
@@ -125,9 +132,14 @@ public class RondPoint {
 			voie.vider();
 		}
 		statistiques.reset();
+		setChanged();
+		notifyObservers();
 	}
 
 	public void updateUI(SimulateurUI ui) {
+		for (VoieInterne voie : voiesInternes) {
+			ui.ajouterVoie(voie);
+		}
 		for (VoieExterne voie : voiesExternes) {
 			ui.ajouterVoie(voie);
 		}

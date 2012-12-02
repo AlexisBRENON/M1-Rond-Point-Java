@@ -1,5 +1,8 @@
 package aclt.genielog.rp.system;
 
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 
 /**
  * @author Alexis Brenon
@@ -24,6 +27,8 @@ class VoieInterne extends Voie {
 	 */
 	private Voiture[] vehicules;
 
+	private int id;
+
 	/**
 	 * Constructeur
 	 * 
@@ -33,6 +38,7 @@ class VoieInterne extends Voie {
 	 */
 	VoieInterne(int taille) {
 		super("Interne " + ID);
+		id = ID;
 		ID++;
 		vehicules = new Voiture[taille];
 	}
@@ -185,5 +191,31 @@ class VoieInterne extends Voie {
 			vehicules[i] = null;
 		}
 		return compte;
+	}
+
+	/**
+	 * Retourne la tranformation de base pour l'affichage des voitures dans cette
+	 * voie.
+	 * 
+	 * @return La tranformation minimale pour cette voie.
+	 */
+	@Override
+	public void paint(Graphics g) {
+		Graphics2D g2d = (Graphics2D) g;
+
+		double div = 4.0 * vehicules.length;
+		for (int i = 0; i < vehicules.length; i = i + 1) {
+			Voiture voiture = vehicules[i];
+			if (voiture != null) {
+				AffineTransform tx = new AffineTransform();
+				double theta = (3 - id) * Math.PI / 2.0 - (2.0 * i + 1) / div
+						* Math.PI;
+
+				tx.translate(420, 270);
+				tx.rotate(-Math.PI / 2.0, 30, 30);
+				tx.rotate(theta, 30, -120);
+				g2d.drawImage(voiture.getPicture(), tx, this);
+			}
+		}
 	}
 }

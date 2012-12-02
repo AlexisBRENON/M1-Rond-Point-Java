@@ -7,6 +7,8 @@ package aclt.genielog.rp.ihm;
 import java.awt.Graphics;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.JComponent;
 
@@ -14,7 +16,7 @@ import javax.swing.JComponent;
  * 
  * @author tiph
  */
-public class RondPointPanel extends javax.swing.JPanel {
+public class RondPointPanel extends javax.swing.JPanel implements Observer {
 
 	ArrayList<JComponent> voies = new ArrayList<JComponent>();
 
@@ -31,6 +33,11 @@ public class RondPointPanel extends javax.swing.JPanel {
 	public void ajouterVoie(JComponent voie) {
 		voies.add(voie);
 		getRootPane().add(voie);
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		repaint();
 	}
 
 	@Override
