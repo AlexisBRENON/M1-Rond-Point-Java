@@ -36,6 +36,12 @@ public class SimulateurUI extends javax.swing.JFrame {
 		});
 	}
 
+	/**
+	 * Ajoute une voie (de type JComponent) à peindre sur le rond-point.
+	 * 
+	 * @param voie
+	 *            La voie a peindre.
+	 */
 	public void ajouterVoie(JComponent voie) {
 		rondPointPanel.ajouterVoie(voie);
 	}
