@@ -1,5 +1,7 @@
 package aclt.genielog.rp.ihm;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Observer;
 
 import javax.swing.JComponent;
@@ -22,6 +24,16 @@ public class SimulateurUI extends javax.swing.JFrame {
 	 */
 	public SimulateurUI(Simulateur simulateur) {
 		initComponents();
+		jButton1.addActionListener(new ActionListener() {
+			private final String[] titles = { "Lecture", "Pause" };
+			private int status = 0;
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				status = (status + 1) % 2;
+				jButton1.setText(titles[status]);
+			}
+		});
 	}
 
 	public void ajouterVoie(JComponent voie) {
@@ -47,6 +59,10 @@ public class SimulateurUI extends javax.swing.JFrame {
 	 */
 	public void setFluxListener(Flux nord, Flux est, Flux sud, Flux ouest) {
 		fluxPanel.setListeners(nord, est, sud, ouest, null);
+		jButton1.addActionListener(nord);
+		jButton1.addActionListener(est);
+		jButton1.addActionListener(sud);
+		jButton1.addActionListener(ouest);
 	}
 
 	/**
@@ -56,8 +72,8 @@ public class SimulateurUI extends javax.swing.JFrame {
 	 *            Le listener
 	 */
 	public void setVitesseListener(Tour tour) {
-		jButton1.addActionListener(tour);
 		vitessePanel.setListeners(tour);
+		jButton1.addActionListener(tour);
 	}
 
 	/**
