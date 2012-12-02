@@ -9,6 +9,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import aclt.genielog.rp.Simulateur;
+import aclt.genielog.rp.ihm.FluxPanel.ViderVoieListener;
 import aclt.genielog.rp.system.VoieEnum;
 
 /**
@@ -17,7 +18,8 @@ import aclt.genielog.rp.system.VoieEnum;
  * @author Luc Chante
  * @author Tiphaine Teyssier
  */
-public class Flux extends PausableThread implements ChangeListener, ActionListener {
+public class Flux extends PausableThread implements ActionListener, ChangeListener,
+		ViderVoieListener {
 
 	private final VoieEnum maVoie;
 	private AtomicInteger frequence;
@@ -62,6 +64,11 @@ public class Flux extends PausableThread implements ChangeListener, ActionListen
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		togglePause();
+	}
+
+	@Override
+	public void vidagePerformed(ActionEvent e) {
+		getSimulateur().viderFileDAttente(maVoie);
 	}
 
 }
