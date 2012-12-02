@@ -86,16 +86,6 @@ public class SimulateurUI extends javax.swing.JFrame {
 		ajoutPanel.addAjoutVoituresListener(listener);
 	}
 
-	/**
-	 * Callback appelé par le panel de modification de vitesse.
-	 * 
-	 * @param vitesse
-	 *            Nouvelle vitesse de simulation
-	 */
-	public void changeVitesseSimu(int vitesse) {
-		// simulateur.changeVitesseSimu(vitesse);
-	}
-
 	public void dispLog(String s) {
 		this.logPanel.addLine(s);
 	}
