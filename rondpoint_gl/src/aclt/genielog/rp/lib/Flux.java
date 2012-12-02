@@ -50,6 +50,9 @@ public class Flux extends PausableThread implements ActionListener, ChangeListen
 		asleep(next - System.currentTimeMillis());
 	}
 
+	/**
+	 * Modification de la fréquence d'insertion des voitures.
+	 */
 	@Override
 	public void stateChanged(ChangeEvent e) {
 		JSpinner spinner = (JSpinner) e.getSource();
@@ -61,11 +64,17 @@ public class Flux extends PausableThread implements ActionListener, ChangeListen
 		}
 	}
 
+	/**
+	 * Action déclenchée quand on appuie sur "Lecture/Pause".
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		togglePause();
 	}
 
+	/**
+	 * Action déclenchée quand on appuie sur le bouton "Vider"
+	 */
 	@Override
 	public void vidagePerformed(ActionEvent e) {
 		getSimulateur().viderFileDAttente(maVoie);

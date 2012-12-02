@@ -30,11 +30,17 @@ public class Tour extends PausableThread implements ActionListener, ChangeListen
 		asleep(next - System.currentTimeMillis());
 	}
 
+	/**
+	 * Action déclenchée quand on appuie sur "Lecture/Pause".
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		togglePause();
 	}
 
+	/**
+	 * Modification de la vitesse de la simulation.
+	 */
 	@Override
 	public void stateChanged(ChangeEvent e) {
 		frequence = (Integer) ((JSpinner) e.getSource()).getValue();
