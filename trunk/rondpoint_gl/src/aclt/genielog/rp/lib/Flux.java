@@ -2,7 +2,6 @@ package aclt.genielog.rp.lib;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.swing.JSpinner;
@@ -21,7 +20,7 @@ import aclt.genielog.rp.system.VoieEnum;
 public class Flux extends PausableThread implements ChangeListener, ActionListener {
 
 	private final VoieEnum maVoie;
-	private final AtomicInteger frequence;
+	private AtomicInteger frequence;
 
 	public Flux(Simulateur simulateur, VoieEnum voie) {
 		super(simulateur);
@@ -30,37 +29,39 @@ public class Flux extends PausableThread implements ChangeListener, ActionListen
 	}
 
 	@Override
-	public void run() {
-		long start, lapse;
-		while (true) {
-			synchronized (this) {
-				while (frequence.get() < 1) {
-					try {
-						wait();
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
+	public void execute() {
+		long next;
+
+		synchronized (this) {
+			while (frequence.addAndGet(0) <= 0) {
+				try {
+					wait();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
 				}
 			}
-			start = System.nanoTime();
-			getSimulateur().actionPerformed(null, 1, maVoie, VoieEnum.ALEAT);
-			lapse = (long) ((1 / frequence.doubleValue()) * 1000);
-			pause(start, lapse, TimeUnit.MILLISECONDS);
 		}
+
+		next = System.currentTimeMillis() + 1000 / frequence.get();
+		getSimulateur().actionPerformed(null, 1, maVoie, VoieEnum.ALEAT);
+
+		asleep(next - System.currentTimeMillis());
 	}
 
 	@Override
 	public void stateChanged(ChangeEvent e) {
 		JSpinner spinner = (JSpinner) e.getSource();
-		frequence.set((Integer) spinner.getValue());
-		synchronized (this) {
-			notify();
+		frequence.getAndSet((Integer) spinner.getValue());
+		if (0 < frequence.addAndGet(0)) {
+			synchronized (this) {
+				notify();
+			}
 		}
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		getSimulateur().viderFileDAttente(maVoie);
+		togglePause();
 	}
 
 }

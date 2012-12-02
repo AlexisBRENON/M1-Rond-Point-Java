@@ -129,8 +129,8 @@ class VoieExterne extends Voie {
 		double theta;
 
 		Graphics2D g2d = (Graphics2D) g;
-		Voiture voiture = voitures.peek();
 
+		Voiture voiture = voitures.peek();
 		if (voiture != null) {
 			switch (identifiant) {
 			case NORD:
@@ -157,6 +157,7 @@ class VoieExterne extends Voie {
 				throw new IllegalArgumentException();
 			}
 
+			g2d.transform(new AffineTransform());
 			AffineTransform tx = new AffineTransform();
 			tx.translate(dx, dy);
 			tx.rotate(theta, 30, 30);
@@ -190,6 +191,7 @@ class VoieExterne extends Voie {
 				throw new IllegalArgumentException();
 			}
 
+			g2d.transform(new AffineTransform());
 			AffineTransform tx = new AffineTransform();
 			tx.translate(dx, dy);
 			tx.rotate(theta, 30, 30);

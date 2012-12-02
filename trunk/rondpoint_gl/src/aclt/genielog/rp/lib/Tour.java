@@ -2,79 +2,41 @@ package aclt.genielog.rp.lib;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicBoolean;
 
-import javax.swing.JButton;
 import javax.swing.JSpinner;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import aclt.genielog.rp.Simulateur;
 
-public class Tour extends PausableThread implements ActionListener, ItemListener,
-		ChangeListener {
+public class Tour extends PausableThread implements ActionListener, ChangeListener {
 
-	private AtomicBoolean paused = new AtomicBoolean(true);
-	private int duration = 1;
-	private TimeUnit unit = TimeUnit.SECONDS;
+	private long frequence = 1;
+	private int tour = 0;
 
 	public Tour(Simulateur simulateur) {
 		super(simulateur);
 	}
 
 	@Override
-	public void run() {
-		long start;
+	public void execute() {
+		long next;
 
-		for (long tour = 1; true; tour = tour + 1) {
+		next = System.currentTimeMillis() + 1000 / frequence;
+		tour = tour + 1;
+		Simulateur.log("Tour n°" + tour);
+		getSimulateur().tourSuivant();
 
-			if (paused.get()) {
-				synchronized (this) {
-					while (paused.get()) {
-						try {
-							wait();
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
-					}
-				}
-			}
-
-			start = System.nanoTime();
-			Simulateur.log("Tour n°" + tour);
-			getSimulateur().tourSuivant();
-
-			pause(start, duration, unit);
-		}
+		asleep(next - System.currentTimeMillis());
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (paused.getAndSet(true)) {
-			paused.getAndSet(false);
-		}
-		synchronized (this) {
-			((JButton) e.getSource()).setText(paused.get() ? "Lecture" : "Pause");
-			notify();
-		}
-	}
-
-	@Override
-	public void itemStateChanged(ItemEvent e) {
-		unit = (TimeUnit) e.getItem();
-		synchronized (this) {
-			this.interrupt();
-		}
+		togglePause();
 	}
 
 	@Override
 	public void stateChanged(ChangeEvent e) {
-		duration = (Integer) ((JSpinner) e.getSource()).getValue();
-		synchronized (this) {
-			this.interrupt();
-		}
+		frequence = (Integer) ((JSpinner) e.getSource()).getValue();
 	}
 }

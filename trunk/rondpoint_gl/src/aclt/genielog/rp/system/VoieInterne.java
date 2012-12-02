@@ -207,6 +207,7 @@ class VoieInterne extends Voie {
 		for (int i = 0; i < vehicules.length; i = i + 1) {
 			Voiture voiture = vehicules[i];
 			if (voiture != null) {
+				g2d.transform(new AffineTransform());
 				AffineTransform tx = new AffineTransform();
 				double theta = (3 - id) * Math.PI / 2.0 - (2.0 * i + 1) / div
 						* Math.PI;
