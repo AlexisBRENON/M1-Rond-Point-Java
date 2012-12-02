@@ -3,7 +3,7 @@ package aclt.genielog.rp.system;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
-import java.util.LinkedList;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
  * @author Alexis Brenon
@@ -20,10 +20,12 @@ class VoieExterne extends Voie {
 	 */
 	private VoieInterne interne;
 
+	private Voiture sortie;
+
 	/**
 	 * File d'attente des voitures.
 	 */
-	private LinkedList<Voiture> voitures = new LinkedList<Voiture>();
+	private ConcurrentLinkedQueue<Voiture> voitures = new ConcurrentLinkedQueue<Voiture>();
 
 	/**
 	 * Constructeur
@@ -44,7 +46,7 @@ class VoieExterne extends Voie {
 	 * @return
 	 */
 	boolean isFirst(Voiture v) {
-		return voitures.getFirst() == v;
+		return voitures.peek() == v;
 	}
 
 	/**
@@ -64,7 +66,7 @@ class VoieExterne extends Voie {
 	 */
 	void sort(Voiture v) {
 		v.sengager(this);
-		getParent().repaint();
+		sortie = v;
 	}
 
 	/**
@@ -73,17 +75,15 @@ class VoieExterne extends Voie {
 	@Override
 	void quitter(Voiture v) {
 		voitures.remove(v);
-		getParent().repaint();
 	}
 
 	/**
 	 * Ajoute une voiture en queue de la file d'attente.
 	 */
 	@Override
-	synchronized void entrer(Voiture v) {
-		voitures.addLast(v);
+	void entrer(Voiture v) {
+		voitures.offer(v);
 		v.sengager(this);
-		getParent().repaint();
 	}
 
 	/**
@@ -99,7 +99,7 @@ class VoieExterne extends Voie {
 			return null;
 		}
 
-		voiture = voitures.getFirst();
+		voiture = voitures.peek();
 		voiture.avancer();
 
 		return voiture;
@@ -111,10 +111,9 @@ class VoieExterne extends Voie {
 	 * @return Le nombre de voitures supprimées
 	 */
 	@Override
-	public synchronized int vider() {
+	public int vider() {
 		int taille = voitures.size();
 		voitures.clear();
-		getParent().repaint();
 		return taille;
 	}
 
@@ -126,13 +125,77 @@ class VoieExterne extends Voie {
 	 */
 	@Override
 	public void paint(Graphics g) {
-		Graphics2D g2d = (Graphics2D) g;
-		AffineTransform tx = identifiant.getBaseTransfrom();
+		int dx, dy;
+		double theta;
 
+		Graphics2D g2d = (Graphics2D) g;
 		Voiture voiture = voitures.peek();
+
 		if (voiture != null) {
-			g2d.transform(new AffineTransform());
-			g2d.drawImage(voiture.getPicture(), tx, this);
+			switch (identifiant) {
+			case NORD:
+				dx = 240;
+				dy = 30;
+				theta = Math.PI / 2.0;
+				break;
+			case OUEST:
+				dx = 30;
+				dy = 290;
+				theta = 0.0;
+				break;
+			case SUD:
+				dx = 290;
+				dy = 510;
+				theta = -Math.PI / 2.0;
+				break;
+			case EST:
+				dx = 510;
+				dy = 240;
+				theta = -Math.PI;
+				break;
+			default:
+				throw new IllegalArgumentException();
+			}
+
+			AffineTransform tx = new AffineTransform();
+			tx.translate(dx, dy);
+			tx.rotate(theta, 30, 30);
+			g2d.transform(tx);
+			g2d.drawImage(voiture.getPicture(), 0, 0, this);
+		}
+
+		if (sortie != null) {
+			switch (identifiant) {
+			case NORD:
+				dx = 290;
+				dy = 30;
+				theta = -Math.PI / 2.0;
+				break;
+			case OUEST:
+				dx = 30;
+				dy = 240;
+				theta = -Math.PI;
+				break;
+			case SUD:
+				dx = 240;
+				dy = 510;
+				theta = Math.PI / 2.0;
+				break;
+			case EST:
+				dx = 510;
+				dy = 290;
+				theta = 0.0;
+				break;
+			default:
+				throw new IllegalArgumentException();
+			}
+
+			AffineTransform tx = new AffineTransform();
+			tx.translate(dx, dy);
+			tx.rotate(theta, 30, 30);
+			g2d.transform(tx);
+			g2d.drawImage(sortie.getPicture(), 0, 0, this);
+			sortie = null;
 		}
 	}
 }

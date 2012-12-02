@@ -41,6 +41,7 @@ public class Simulateur implements AjoutVoituresListener {
 		tour = new Tour(this);
 		UI = new SimulateurUI(this);
 		rp.updateUI(UI);
+		rp.addObserver(UI.getPanel());
 	}
 
 	/**
