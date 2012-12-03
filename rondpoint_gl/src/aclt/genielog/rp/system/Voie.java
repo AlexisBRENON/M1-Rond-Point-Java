@@ -24,6 +24,15 @@ abstract class Voie extends JComponent {
 	}
 
 	/**
+	 * Prépare l'affichage concernant l'animation entre le tour précédent et le tour
+	 * suivnat.
+	 * 
+	 * @param percent
+	 *            Pourcentage d'avancement de l'animation.
+	 */
+	abstract void prePaint(double percent);
+
+	/**
 	 * Gére la circulation sur la voie pour un tour
 	 * 
 	 * @return La voiture qui sort de cette voie pour la voie suivante.

@@ -14,7 +14,10 @@ import javax.swing.JComponent;
 
 /**
  * 
- * @author tiph
+ * @author Alexis Brenon
+ * @author Cécilia Martin
+ * @author Luc Chante
+ * @author Tiphaine Teyssier
  */
 public class RondPointPanel extends javax.swing.JPanel implements Observer {
 

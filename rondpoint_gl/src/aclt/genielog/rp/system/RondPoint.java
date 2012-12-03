@@ -81,8 +81,6 @@ public class RondPoint extends Observable {
 			voiture.addObserver(statistiques);
 		}
 		entree.entrer(voiture);
-		setChanged();
-		notifyObservers();
 		return voiture;
 	}
 
@@ -93,15 +91,33 @@ public class RondPoint extends Observable {
 		Voiture voitureDeTete = null;
 		Voiture temp;
 
-		for (VoieInterne voieInterne : voiesInternes) {
+		for (VoieInterne voie : voiesInternes) {
+			voie.prePaint(1.0);
 			temp = voitureDeTete;
-			voitureDeTete = voieInterne.circule();
-			voieInterne.entrer(temp);
+			voitureDeTete = voie.circule();
+			voie.entrer(temp);
 		}
 		voiesInternes.get(0).entrer(voitureDeTete);
 
-		for (VoieExterne voieExterne : voiesExternes) {
-			voieExterne.circule();
+		for (VoieExterne voie : voiesExternes) {
+			voie.prePaint(1.0);
+			voie.circule();
+		}
+		setChanged();
+		notifyObservers();
+	}
+
+	/**
+	 * Déclenche la circulation des voitures sur les voies internes.
+	 */
+	public void tourSuivant(double percent) {
+
+		for (VoieInterne voie : voiesInternes) {
+			voie.prePaint(percent);
+		}
+
+		for (VoieExterne voie : voiesExternes) {
+			voie.prePaint(percent);
 		}
 		setChanged();
 		notifyObservers();

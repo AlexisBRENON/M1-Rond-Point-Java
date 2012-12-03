@@ -8,6 +8,14 @@ import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
+/**
+ * Class des statistiques du rond-point.
+ * 
+ * @author Alexis Brenon
+ * @author Cécilia Martin
+ * @author Luc Chante
+ * @author Tiphaine Teyssier
+ */
 public class Stats implements Observer {
 
 	private final HashMap<VoieExterne, AtomicInteger> voituresEnAttentes;

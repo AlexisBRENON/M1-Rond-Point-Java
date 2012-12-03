@@ -15,7 +15,10 @@ import aclt.genielog.rp.lib.Tour;
  * Fenêtre principale de l'application.
  * C'est l'agrégat de tous nos Panel et de quelques composants simples.
  * 
- * @author alexis
+ * @author Alexis Brenon
+ * @author Cécilia Martin
+ * @author Luc Chante
+ * @author Tiphaine Teyssier
  */
 public class SimulateurUI extends javax.swing.JFrame {
 

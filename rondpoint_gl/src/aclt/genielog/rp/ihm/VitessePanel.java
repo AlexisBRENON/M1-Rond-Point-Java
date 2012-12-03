@@ -8,7 +8,10 @@ import aclt.genielog.rp.lib.Tour;
  * Il s'agit d'un componsant graphique regroupant tous les items utilisés
  * pour gérer la vitesse de la simulation.
  * 
- * @author alexis
+ * @author Alexis Brenon
+ * @author Cécilia Martin
+ * @author Luc Chante
+ * @author Tiphaine Teyssier
  */
 public class VitessePanel extends javax.swing.JPanel {
 
