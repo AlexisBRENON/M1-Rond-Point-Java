@@ -8,8 +8,11 @@ import aclt.genielog.rp.system.VoieEnum;
 /**
  * Il s'agit d'un componsant graphique regroupant tous les items utilisés
  * pour gérer l'ajout de voitures dans la simulation.
- *
- * @author alexis
+ * 
+ * @author Alexis Brenon
+ * @author Cécilia Martin
+ * @author Luc Chante
+ * @author Tiphaine Teyssier
  */
 public class AjoutPanel extends javax.swing.JPanel {
 
@@ -34,41 +37,44 @@ public class AjoutPanel extends javax.swing.JPanel {
 	 */
 	@SuppressWarnings("unchecked")
 	// <editor-fold defaultstate="collapsed"
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+	// <editor-fold defaultstate="collapsed"
+	// desc="Generated Code">//GEN-BEGIN:initComponents
+	private void initComponents() {
 
-        titreLabel = new javax.swing.JLabel();
-        nombreLabel = new javax.swing.JLabel();
-        nombreSpinner = new javax.swing.JSpinner();
-        entreeLabel = new javax.swing.JLabel();
-        entreeComboBox = new javax.swing.JComboBox();
-        sortieLabel = new javax.swing.JLabel();
-        sortieComboBox = new javax.swing.JComboBox();
-        ajouterButton = new javax.swing.JButton();
-        jSeparator1 = new javax.swing.JSeparator();
+		titreLabel = new javax.swing.JLabel();
+		nombreLabel = new javax.swing.JLabel();
+		nombreSpinner = new javax.swing.JSpinner();
+		entreeLabel = new javax.swing.JLabel();
+		entreeComboBox = new javax.swing.JComboBox();
+		sortieLabel = new javax.swing.JLabel();
+		sortieComboBox = new javax.swing.JComboBox();
+		ajouterButton = new javax.swing.JButton();
+		jSeparator1 = new javax.swing.JSeparator();
 
-        titreLabel.setText("Ajouter des voitures");
+		titreLabel.setText("Ajouter des voitures");
 
-        nombreLabel.setText("Nombre :");
+		nombreLabel.setText("Nombre :");
 
-        nombreSpinner.setModel(new javax.swing.SpinnerNumberModel(1, 1, 100, 1));
-        nombreSpinner.setToolTipText("Nombre de voitures à ajouter.");
+		nombreSpinner.setModel(new javax.swing.SpinnerNumberModel(1, 1, 100, 1));
+		nombreSpinner.setToolTipText("Nombre de voitures à ajouter.");
 
-        entreeLabel.setText("Entrée :");
+		entreeLabel.setText("Entrée :");
 
-        entreeComboBox.setModel(new javax.swing.DefaultComboBoxModel(VoieEnum.values()));
-        entreeComboBox.setSelectedItem(VoieEnum.ALEAT);
-        entreeComboBox.setToolTipText("Voie d'entrée des voitures ajoutées.");
+		entreeComboBox.setModel(new javax.swing.DefaultComboBoxModel(VoieEnum
+				.values()));
+		entreeComboBox.setSelectedItem(VoieEnum.ALEAT);
+		entreeComboBox.setToolTipText("Voie d'entrée des voitures ajoutées.");
 
-        sortieLabel.setText("Sortie :");
+		sortieLabel.setText("Sortie :");
 
-        sortieComboBox.setModel(new javax.swing.DefaultComboBoxModel(VoieEnum.values()));
-        sortieComboBox.setSelectedItem(VoieEnum.ALEAT);
-        sortieComboBox.setToolTipText("Voie de sortie des voitures ajoutées.");
+		sortieComboBox.setModel(new javax.swing.DefaultComboBoxModel(VoieEnum
+				.values()));
+		sortieComboBox.setSelectedItem(VoieEnum.ALEAT);
+		sortieComboBox.setToolTipText("Voie de sortie des voitures ajoutées.");
 
-        ajouterButton.setText("Ajouter");
-        ajouterButton.setToolTipText("Ajouter les voitures.");
-        ajouterButton.addActionListener(new java.awt.event.ActionListener() {
+		ajouterButton.setText("Ajouter");
+		ajouterButton.setToolTipText("Ajouter les voitures.");
+		ajouterButton.addActionListener(new java.awt.event.ActionListener() {
 			@Override
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				if (listener != null) {
@@ -81,47 +87,85 @@ public class AjoutPanel extends javax.swing.JPanel {
 			}
 		});
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(ajouterButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(nombreLabel)
-                    .addComponent(entreeLabel)
-                    .addComponent(sortieLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(sortieComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(nombreSpinner)
-                    .addComponent(entreeComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-            .addComponent(titreLabel)
-            .addComponent(jSeparator1)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(titreLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nombreLabel)
-                    .addComponent(nombreSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(entreeLabel)
-                    .addComponent(entreeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(sortieLabel)
-                    .addComponent(sortieComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ajouterButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-    }// </editor-fold>//GEN-END:initComponents
+		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+		this.setLayout(layout);
+		layout.setHorizontalGroup(layout
+				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addComponent(ajouterButton, javax.swing.GroupLayout.DEFAULT_SIZE,
+						javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+				.addGroup(
+						layout.createSequentialGroup()
+								.addGap(12, 12, 12)
+								.addGroup(
+										layout.createParallelGroup(
+												javax.swing.GroupLayout.Alignment.LEADING)
+												.addComponent(nombreLabel)
+												.addComponent(entreeLabel)
+												.addComponent(sortieLabel))
+								.addPreferredGap(
+										javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+								.addGroup(
+										layout.createParallelGroup(
+												javax.swing.GroupLayout.Alignment.LEADING)
+												.addComponent(
+														sortieComboBox,
+														0,
+														javax.swing.GroupLayout.DEFAULT_SIZE,
+														Short.MAX_VALUE)
+												.addComponent(nombreSpinner)
+												.addComponent(
+														entreeComboBox,
+														0,
+														javax.swing.GroupLayout.DEFAULT_SIZE,
+														Short.MAX_VALUE)))
+				.addComponent(titreLabel).addComponent(jSeparator1));
+		layout.setVerticalGroup(layout
+				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGroup(
+						layout.createSequentialGroup()
+								.addComponent(titreLabel)
+								.addPreferredGap(
+										javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+								.addGroup(
+										layout.createParallelGroup(
+												javax.swing.GroupLayout.Alignment.BASELINE)
+												.addComponent(nombreLabel)
+												.addComponent(
+														nombreSpinner,
+														javax.swing.GroupLayout.PREFERRED_SIZE,
+														javax.swing.GroupLayout.DEFAULT_SIZE,
+														javax.swing.GroupLayout.PREFERRED_SIZE))
+								.addPreferredGap(
+										javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+								.addGroup(
+										layout.createParallelGroup(
+												javax.swing.GroupLayout.Alignment.BASELINE)
+												.addComponent(entreeLabel)
+												.addComponent(
+														entreeComboBox,
+														javax.swing.GroupLayout.PREFERRED_SIZE,
+														javax.swing.GroupLayout.DEFAULT_SIZE,
+														javax.swing.GroupLayout.PREFERRED_SIZE))
+								.addPreferredGap(
+										javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+								.addGroup(
+										layout.createParallelGroup(
+												javax.swing.GroupLayout.Alignment.TRAILING)
+												.addComponent(sortieLabel)
+												.addComponent(
+														sortieComboBox,
+														javax.swing.GroupLayout.PREFERRED_SIZE,
+														javax.swing.GroupLayout.DEFAULT_SIZE,
+														javax.swing.GroupLayout.PREFERRED_SIZE))
+								.addPreferredGap(
+										javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+								.addComponent(ajouterButton)
+								.addPreferredGap(
+										javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+								.addComponent(jSeparator1,
+										javax.swing.GroupLayout.PREFERRED_SIZE, 10,
+										javax.swing.GroupLayout.PREFERRED_SIZE)));
+	}// </editor-fold>//GEN-END:initComponents
 
 	private void ajouterButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_ajouterButtonActionPerformed
 		if (nombreSpinner.getValue() instanceof Integer
@@ -134,17 +178,18 @@ public class AjoutPanel extends javax.swing.JPanel {
 		}
 	}// GEN-LAST:event_ajouterButtonActionPerformed
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton ajouterButton;
-    private javax.swing.JComboBox entreeComboBox;
-    private javax.swing.JLabel entreeLabel;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JLabel nombreLabel;
-    private javax.swing.JSpinner nombreSpinner;
-    private javax.swing.JComboBox sortieComboBox;
-    private javax.swing.JLabel sortieLabel;
-    private javax.swing.JLabel titreLabel;
-    // End of variables declaration//GEN-END:variables
+	// Variables declaration - do not modify//GEN-BEGIN:variables
+	private javax.swing.JButton ajouterButton;
+	private javax.swing.JComboBox entreeComboBox;
+	private javax.swing.JLabel entreeLabel;
+	private javax.swing.JSeparator jSeparator1;
+	private javax.swing.JLabel nombreLabel;
+	private javax.swing.JSpinner nombreSpinner;
+	private javax.swing.JComboBox sortieComboBox;
+	private javax.swing.JLabel sortieLabel;
+	private javax.swing.JLabel titreLabel;
+
+	// End of variables declaration//GEN-END:variables
 
 	public interface AjoutVoituresListener extends EventListener {
 		public void actionPerformed(ActionEvent evt, int count, VoieEnum in,

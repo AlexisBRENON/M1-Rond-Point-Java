@@ -9,7 +9,10 @@ import aclt.genielog.rp.lib.Flux;
  * Il s'agit d'un componsant graphique regroupant tous les items utilisés
  * pour gérer les flux de voitures dans la simulation.
  * 
- * @author alexis
+ * @author Alexis Brenon
+ * @author Cécilia Martin
+ * @author Luc Chante
+ * @author Tiphaine Teyssier
  */
 public class FluxPanel extends javax.swing.JPanel {
 	public FluxPanel() {

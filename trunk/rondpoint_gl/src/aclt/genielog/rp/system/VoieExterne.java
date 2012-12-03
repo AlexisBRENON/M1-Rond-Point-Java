@@ -118,6 +118,23 @@ class VoieExterne extends Voie {
 	}
 
 	/**
+	 * Variable telporaire pour l'affichage de l'animation.
+	 */
+	private double percent = 1.0;
+
+	/**
+	 * Prépare l'affichage concernant l'animation entre le tour précédent et le tour
+	 * suivnat.
+	 * 
+	 * @param percent
+	 *            Pourcentage d'avancement de l'animation.
+	 */
+	@Override
+	public void prePaint(double percent) {
+		this.percent = percent;
+	}
+
+	/**
 	 * Retourne la tranformation de base pour l'affichage des voitures dans cette
 	 * voie.
 	 * 
@@ -135,21 +152,21 @@ class VoieExterne extends Voie {
 			switch (identifiant) {
 			case NORD:
 				dx = 240;
-				dy = 30;
+				dy = (int) Math.round(30.0 - 90.0 * (1.0 - percent));
 				theta = Math.PI / 2.0;
 				break;
 			case OUEST:
-				dx = 30;
+				dx = (int) Math.round(30.0 - 90.0 * (1.0 - percent));
 				dy = 290;
 				theta = 0.0;
 				break;
 			case SUD:
 				dx = 290;
-				dy = 510;
+				dy = (int) Math.round(510.0 + 90.0 * (1.0 - percent));
 				theta = -Math.PI / 2.0;
 				break;
 			case EST:
-				dx = 510;
+				dx = (int) Math.round(510.0 + 90.0 * (1.0 - percent));
 				dy = 240;
 				theta = -Math.PI;
 				break;

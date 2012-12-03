@@ -17,24 +17,50 @@ public abstract class PausableThread extends Thread {
 		return simulateur;
 	}
 
+	/**
+	 * Méthode à implémenter à la place de {@link Thread.run}.
+	 */
 	protected abstract void execute();
 
+	/**
+	 * Execute le Thread de manière continue.
+	 */
 	@Override
 	public final void run() {
 		while (true) {
-			synchronized (this) {
-				while (paused.get()) {
-					try {
-						wait();
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-				}
-			}
+			idle();
 			execute();
 		}
 	}
 
+	/**
+	 * Met le Thread en pause.
+	 * 
+	 * @link Thread.wait
+	 * @link Thread.notify
+	 */
+	protected final synchronized void idle() {
+		while (paused.get()) {
+			try {
+				wait();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	/**
+	 * Test si le Thread est en pause.
+	 * 
+	 * @return true si le Thread est en pause, false sinon.
+	 */
+	public final boolean paused() {
+		return paused.compareAndSet(true, true);
+	}
+
+	/**
+	 * Met en pause le Thread.
+	 */
 	public final void pause() {
 		if (paused.compareAndSet(false, true)) {
 			synchronized (this) {
@@ -43,6 +69,9 @@ public abstract class PausableThread extends Thread {
 		}
 	}
 
+	/**
+	 * Relance le Thread.
+	 */
 	public final void unpause() {
 		if (paused.compareAndSet(true, false)) {
 			synchronized (this) {
@@ -51,6 +80,11 @@ public abstract class PausableThread extends Thread {
 		}
 	}
 
+	/**
+	 * Inverse l'état de pause du Thread.
+	 * 
+	 * @return true si le Thread passe en pause, false sinon.
+	 */
 	public final boolean togglePause() {
 		if (paused.getAndSet(true)) {
 			paused.getAndSet(false);
@@ -61,6 +95,12 @@ public abstract class PausableThread extends Thread {
 		return paused.get();
 	}
 
+	/**
+	 * Met le Thread en attente pendant un temps donné.
+	 * 
+	 * @param milliseconds
+	 *            Le nombre milliseconds d'attente.
+	 */
 	public void asleep(long milliseconds) {
 		long next = System.currentTimeMillis() + milliseconds;
 		while (System.currentTimeMillis() < next) {

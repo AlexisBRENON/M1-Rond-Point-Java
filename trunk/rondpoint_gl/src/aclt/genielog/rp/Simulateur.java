@@ -62,6 +62,13 @@ public class Simulateur implements AjoutVoituresListener {
 	}
 
 	/**
+	 * Déclenche le tour suivant.
+	 */
+	public void tourSuivant(double percent) {
+		rp.tourSuivant(percent);
+	}
+
+	/**
 	 * Démarre la simulation.
 	 */
 	public void lancer() {

@@ -194,6 +194,23 @@ class VoieInterne extends Voie {
 	}
 
 	/**
+	 * Variable telporaire pour l'affichage de l'animation.
+	 */
+	private double percent = 1.0;
+
+	/**
+	 * Prépare l'affichage concernant l'animation entre le tour précédent et le tour
+	 * suivnat.
+	 * 
+	 * @param percent
+	 *            Pourcentage d'avancement de l'animation.
+	 */
+	@Override
+	public void prePaint(double percent) {
+		this.percent = percent;
+	}
+
+	/**
 	 * Retourne la tranformation de base pour l'affichage des voitures dans cette
 	 * voie.
 	 * 
@@ -209,7 +226,7 @@ class VoieInterne extends Voie {
 			if (voiture != null) {
 				g2d.transform(new AffineTransform());
 				AffineTransform tx = new AffineTransform();
-				double theta = (3 - id) * Math.PI / 2.0 - (2.0 * i + 1) / div
+				double theta = (3 - id) * Math.PI / 2.0 - 2.0 * (i + percent) / div
 						* Math.PI;
 
 				tx.translate(420, 270);
