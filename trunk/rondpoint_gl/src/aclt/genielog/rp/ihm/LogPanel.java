@@ -5,7 +5,7 @@
 package aclt.genielog.rp.ihm;
 
 /**
- * 
+ *
  * @author Alexis Brenon
  * @author Cécilia Martin
  * @author Luc Chante
@@ -22,6 +22,7 @@ public class LogPanel extends javax.swing.JPanel {
 
 	public void addLine(String s) {
 		logArea.append(s);
+                logArea.setCaretPosition(logArea.getDocument().getLength());
 	}
 
 	/**
@@ -31,39 +32,38 @@ public class LogPanel extends javax.swing.JPanel {
 	 */
 	@SuppressWarnings("unchecked")
 	// <editor-fold defaultstate="collapsed"
-	// desc="Generated Code">//GEN-BEGIN:initComponents
-	private void initComponents() {
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
 
-		jScrollPane1 = new javax.swing.JScrollPane();
-		logArea = new javax.swing.JTextArea();
-		jSeparator1 = new javax.swing.JSeparator();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        logArea = new javax.swing.JTextArea();
+        jSeparator1 = new javax.swing.JSeparator();
 
-		logArea.setEditable(false);
-		logArea.setColumns(20);
-		logArea.setLineWrap(true);
-		logArea.setRows(5);
-		jScrollPane1.setViewportView(logArea);
+        logArea.setEditable(false);
+        logArea.setColumns(20);
+        logArea.setLineWrap(true);
+        logArea.setRows(5);
+        logArea.setWrapStyleWord(true);
+        jScrollPane1.setViewportView(logArea);
 
-		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-		this.setLayout(layout);
-		layout.setHorizontalGroup(layout
-				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE,
-						238, Short.MAX_VALUE).addComponent(jSeparator1));
-		layout.setVerticalGroup(layout.createParallelGroup(
-				javax.swing.GroupLayout.Alignment.LEADING).addGroup(
-				layout.createSequentialGroup()
-						.addComponent(jScrollPane1)
-						.addPreferredGap(
-								javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-						.addComponent(jSeparator1,
-								javax.swing.GroupLayout.PREFERRED_SIZE, 10,
-								javax.swing.GroupLayout.PREFERRED_SIZE)));
-	}// </editor-fold>//GEN-END:initComponents
-		// Variables declaration - do not modify//GEN-BEGIN:variables
-
-	private javax.swing.JScrollPane jScrollPane1;
-	private javax.swing.JSeparator jSeparator1;
-	private javax.swing.JTextArea logArea;
-	// End of variables declaration//GEN-END:variables
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
+            .addComponent(jSeparator1)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jScrollPane1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+    }// </editor-fold>//GEN-END:initComponents
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JTextArea logArea;
+    // End of variables declaration//GEN-END:variables
 }
