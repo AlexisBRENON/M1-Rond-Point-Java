@@ -5,8 +5,8 @@ import java.util.Random;
 
 import javax.swing.UIManager;
 
-import aclt.genielog.rp.ihm.AjoutPanel.AjoutVoituresListener;
 import aclt.genielog.rp.ihm.SimulateurUI;
+import aclt.genielog.rp.ihm.AjoutPanel.AjoutVoituresListener;
 import aclt.genielog.rp.lib.Flux;
 import aclt.genielog.rp.lib.Tour;
 import aclt.genielog.rp.system.RondPoint;
@@ -20,6 +20,19 @@ import aclt.genielog.rp.system.VoieEnum;
  */
 public class Simulateur implements AjoutVoituresListener {
 
+	private static Simulateur instance;
+
+	public static Simulateur singleton() {
+		return singleton(1);
+	}
+
+	public static Simulateur singleton(int taille) {
+		if (instance == null) {
+			instance = new Simulateur(taille);
+		}
+		return instance;
+	}
+
 	private static final Random random = new Random(System.nanoTime());
 
 	/**
@@ -31,7 +44,7 @@ public class Simulateur implements AjoutVoituresListener {
 
 	private final Tour tour;
 
-	public Simulateur(int taille) {
+	private Simulateur(int taille) {
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (Exception e) {
@@ -46,42 +59,43 @@ public class Simulateur implements AjoutVoituresListener {
 
 	/**
 	 * Vide la file d'attente d'une voie
-	 * 
+	 *
 	 * @param voie
 	 *            La voie concernée
 	 */
-	public void viderFileDAttente(VoieEnum voie) {
-		rp.viderFile(voie);
+	public static void viderFileDAttente(VoieEnum voie) {
+		singleton().rp.viderFile(voie);
 	}
 
 	/**
 	 * Déclenche le tour suivant.
 	 */
-	public void tourSuivant() {
-		rp.tourSuivant();
+	public static void tourSuivant() {
+		singleton().rp.tourSuivant();
 	}
 
 	/**
 	 * Déclenche le tour suivant.
 	 */
-	public void tourSuivant(double percent) {
-		rp.tourSuivant(percent);
+	public static void tourSuivant(double percent) {
+		singleton().rp.tourSuivant(percent);
 	}
 
 	/**
 	 * Démarre la simulation.
 	 */
-	public void lancer() {
-		UI.setVisible(true);
-		tour.start();
+	public static void lancer() {
+		Simulateur simulateur = singleton();
+		simulateur.UI.setVisible(true);
+		simulateur.tour.start();
 
-		Flux nord = new Flux(this, VoieEnum.NORD);
-		Flux est = new Flux(this, VoieEnum.EST);
-		Flux sud = new Flux(this, VoieEnum.SUD);
-		Flux ouest = new Flux(this, VoieEnum.OUEST);
-		UI.setFluxListener(nord, est, sud, ouest);
-		UI.setVitesseListener(tour);
-		UI.setAjoutVoituresListener(this);
+		Flux nord = new Flux(simulateur, VoieEnum.NORD);
+		Flux est = new Flux(simulateur, VoieEnum.EST);
+		Flux sud = new Flux(simulateur, VoieEnum.SUD);
+		Flux ouest = new Flux(simulateur, VoieEnum.OUEST);
+		simulateur.UI.setFluxListener(nord, est, sud, ouest);
+		simulateur.UI.setVitesseListener(simulateur.tour);
+		simulateur.UI.setAjoutVoituresListener(simulateur);
 
 		nord.start();
 		est.start();
@@ -92,7 +106,7 @@ public class Simulateur implements AjoutVoituresListener {
 
 	/**
 	 * Choisi une voie (Nord, Sud, Est, Ouest) aléatoirement.
-	 * 
+	 *
 	 * @return Une voie choisie aléatoirement.
 	 */
 	private static VoieEnum voieAleatoire() {
@@ -118,7 +132,7 @@ public class Simulateur implements AjoutVoituresListener {
 	/**
 	 * Ajoute des voitures dans le rond point.
 	 * Si entree et sortie sont différents d'{@link VoieEnum.ALEAT}
-	 * 
+	 *
 	 * @param count
 	 *            Le nombre de voiture à inserer
 	 * @param in
@@ -147,11 +161,11 @@ public class Simulateur implements AjoutVoituresListener {
 
 	public static void log(String s) {
 		synchronized (random) {
-			System.out.println(s);
+			singleton().UI.dispLog(s + "\n");
 		}
 	}
 
 	public static void main(String argv[]) {
-		new Simulateur(1).lancer();
+		Simulateur.singleton(1).lancer();
 	}
 }

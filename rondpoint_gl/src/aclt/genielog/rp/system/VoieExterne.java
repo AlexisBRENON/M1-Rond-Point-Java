@@ -29,7 +29,7 @@ class VoieExterne extends Voie {
 
 	/**
 	 * Constructeur
-	 * 
+	 *
 	 * @param v
 	 *            La voie interne à laquelle cette voie est reliée.
 	 */
@@ -41,7 +41,7 @@ class VoieExterne extends Voie {
 
 	/**
 	 * Indique si la voiture est la premiere sur la voie
-	 * 
+	 *
 	 * @param v
 	 * @return
 	 */
@@ -51,7 +51,7 @@ class VoieExterne extends Voie {
 
 	/**
 	 * Retoune la voie interne accessible par cette voie.
-	 * 
+	 *
 	 * @return La voie interne du rond-point accessible.
 	 */
 	VoieInterne getVoieInterne() {
@@ -60,7 +60,7 @@ class VoieExterne extends Voie {
 
 	/**
 	 * Déclenche la sortie du rond-point par cette voie pour une voiture.
-	 * 
+	 *
 	 * @param v
 	 *            La voiture qui sort du rond-point.
 	 */
@@ -88,7 +88,7 @@ class VoieExterne extends Voie {
 
 	/**
 	 * Déclenche l'avancement de la voiture en tête de file.
-	 * 
+	 *
 	 * @return La voiture qui sort de cette voie et entre dans le rond-point.
 	 */
 	@Override
@@ -107,7 +107,7 @@ class VoieExterne extends Voie {
 
 	/**
 	 * Vide complètement la voie.
-	 * 
+	 *
 	 * @return Le nombre de voitures supprimées
 	 */
 	@Override
@@ -125,7 +125,7 @@ class VoieExterne extends Voie {
 	/**
 	 * Prépare l'affichage concernant l'animation entre le tour précédent et le tour
 	 * suivnat.
-	 * 
+	 *
 	 * @param percent
 	 *            Pourcentage d'avancement de l'animation.
 	 */
@@ -137,7 +137,7 @@ class VoieExterne extends Voie {
 	/**
 	 * Retourne la tranformation de base pour l'affichage des voitures dans cette
 	 * voie.
-	 * 
+	 *
 	 * @return La tranformation minimale pour cette voie.
 	 */
 	@Override
@@ -186,21 +186,21 @@ class VoieExterne extends Voie {
 			switch (identifiant) {
 			case NORD:
 				dx = 290;
-				dy = 30;
+				dy = 30 - (int)Math.round(90.0 * percent);
 				theta = -Math.PI / 2.0;
 				break;
 			case OUEST:
-				dx = 30;
+				dx = 30 - (int)Math.round(90.0 * percent);
 				dy = 240;
 				theta = -Math.PI;
 				break;
 			case SUD:
 				dx = 240;
-				dy = 510;
+				dy = 510 + (int)Math.round(90.0 * percent);
 				theta = Math.PI / 2.0;
 				break;
 			case EST:
-				dx = 510;
+				dx = 510 + (int)Math.round(90.0 * percent);
 				dy = 290;
 				theta = 0.0;
 				break;
@@ -208,13 +208,10 @@ class VoieExterne extends Voie {
 				throw new IllegalArgumentException();
 			}
 
-			g2d.transform(new AffineTransform());
 			AffineTransform tx = new AffineTransform();
 			tx.translate(dx, dy);
 			tx.rotate(theta, 30, 30);
-			g2d.transform(tx);
-			g2d.drawImage(sortie.getPicture(), 0, 0, this);
-			sortie = null;
+			g2d.drawImage(sortie.getPicture(), tx, this);
 		}
 	}
 }

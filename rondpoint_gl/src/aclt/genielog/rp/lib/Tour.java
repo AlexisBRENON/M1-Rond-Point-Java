@@ -27,11 +27,11 @@ public class Tour extends PausableThread implements ActionListener, ChangeListen
 		tour = tour + 1;
 		Simulateur.log("Tour n°" + tour);
 
-		for (double i = 0.0; i < 1.0; i = i + step) {
+		/*for (double i = 0.0; i < 1.0; i = i + step) {
 			idle();
 			getSimulateur().tourSuivant(i);
 			asleep(Math.round(step * 1000));
-		}
+		}*/
 		getSimulateur().tourSuivant();
 
 		asleep(next - System.currentTimeMillis());
