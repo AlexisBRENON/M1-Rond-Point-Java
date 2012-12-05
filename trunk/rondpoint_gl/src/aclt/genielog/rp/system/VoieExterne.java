@@ -135,9 +135,17 @@ class VoieExterne extends Voie implements ActionListener, Circulable {
 	 */
 	@Override
 	public void prePaint(double percent) {
-		this.percent = percent;
+		if (circule instanceof VoieArretee) {
+			this.percent = 1.0;
+		}
+		else {
+			this.percent = percent;
+		}
 	}
 
+	/**
+	 * Exécuté à la fin d'un tour complet d'affichage.
+	 */
 	public void postPaint() {
 		sortie[1] = sortie[0];
 		sortie[0] = null;
