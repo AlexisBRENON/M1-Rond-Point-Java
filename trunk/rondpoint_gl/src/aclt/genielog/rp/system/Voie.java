@@ -12,7 +12,7 @@ import javax.swing.JComponent;
  * @author Luc Chante
  * @author Tiphaine Teyssier
  */
-abstract class Voie extends JComponent {
+abstract class Voie extends JComponent implements Circulable {
 
 	/**
 	 * Le nom de la voie (utile pour les logs de fonctionnement).
@@ -31,13 +31,6 @@ abstract class Voie extends JComponent {
 	 *            Pourcentage d'avancement de l'animation.
 	 */
 	abstract void prePaint(double percent);
-
-	/**
-	 * Gére la circulation sur la voie pour un tour
-	 *
-	 * @return La voiture qui sort de cette voie pour la voie suivante.
-	 */
-	abstract Voiture circule();
 
 	/**
 	 * Insère une voiture sur la voie
@@ -65,9 +58,5 @@ abstract class Voie extends JComponent {
 	@Override
 	public String toString() {
 		return "Voie " + name;
-	}
-
-	public interface Circulable {
-		Voiture circule();
 	}
 }
