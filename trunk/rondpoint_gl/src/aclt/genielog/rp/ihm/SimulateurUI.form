@@ -29,9 +29,9 @@
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="rondPointPanel" max="32767" attributes="0"/>
                   <Component id="jSeparator2" max="32767" attributes="0"/>
-                  <Component id="statPanel" max="32767" attributes="0"/>
+                  <Component id="statPanel" alignment="0" min="-2" pref="600" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="jSeparator1" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
