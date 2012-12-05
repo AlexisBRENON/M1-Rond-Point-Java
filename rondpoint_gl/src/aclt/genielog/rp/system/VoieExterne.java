@@ -70,6 +70,10 @@ class VoieExterne extends Voie implements ActionListener, Circulable {
 		return interne;
 	}
 
+        VoieEnum getEnum() {
+            return identifiant;
+        }
+
 	/**
 	 * Déclenche la sortie du rond-point par cette voie pour une voiture.
 	 *

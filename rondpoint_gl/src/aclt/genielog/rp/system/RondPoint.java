@@ -34,14 +34,17 @@ public class RondPoint extends Observable {
 		int j, i;
 		VoieInterne vi, suivante;
 		VoieExterne sortie;
+                ArrayList<VoieEnum> voiesEnum;
 
 		voiesExternes = new ArrayList<VoieExterne>();
 		voiesInternes = new ArrayList<VoieInterne>();
+                voiesEnum = new ArrayList<VoieEnum>();
 
 		for (i = 0; i < 4; i = i + 1) {
 			vi = new VoieInterne(taille);
 			voiesInternes.add(vi);
 			voiesExternes.add(new VoieExterne(VoieEnum.values()[i], vi));
+                        voiesEnum.add(VoieEnum.values()[i]);
 		}
 
 		for (i = 0; i < 4; i = i + 1) {
@@ -50,7 +53,7 @@ public class RondPoint extends Observable {
 			sortie = voiesExternes.get(j);
 			voiesInternes.get(i).config(suivante, sortie);
 		}
-		statistiques = new Stats(voiesExternes);
+		statistiques = new Stats(voiesEnum);
 	}
 
 	/**
@@ -132,7 +135,7 @@ public class RondPoint extends Observable {
 	public void viderFile(VoieEnum voie) {
 		VoieExterne v = voiesExternes.get(voie.ordinal());
 		int taille = v.vider();
-		statistiques.vidageVoie(v, taille);
+		statistiques.vidageVoie(voie, taille);
 		setChanged();
 		notifyObservers();
 	}
@@ -153,6 +156,7 @@ public class RondPoint extends Observable {
 	}
 
 	public void updateUI(SimulateurUI ui) {
+                addObserver(ui);
 		for (VoieInterne voie : voiesInternes) {
 			ui.ajouterVoie(voie);
 			ui.ajouterAccidentListener(voie);

@@ -10,7 +10,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * Class des statistiques du rond-point.
- * 
+ *
  * @author Alexis Brenon
  * @author Cécilia Martin
  * @author Luc Chante
@@ -18,22 +18,22 @@ import java.util.concurrent.atomic.AtomicLong;
  */
 public class Stats implements Observer {
 
-	private final HashMap<VoieExterne, AtomicInteger> voituresEnAttentes;
-	private final HashMap<VoieExterne, AtomicLong> attenteParVoie;
-	private final HashMap<VoieExterne, AtomicInteger> voituresEngageesParVoies;
-	private final HashMap<VoieExterne, AtomicInteger> voituresEntrees;
-	private final HashMap<VoieExterne, AtomicInteger> voituresSorties;
+	private final HashMap<VoieEnum, AtomicInteger> voituresEnAttentes;
+	private final HashMap<VoieEnum, AtomicLong> attenteParVoie;
+	private final HashMap<VoieEnum, AtomicInteger> voituresEngageesParVoies;
+	private final HashMap<VoieEnum, AtomicInteger> voituresEntrees;
+	private final HashMap<VoieEnum, AtomicInteger> voituresSorties;
 	private final AtomicInteger voituresEngagees;
 
-	Stats(Collection<VoieExterne> voies) {
-		voituresEnAttentes = new HashMap<VoieExterne, AtomicInteger>();
-		attenteParVoie = new HashMap<VoieExterne, AtomicLong>();
-		voituresEngageesParVoies = new HashMap<VoieExterne, AtomicInteger>();
-		voituresEntrees = new HashMap<VoieExterne, AtomicInteger>();
-		voituresSorties = new HashMap<VoieExterne, AtomicInteger>();
+	Stats(Collection<VoieEnum> voies) {
+		voituresEnAttentes = new HashMap<VoieEnum, AtomicInteger>();
+		attenteParVoie = new HashMap<VoieEnum, AtomicLong>();
+		voituresEngageesParVoies = new HashMap<VoieEnum, AtomicInteger>();
+		voituresEntrees = new HashMap<VoieEnum, AtomicInteger>();
+		voituresSorties = new HashMap<VoieEnum, AtomicInteger>();
 		voituresEngagees = new AtomicInteger(0);
 
-		for (VoieExterne voie : voies) {
+		for (VoieEnum voie : voies) {
 			voituresEnAttentes.put(voie, new AtomicInteger(0));
 			attenteParVoie.put(voie, new AtomicLong(0));
 			voituresEngageesParVoies.put(voie, new AtomicInteger(0));
@@ -45,7 +45,7 @@ public class Stats implements Observer {
 	/**
 	 * Retourne le nmbre total de voitures actuellement en attente sur les voies
 	 * externes.
-	 * 
+	 *
 	 * @return Le nombre total de voiture en attente.
 	 */
 	public int voituresEnAttente() {
@@ -55,7 +55,7 @@ public class Stats implements Observer {
 	/**
 	 * Retourne l'attente moyenne avant de rentrer dans le rond-point (toutes voies
 	 * d'origines confondues).
-	 * 
+	 *
 	 * @return Le temp d'attente moyen.
 	 */
 	public double attenteMoyenne() {
@@ -68,7 +68,7 @@ public class Stats implements Observer {
 	 * valeur inclus les voitures actullement en attente, celles engagées et celles
 	 * déjà sorites. Mais le total n'est calculé à partir des ces valeurs, il est
 	 * mis à jour à chaque ajout de nouvelle voiture.
-	 * 
+	 *
 	 * @return Le nombre de voitures engagées sur les voies externes.
 	 */
 	public int voituresEntrees() {
@@ -78,7 +78,7 @@ public class Stats implements Observer {
 	/**
 	 * Retourne le nombre total de voitures ayant atteint leur voie de sortie et qui
 	 * sont sorties du rond-point.
-	 * 
+	 *
 	 * @return Le nombre de voiture qui ont quittées le rond-point.
 	 */
 	public int voituresSorties() {
@@ -87,7 +87,7 @@ public class Stats implements Observer {
 
 	/**
 	 * Retourne le nombre de voitures actuellement dans le rond-point.
-	 * 
+	 *
 	 * @return Retourne le nombre de voitures actuellement dans le rond-point.
 	 */
 	public int voituresEngagees() {
@@ -96,23 +96,23 @@ public class Stats implements Observer {
 
 	/**
 	 * Retourne le nombre de voitures en attente sur une voie donnée.
-	 * 
+	 *
 	 * @param voie
 	 *            La voie pour laquelle on veut connaitre le nombre.
 	 * @return Retourne le nombre de voitures en attente sur une voie.
 	 */
-	public int voituresEnAttente(VoieExterne voie) {
+	public int voituresEnAttente(VoieEnum voie) {
 		return voituresEnAttentes.get(voie).get();
 	}
 
 	/**
 	 * Retourne le temps d'attente moyen pour une voie donnée.
-	 * 
+	 *
 	 * @param voie
 	 *            La voie pour laquelle on veut connaitre le nombre.
 	 * @return Retourne le temps d'attente moyen pour une voie donnée.
 	 */
-	public double attenteMoyenne(VoieExterne voie) {
+	public double attenteMoyenne(VoieEnum voie) {
 		return (double) attenteParVoie.get(voie).get()
 				/ (double) voituresEngageesParVoies.get(voie).get();
 	}
@@ -121,41 +121,41 @@ public class Stats implements Observer {
 	 * Retourne le nombre de voitures qui sont entrées par cette voie dans le rond-
 	 * point. Soit les voitures en attente sur la voie plus celles qui se sont
 	 * engagées dans le rond-point par cette voie.
-	 * 
+	 *
 	 * @param voie
 	 *            La voie pour laquelle on veut connaitre le nombre.
 	 * @return Retourne le nombre de voitures qui sont entrées par cette voie.
 	 */
-	public int voituresEntrees(VoieExterne voie) {
+	public int voituresEntrees(VoieEnum voie) {
 		return voituresEntrees.get(voie).get();
 	}
 
 	/**
 	 * Retourne le nombre de voitures qui ont quittées le rond-point par cette voie.
-	 * 
+	 *
 	 * @param voie
 	 *            La voie pour laquelle on veut connaitre le nombre.
 	 * @return Retourne le nombre de voitures qui ont quittées le rond-point par
 	 *         cette voie.
 	 */
-	public int voituresSorties(VoieExterne voie) {
+	public int voituresSorties(VoieEnum voie) {
 		return voituresSorties.get(voie).get();
 	}
 
 	/**
 	 * Corrige les stats par rapport à un vidage des voie.
-	 * 
+	 *
 	 * @param voie
 	 *            La voie vidée
 	 * @param taille
 	 */
-	void vidageVoie(VoieExterne voie, int delta) {
+	void vidageVoie(VoieEnum voie, int delta) {
 		voituresEnAttentes.get(voie).addAndGet(-delta);
 	}
 
 	void reset() {
-		Set<VoieExterne> voies = voituresEnAttentes.keySet();
-		for (VoieExterne voie : voies) {
+		Set<VoieEnum> voies = voituresEnAttentes.keySet();
+		for (VoieEnum voie : voies) {
 			voituresEnAttentes.put(voie, new AtomicInteger(0));
 			attenteParVoie.put(voie, new AtomicLong(0));
 			voituresEngageesParVoies.put(voie, new AtomicInteger(0));
@@ -169,13 +169,13 @@ public class Stats implements Observer {
 	public void update(Observable o, Object arg) {
 		Route route = (Route) arg;
 		if (route.to == null) {
-			VoieExterne ve = (VoieExterne) route.from;
+			VoieEnum ve = (VoieEnum) ((VoieExterne)route.from).getEnum();
 			voituresEnAttentes.get(ve).incrementAndGet();
 			voituresEntrees.get(ve).incrementAndGet();
 		}
 		else if (route.from instanceof VoieExterne
 				&& route.to instanceof VoieInterne) {
-			VoieExterne ve = (VoieExterne) route.from;
+			VoieEnum ve = (VoieEnum) ((VoieExterne)route.from).getEnum();
 			voituresEnAttentes.get(ve).decrementAndGet();
 			voituresEngagees.incrementAndGet();
 			attenteParVoie.get(ve).addAndGet(route.toAt - route.fromAt);
@@ -183,7 +183,7 @@ public class Stats implements Observer {
 		}
 		else if (route.from instanceof VoieInterne
 				&& route.to instanceof VoieExterne) {
-			VoieExterne ve = (VoieExterne) route.to;
+			VoieEnum ve = (VoieEnum) ((VoieExterne)route.to).getEnum();
 			voituresSorties.get(ve).incrementAndGet();
 			voituresEngagees.decrementAndGet();
 		}
@@ -191,12 +191,12 @@ public class Stats implements Observer {
 
 	/**
 	 * Somme toutes les valeurs d'un HashMap.
-	 * 
+	 *
 	 * @param map
 	 *            Le HashMap qui contient les valeurs.
 	 * @return La somme des valeurs.
 	 */
-	private static int sommeInt(HashMap<VoieExterne, AtomicInteger> map) {
+	private static int sommeInt(HashMap<VoieEnum, AtomicInteger> map) {
 		int somme = 0;
 		for (AtomicInteger value : map.values()) {
 			somme = somme + value.get();
@@ -206,12 +206,12 @@ public class Stats implements Observer {
 
 	/**
 	 * Somme toutes les valeurs d'un HashMap.
-	 * 
+	 *
 	 * @param map
 	 *            Le HashMap qui contient les valeurs.
 	 * @return La somme des valeurs.
 	 */
-	private static long sommeLong(HashMap<VoieExterne, AtomicLong> map) {
+	private static long sommeLong(HashMap<VoieEnum, AtomicLong> map) {
 		long somme = 0;
 		for (AtomicLong value : map.values()) {
 			somme = somme + value.get();
