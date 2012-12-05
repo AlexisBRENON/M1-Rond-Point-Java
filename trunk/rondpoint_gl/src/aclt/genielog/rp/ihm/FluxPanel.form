@@ -178,8 +178,8 @@
     </Component>
     <Component class="javax.swing.JButton" name="crashButton">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Car crash"/>
-        <Property name="toolTipText" type="java.lang.String" value="Tout r&#xe9;initialiser."/>
+        <Property name="text" type="java.lang.String" value="Crash"/>
+        <Property name="toolTipText" type="java.lang.String" value="Cr&#xe9;er un accident."/>
       </Properties>
     </Component>
     <Component class="javax.swing.JSeparator" name="jSeparator1">

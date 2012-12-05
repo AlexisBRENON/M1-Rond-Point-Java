@@ -32,7 +32,7 @@ public class Tour extends PausableThread implements ActionListener, ChangeListen
 			getSimulateur().tourSuivant(i);
 			asleep(Math.round(step * 1000));
 		}*/
-		getSimulateur().tourSuivant();
+		Simulateur.tourSuivant();
 
 		asleep(next - System.currentTimeMillis());
 	}
