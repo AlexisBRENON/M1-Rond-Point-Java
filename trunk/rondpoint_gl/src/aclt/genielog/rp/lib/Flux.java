@@ -60,6 +60,7 @@ public class Flux extends PausableThread implements ActionListener, ChangeListen
 		if (0 < frequence.addAndGet(0)) {
 			synchronized (this) {
 				notify();
+				unpause();
 			}
 		}
 	}
@@ -77,7 +78,11 @@ public class Flux extends PausableThread implements ActionListener, ChangeListen
 	 */
 	@Override
 	public void vidagePerformed(ActionEvent e) {
-		getSimulateur().viderFileDAttente(maVoie);
+		Simulateur.viderFileDAttente(maVoie);
+		synchronized (this) {
+				notifyAll();
+				unpause();
+			}
 	}
 
 }

@@ -70,7 +70,7 @@ public class FluxPanel extends javax.swing.JPanel {
 		});
 		estSpinner.addChangeListener(est);
 		estButton.addActionListener(est);
-		nordButton.addActionListener(new ActionListener() {
+		estButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				est.vidagePerformed(e);
@@ -78,7 +78,7 @@ public class FluxPanel extends javax.swing.JPanel {
 		});
 		sudSpinner.addChangeListener(sud);
 		sudButton.addActionListener(sud);
-		nordButton.addActionListener(new ActionListener() {
+		sudButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				sud.vidagePerformed(e);
@@ -86,7 +86,7 @@ public class FluxPanel extends javax.swing.JPanel {
 		});
 		ouestSpinner.addChangeListener(ouest);
 		ouestButton.addActionListener(ouest);
-		nordButton.addActionListener(new ActionListener() {
+		ouestButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				ouest.vidagePerformed(e);
