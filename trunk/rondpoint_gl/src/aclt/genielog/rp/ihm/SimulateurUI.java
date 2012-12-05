@@ -14,7 +14,7 @@ import aclt.genielog.rp.lib.Tour;
 /**
  * Fenêtre principale de l'application.
  * C'est l'agrégat de tous nos Panel et de quelques composants simples.
- * 
+ *
  * @author Alexis Brenon
  * @author Cécilia Martin
  * @author Luc Chante
@@ -41,7 +41,7 @@ public class SimulateurUI extends javax.swing.JFrame {
 
 	/**
 	 * Ajoute une voie (de type JComponent) à peindre sur le rond-point.
-	 * 
+	 *
 	 * @param voie
 	 *            La voie a peindre.
 	 */
@@ -56,7 +56,7 @@ public class SimulateurUI extends javax.swing.JFrame {
 	/**
 	 * Attributs au panel des flux les listeners pour les actions des boutons et des
 	 * spinners.
-	 * 
+	 *
 	 * @param nord
 	 *            Le listener de la voie nord
 	 * @param est
@@ -76,7 +76,7 @@ public class SimulateurUI extends javax.swing.JFrame {
 
 	/**
 	 * Définie le listener pour le bouton play/pause.
-	 * 
+	 *
 	 * @param playPause
 	 *            Le listener
 	 */
@@ -87,7 +87,7 @@ public class SimulateurUI extends javax.swing.JFrame {
 
 	/**
 	 * Définie le listener pour l'ajout de voitures.
-	 * 
+	 *
 	 * @param listener
 	 *            Le listener
 	 */
@@ -121,7 +121,7 @@ public class SimulateurUI extends javax.swing.JFrame {
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 		setTitle("Simuron");
 		setName("simuronFrame"); // NOI18N
-		setResizable(false);
+		setResizable(true);
 
 		jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 

@@ -31,7 +31,7 @@ class VoieInterne extends Voie {
 
 	/**
 	 * Constructeur
-	 * 
+	 *
 	 * @param taille
 	 *            La taille de la file interne de voiture (nombre de voitures pouvant
 	 *            se trouver simultanément dans un quart de rond-point).
@@ -46,7 +46,7 @@ class VoieInterne extends Voie {
 	/**
 	 * Retourne si la voie de sortie accessible par cette voie interne est la
 	 * même que la voie passé en paramètre.
-	 * 
+	 *
 	 * @param sortie
 	 *            La voie extern attendue
 	 * @return Si la voie externe attendu correspond à celle accessible par
@@ -58,7 +58,7 @@ class VoieInterne extends Voie {
 
 	/**
 	 * Attribue la voie interne suivante et la voie externe (de sortie).
-	 * 
+	 *
 	 * @param suivante
 	 *            La voie interne suivante
 	 * @param sortie
@@ -72,7 +72,7 @@ class VoieInterne extends Voie {
 	/**
 	 * Retourne s'il est possible de s'insérer dans cette voie. c.a.d. la
 	 * première place est libre.
-	 * 
+	 *
 	 * @return true si il y a une place pour s'inserer, false sinon.
 	 */
 	boolean estLibre() {
@@ -82,7 +82,7 @@ class VoieInterne extends Voie {
 	/**
 	 * Teste si la voiture donnée est au croisement de cette voie, de la voie
 	 * interne suivante et la voie externe accessible par cette voie.
-	 * 
+	 *
 	 * @param v
 	 *            La voiture pour laquelle on veut savoir si elle est au croisement.
 	 * @return true si la voiture est au croisement, false sinon.
@@ -93,7 +93,7 @@ class VoieInterne extends Voie {
 
 	/**
 	 * La voiture s'insère dans le rond point par cette voie.
-	 * 
+	 *
 	 * @param v
 	 *            La voiture a insérer
 	 */
@@ -104,7 +104,7 @@ class VoieInterne extends Voie {
 
 	/**
 	 * La voiture sort du rond point
-	 * 
+	 *
 	 * @param v
 	 */
 	@Override
@@ -125,7 +125,7 @@ class VoieInterne extends Voie {
 
 	/**
 	 * La voiture continue sur la voie interne suivante
-	 * 
+	 *
 	 * @param v
 	 * @return
 	 */
@@ -138,12 +138,11 @@ class VoieInterne extends Voie {
 	/**
 	 * Avance la voiture à l'intérieur de la voie elle passe de l'emplacement i à
 	 * l'emplacement i+1.
-	 * 
+	 *
 	 * @param v
 	 *            La voiture qui avance
 	 */
 	void avancer(Voiture v) {
-		System.out.println("avancer(" + v + ")");
 		int i = 0;
 		while (i < vehicules.length && !v.equals(vehicules[i])) {
 			i++;
@@ -154,7 +153,7 @@ class VoieInterne extends Voie {
 
 	/**
 	 * Gére la circulation sur la voie pour un tour
-	 * 
+	 *
 	 * @return La voiture qui sort de cette voie pour la voie suivante.
 	 */
 	@Override
@@ -180,7 +179,7 @@ class VoieInterne extends Voie {
 
 	/**
 	 * Vide complètement la voie.
-	 * 
+	 *
 	 * @return Le nombre de voitures supprimées
 	 */
 	@Override
@@ -201,7 +200,7 @@ class VoieInterne extends Voie {
 	/**
 	 * Prépare l'affichage concernant l'animation entre le tour précédent et le tour
 	 * suivnat.
-	 * 
+	 *
 	 * @param percent
 	 *            Pourcentage d'avancement de l'animation.
 	 */
@@ -213,7 +212,7 @@ class VoieInterne extends Voie {
 	/**
 	 * Retourne la tranformation de base pour l'affichage des voitures dans cette
 	 * voie.
-	 * 
+	 *
 	 * @return La tranformation minimale pour cette voie.
 	 */
 	@Override
@@ -226,7 +225,7 @@ class VoieInterne extends Voie {
 			if (voiture != null) {
 				g2d.transform(new AffineTransform());
 				AffineTransform tx = new AffineTransform();
-				double theta = (3 - id) * Math.PI / 2.0 - 2.0 * (i + percent) / div
+				double theta = (3 - id) * Math.PI / 2.0 - 1.0 * (i + percent) / div
 						* Math.PI;
 
 				tx.translate(420, 270);
