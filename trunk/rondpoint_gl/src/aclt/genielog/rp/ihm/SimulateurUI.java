@@ -133,7 +133,6 @@ public class SimulateurUI extends javax.swing.JFrame implements Observer {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Simuron");
         setName("simuronFrame"); // NOI18N
-        setResizable(false);
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
