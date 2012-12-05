@@ -41,7 +41,8 @@ public class statPanel extends javax.swing.JPanel implements Observer {
                 {VoieEnum.NORD, null, null, null, null},
                 {VoieEnum.OUEST, null, null, null, null},
                 {VoieEnum.SUD, null, null, null, null},
-                {VoieEnum.EST, null, null, null, null}
+                {VoieEnum.EST, null, null, null, null},
+                {"Total", null, null, null, null}
             },
             new String [] {
                 "Voie", "Voitures en attente", "Temps d'attente", "Voitures entrées", "Voitures sorties"
@@ -64,7 +65,7 @@ public class statPanel extends javax.swing.JPanel implements Observer {
                 return canEdit [columnIndex];
             }
         });
-        statTable.setRowHeight(22);
+        statTable.setRowHeight(18);
         statTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(statTable);
 
@@ -112,6 +113,10 @@ public class statPanel extends javax.swing.JPanel implements Observer {
                 statTable.getModel().setValueAt(stat.voituresEntrees(VoieEnum.values()[i]), i, 3);
                 statTable.getModel().setValueAt(stat.voituresSorties(VoieEnum.values()[i]), i, 4);
             }
+            statTable.getModel().setValueAt(stat.voituresEnAttente(), 4, 1);
+            statTable.getModel().setValueAt(Math.round(stat.attenteMoyenne()/1000), 4, 2);
+            statTable.getModel().setValueAt(stat.voituresEntrees(), 4, 3);
+            statTable.getModel().setValueAt(stat.voituresSorties(), 4, 4);
 
             totalLabel.setText(Integer.toString(stat.voituresEngagees()));
         }
