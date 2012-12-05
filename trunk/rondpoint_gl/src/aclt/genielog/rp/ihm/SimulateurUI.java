@@ -62,6 +62,7 @@ public class SimulateurUI extends javax.swing.JFrame implements Observer {
 		return rondPointPanel;
 	}
 
+    @Override
         public void update (Observable o, Object arg) {
             rondPointPanel.update(o, arg);
             statPanel.update(o, arg);

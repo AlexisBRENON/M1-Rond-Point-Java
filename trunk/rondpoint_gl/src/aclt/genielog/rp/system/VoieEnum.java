@@ -10,7 +10,7 @@ import java.awt.geom.AffineTransform;
  */
 public enum VoieEnum {
 	NORD("Nord"), OUEST("Ouest"), SUD("Sud"), EST("Est"), ALEAT(
-			"Alétaoire");
+			"Aléatoire");
 
 	private final String name;
 	private final AffineTransform tx;
