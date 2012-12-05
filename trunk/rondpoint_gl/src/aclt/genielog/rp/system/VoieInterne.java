@@ -2,6 +2,8 @@ package aclt.genielog.rp.system;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
 
 /**
@@ -10,7 +12,7 @@ import java.awt.geom.AffineTransform;
  * @author Luc Chante
  * @author Tiphaine Teyssier
  */
-class VoieInterne extends Voie {
+class VoieInterne extends Voie implements ActionListener {
 
 	private static int ID = 0;
 
@@ -232,6 +234,15 @@ class VoieInterne extends Voie {
 				tx.rotate(-Math.PI / 2.0, 30, 30);
 				tx.rotate(theta, 30, -120);
 				g2d.drawImage(voiture.getPicture(), tx, this);
+			}
+		}
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		for (Voiture voiture : vehicules) {
+			if (voiture != null) {
+				voiture.toggleForcerSortie(voieDeSortie);
 			}
 		}
 	}

@@ -49,6 +49,10 @@ public class SimulateurUI extends javax.swing.JFrame {
 		rondPointPanel.ajouterVoie(voie);
 	}
 
+	public void ajouterAccidentListener(ActionListener voie) {
+		fluxPanel.addAccidentListener(voie);
+	}
+
 	public Observer getPanel() {
 		return rondPointPanel;
 	}

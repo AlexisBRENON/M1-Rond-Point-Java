@@ -54,6 +54,10 @@ public class FluxPanel extends javax.swing.JPanel {
 		});
 	}
 
+	public void addAccidentListener(ActionListener voie) {
+		crashButton.addActionListener(voie);
+	}
+
 	public void setListeners(final Flux nord, final Flux est, final Flux sud,
 			final Flux ouest, Object crash) {
 		nordSpinner.addChangeListener(nord);
