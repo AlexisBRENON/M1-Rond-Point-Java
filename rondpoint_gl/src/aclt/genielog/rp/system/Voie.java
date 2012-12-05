@@ -4,9 +4,9 @@ import javax.swing.JComponent;
 
 /**
  * Classe abstraite Voie.
- * 
+ *
  * Une voie est une partie du rond sur laquelle les voitures se déplacent.
- * 
+ *
  * @author Alexis Brenon
  * @author Cécilia Martin
  * @author Luc Chante
@@ -26,7 +26,7 @@ abstract class Voie extends JComponent {
 	/**
 	 * Prépare l'affichage concernant l'animation entre le tour précédent et le tour
 	 * suivnat.
-	 * 
+	 *
 	 * @param percent
 	 *            Pourcentage d'avancement de l'animation.
 	 */
@@ -34,14 +34,14 @@ abstract class Voie extends JComponent {
 
 	/**
 	 * Gére la circulation sur la voie pour un tour
-	 * 
+	 *
 	 * @return La voiture qui sort de cette voie pour la voie suivante.
 	 */
 	abstract Voiture circule();
 
 	/**
 	 * Insère une voiture sur la voie
-	 * 
+	 *
 	 * @param v
 	 *            La voiture a insérer
 	 */
@@ -49,7 +49,7 @@ abstract class Voie extends JComponent {
 
 	/**
 	 * Retire une voiture de la voie
-	 * 
+	 *
 	 * @param v
 	 *            La voiture a retirer
 	 */
@@ -57,7 +57,7 @@ abstract class Voie extends JComponent {
 
 	/**
 	 * Vide complètement la voie.
-	 * 
+	 *
 	 * @return Le nombre de voitures supprimées
 	 */
 	abstract int vider();
@@ -65,5 +65,9 @@ abstract class Voie extends JComponent {
 	@Override
 	public String toString() {
 		return "Voie " + name;
+	}
+
+	public interface Circulable {
+		Voiture circule();
 	}
 }

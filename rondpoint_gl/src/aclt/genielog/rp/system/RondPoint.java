@@ -26,7 +26,7 @@ public class RondPoint extends Observable {
 
 	/**
 	 * Crée un rond point à 4 voie
-	 * 
+	 *
 	 * @param taille
 	 *            la taille entre les voies
 	 */
@@ -55,7 +55,7 @@ public class RondPoint extends Observable {
 
 	/**
 	 * Retourne les stats du rond-point.
-	 * 
+	 *
 	 * @return Les statistiques
 	 */
 	public Stats statistiques() {
@@ -64,7 +64,7 @@ public class RondPoint extends Observable {
 
 	/**
 	 * Crée une voiture au départ de la voie depart, sortant à la voie destination
-	 * 
+	 *
 	 * @param depart
 	 *            Numéro de la voie de départ
 	 * @param destination
@@ -125,7 +125,7 @@ public class RondPoint extends Observable {
 
 	/**
 	 * Vide la file d'attente d'une voie
-	 * 
+	 *
 	 * @param voie
 	 *            La voie concernée
 	 */
@@ -155,9 +155,11 @@ public class RondPoint extends Observable {
 	public void updateUI(SimulateurUI ui) {
 		for (VoieInterne voie : voiesInternes) {
 			ui.ajouterVoie(voie);
+			ui.ajouterAccidentListener(voie);
 		}
 		for (VoieExterne voie : voiesExternes) {
 			ui.ajouterVoie(voie);
+			ui.ajouterAccidentListener(voie);
 		}
 	}
 }

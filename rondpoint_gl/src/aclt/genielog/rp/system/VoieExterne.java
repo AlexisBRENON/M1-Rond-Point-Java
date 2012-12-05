@@ -2,8 +2,13 @@ package aclt.genielog.rp.system;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.atomic.AtomicBoolean;
+
+import aclt.genielog.rp.system.Voie.Circulable;
 
 /**
  * @author Alexis Brenon
@@ -11,9 +16,16 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  * @author Luc Chante
  * @author Tiphaine Teyssier
  */
-class VoieExterne extends Voie {
+class VoieExterne extends Voie implements ActionListener, Circulable {
 
 	private final VoieEnum identifiant;
+
+	private final Circulable bloquee = new VoieArretee();
+	private final Circulable normale = new VoieNormale();
+
+	private Circulable circule;
+
+	private final AtomicBoolean accident = new AtomicBoolean(false);
 
 	/**
 	 * Voie interne d'insertion dans le rond point.
@@ -92,17 +104,8 @@ class VoieExterne extends Voie {
 	 * @return La voiture qui sort de cette voie et entre dans le rond-point.
 	 */
 	@Override
-	Voiture circule() {
-		Voiture voiture;
-
-		if (voitures.isEmpty()) {
-			return null;
-		}
-
-		voiture = voitures.peek();
-		voiture.avancer();
-
-		return voiture;
+	public Voiture circule() {
+		return circule.circule();
 	}
 
 	/**
@@ -212,6 +215,44 @@ class VoieExterne extends Voie {
 			tx.translate(dx, dy);
 			tx.rotate(theta, 30, 30);
 			g2d.drawImage(sortie.getPicture(), tx, this);
+			sortie = null;
 		}
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		System.out.println("Circule " + circule);
+		if (circule instanceof VoieArretee) {
+			circule = normale;
+		}
+		else {
+			circule = bloquee;
+		}
+	}
+
+	class VoieArretee implements Circulable {
+		@Override
+		public Voiture circule() {
+			return null;
+		}
+	}
+
+	class VoieNormale implements Circulable {
+		@Override
+		public Voiture circule() {
+			Voiture voiture = null;
+
+			if (accident.compareAndSet(false, false)) {
+				if (voitures.isEmpty()) {
+					return null;
+				}
+
+				voiture = voitures.peek();
+				voiture.avancer();
+			}
+
+			return voiture;
+		}
+
 	}
 }

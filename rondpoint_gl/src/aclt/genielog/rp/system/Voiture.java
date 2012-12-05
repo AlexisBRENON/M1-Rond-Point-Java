@@ -53,6 +53,12 @@ class Voiture extends Observable {
 	 * La voie de destination de la voiture.
 	 */
 	private VoieExterne destination;
+
+	/**
+	 *
+	 */
+	private VoieExterne destinationForcee;
+
 	/**
 	 * La voie sur laquelle la voiture se triouve actuellement.
 	 */
@@ -163,5 +169,18 @@ class Voiture extends Observable {
 	@Override
 	public String toString() {
 		return name;
+	}
+
+	void toggleForcerSortie(VoieExterne voieDeSortie) {
+		if (destinationForcee == null) {
+			destinationForcee = destination;
+			destination = voieDeSortie;
+			Simulateur.log(this + " sortie forcée vers " + voieDeSortie);
+		}
+		else {
+			destination = destinationForcee;
+			destinationForcee = null;
+			Simulateur.log(this + " reprend son chemin normal");
+		}
 	}
 }
