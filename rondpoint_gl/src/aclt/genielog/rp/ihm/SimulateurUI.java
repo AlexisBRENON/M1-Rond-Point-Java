@@ -31,14 +31,14 @@ public class SimulateurUI extends javax.swing.JFrame implements Observer {
 	 */
 	public SimulateurUI(Simulateur simulateur) {
 		initComponents();
-		jButton1.addActionListener(new ActionListener() {
+		bt_start.addActionListener(new ActionListener() {
 			private final String[] titles = { "Lecture", "Pause" };
 			private int status = 0;
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				status = (status + 1) % 2;
-				jButton1.setText(titles[status]);
+				bt_start.setText(titles[status]);
 			}
 		});
                 setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
@@ -83,10 +83,10 @@ public class SimulateurUI extends javax.swing.JFrame implements Observer {
 	 */
 	public void setFluxListener(Flux nord, Flux est, Flux sud, Flux ouest) {
 		fluxPanel.setListeners(nord, est, sud, ouest, null);
-		jButton1.addActionListener(nord);
-		jButton1.addActionListener(est);
-		jButton1.addActionListener(sud);
-		jButton1.addActionListener(ouest);
+		bt_start.addActionListener(nord);
+		bt_start.addActionListener(est);
+		bt_start.addActionListener(sud);
+		bt_start.addActionListener(ouest);
 	}
 
 	/**
@@ -97,7 +97,7 @@ public class SimulateurUI extends javax.swing.JFrame implements Observer {
 	 */
 	public void setVitesseListener(Tour tour) {
 		vitessePanel.setListeners(tour);
-		jButton1.addActionListener(tour);
+		bt_start.addActionListener(tour);
 	}
 
 	/**
@@ -126,7 +126,7 @@ public class SimulateurUI extends javax.swing.JFrame implements Observer {
     private void initComponents() {
 
         jSeparator1 = new javax.swing.JSeparator();
-        jButton1 = new javax.swing.JButton();
+        bt_start = new javax.swing.JButton();
         rondPointPanel = new aclt.genielog.rp.ihm.RondPointPanel();
         logPanel = new aclt.genielog.rp.ihm.LogPanel();
         vitessePanel = new aclt.genielog.rp.ihm.VitessePanel();
@@ -141,8 +141,8 @@ public class SimulateurUI extends javax.swing.JFrame implements Observer {
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
-        jButton1.setText("Lecture");
-        jButton1.setToolTipText("Lire/Arrêter la simulation.");
+        bt_start.setText("Lecture");
+        bt_start.setToolTipText("Lire/Arrêter la simulation.");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -158,7 +158,7 @@ public class SimulateurUI extends javax.swing.JFrame implements Observer {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(bt_start, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(vitessePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(logPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(ajoutPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -179,7 +179,7 @@ public class SimulateurUI extends javax.swing.JFrame implements Observer {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(logPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1))
+                        .addComponent(bt_start))
                     .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(rondPointPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -195,8 +195,8 @@ public class SimulateurUI extends javax.swing.JFrame implements Observer {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private aclt.genielog.rp.ihm.AjoutPanel ajoutPanel;
+    private javax.swing.JButton bt_start;
     private aclt.genielog.rp.ihm.FluxPanel fluxPanel;
-    private javax.swing.JButton jButton1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private aclt.genielog.rp.ihm.LogPanel logPanel;

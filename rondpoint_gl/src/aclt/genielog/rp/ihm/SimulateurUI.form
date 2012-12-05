@@ -35,7 +35,7 @@
               <Component id="jSeparator1" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jButton1" max="32767" attributes="0"/>
+                  <Component id="bt_start" max="32767" attributes="0"/>
                   <Component id="vitessePanel" max="32767" attributes="0"/>
                   <Component id="logPanel" max="32767" attributes="0"/>
                   <Component id="ajoutPanel" max="32767" attributes="0"/>
@@ -59,7 +59,7 @@
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Component id="logPanel" max="32767" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                      <Component id="bt_start" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="jSeparator1" alignment="0" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
@@ -81,7 +81,7 @@
         <Property name="orientation" type="int" value="1"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="bt_start">
       <Properties>
         <Property name="text" type="java.lang.String" value="Lecture"/>
         <Property name="toolTipText" type="java.lang.String" value="Lire/Arr&#xea;ter la simulation."/>
