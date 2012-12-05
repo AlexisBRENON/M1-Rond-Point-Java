@@ -64,7 +64,7 @@ public class statPanel extends javax.swing.JPanel implements Observer {
                 return canEdit [columnIndex];
             }
         });
-        statTable.setRowHeight(24);
+        statTable.setRowHeight(22);
         statTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(statTable);
 
