@@ -34,61 +34,45 @@ public class VitessePanel extends javax.swing.JPanel {
 	@SuppressWarnings("unchecked")
 	// <editor-fold defaultstate="collapsed"
 	// <editor-fold defaultstate="collapsed"
-	// desc="Generated Code">//GEN-BEGIN:initComponents
-	private void initComponents() {
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
 
-		titreLabel = new javax.swing.JLabel();
-		vitesseSpinner = new javax.swing.JSpinner(new SpinnerNumberModel(60, 1, 1000,
-				1));
-		jSeparator1 = new javax.swing.JSeparator();
+        titreLabel = new javax.swing.JLabel();
+        vitesseSpinner = new javax.swing.JSpinner();
+        jSeparator1 = new javax.swing.JSeparator();
 
-		titreLabel.setText("Tour par seconde :");
+        titreLabel.setText("Tour par minute :");
 
-		vitesseSpinner
-				.setToolTipText("Permet de modifier la vitesse de simulation.");
+        vitesseSpinner.setModel(new javax.swing.SpinnerNumberModel(60, 1, 1000, 1));
+        vitesseSpinner.setToolTipText("Permet de modifier la vitesse de simulation.");
 
-		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-		this.setLayout(layout);
-		layout.setHorizontalGroup(layout
-				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addComponent(jSeparator1)
-				.addGroup(
-						layout.createSequentialGroup().addComponent(titreLabel)
-								.addGap(0, 0, Short.MAX_VALUE))
-				.addGroup(
-						layout.createSequentialGroup()
-								.addGap(12, 12, 12)
-								.addComponent(vitesseSpinner,
-										javax.swing.GroupLayout.PREFERRED_SIZE,
-										javax.swing.GroupLayout.DEFAULT_SIZE,
-										javax.swing.GroupLayout.PREFERRED_SIZE)
-								.addPreferredGap(
-										javax.swing.LayoutStyle.ComponentPlacement.RELATED)));
-		layout.setVerticalGroup(layout
-				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGroup(
-						layout.createSequentialGroup()
-								.addComponent(titreLabel)
-								.addPreferredGap(
-										javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-								.addGroup(
-										layout.createParallelGroup(
-												javax.swing.GroupLayout.Alignment.BASELINE)
-												.addComponent(
-														vitesseSpinner,
-														javax.swing.GroupLayout.PREFERRED_SIZE,
-														javax.swing.GroupLayout.DEFAULT_SIZE,
-														javax.swing.GroupLayout.PREFERRED_SIZE))
-								.addPreferredGap(
-										javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-								.addComponent(jSeparator1,
-										javax.swing.GroupLayout.PREFERRED_SIZE, 10,
-										javax.swing.GroupLayout.PREFERRED_SIZE)));
-	}// </editor-fold>//GEN-END:initComponents
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jSeparator1)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(titreLabel)
+                .addGap(0, 8, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(vitesseSpinner)
+                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(titreLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(vitesseSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+    }// </editor-fold>//GEN-END:initComponents
 
-	// Variables declaration - do not modify//GEN-BEGIN:variables
-	private javax.swing.JSeparator jSeparator1;
-	private javax.swing.JLabel titreLabel;
-	private javax.swing.JSpinner vitesseSpinner;
-	// End of variables declaration//GEN-END:variables
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel titreLabel;
+    private javax.swing.JSpinner vitesseSpinner;
+    // End of variables declaration//GEN-END:variables
 }
