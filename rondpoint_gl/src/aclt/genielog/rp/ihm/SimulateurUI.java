@@ -10,6 +10,8 @@ import aclt.genielog.rp.Simulateur;
 import aclt.genielog.rp.ihm.AjoutPanel.AjoutVoituresListener;
 import aclt.genielog.rp.lib.Flux;
 import aclt.genielog.rp.lib.Tour;
+import java.awt.Rectangle;
+import java.awt.Toolkit;
 import java.util.Observable;
 
 /**
@@ -38,6 +40,7 @@ public class SimulateurUI extends javax.swing.JFrame implements Observer {
 				jButton1.setText(titles[status]);
 			}
 		});
+                setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
 	}
 
 	/**
@@ -148,8 +151,8 @@ public class SimulateurUI extends javax.swing.JFrame implements Observer {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(rondPointPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jSeparator2)
-                    .addComponent(statPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(statPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
