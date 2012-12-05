@@ -2,6 +2,7 @@ package aclt.genielog.rp.lib;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.JSpinner;
 import javax.swing.event.ChangeEvent;
@@ -11,7 +12,7 @@ import aclt.genielog.rp.Simulateur;
 
 public class Tour extends PausableThread implements ActionListener, ChangeListener {
 
-	private long frequence = 1;
+	private long frequence = 60;
 	private int tour = 0;
 
 	public Tour(Simulateur simulateur) {
@@ -20,18 +21,17 @@ public class Tour extends PausableThread implements ActionListener, ChangeListen
 
 	@Override
 	public void execute() {
-		long next;
-		double step = frequence / 100.0;
-
-		next = System.currentTimeMillis() + 1000 / frequence;
+		int step = 100;
+		long next = System.currentTimeMillis() + TimeUnit.MINUTES.toMillis(1) / frequence;
+		long latence = TimeUnit.MINUTES.toMillis(1) / frequence / step;
 		tour = tour + 1;
 		Simulateur.log("Tour n°" + tour);
 
-		/*for (double i = 0.0; i < 1.0; i = i + step) {
+		for (int i = 0; i < step; i = i + 1) {
 			idle();
-			getSimulateur().tourSuivant(i);
-			asleep(Math.round(step * 1000));
-		}*/
+			Simulateur.tourSuivant((double)i / (double)step);
+			asleep(latence);
+		}
 		Simulateur.tourSuivant();
 
 		asleep(next - System.currentTimeMillis());

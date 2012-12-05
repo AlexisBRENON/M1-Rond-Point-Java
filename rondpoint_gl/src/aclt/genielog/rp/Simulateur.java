@@ -165,6 +165,7 @@ public class Simulateur implements AjoutVoituresListener {
 	}
 
 	public static void main(String argv[]) {
-		Simulateur.singleton(1).lancer();
+		Simulateur.singleton(1);
+		Simulateur.lancer();
 	}
 }

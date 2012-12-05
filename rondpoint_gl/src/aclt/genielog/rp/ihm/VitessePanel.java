@@ -7,7 +7,7 @@ import aclt.genielog.rp.lib.Tour;
 /**
  * Il s'agit d'un componsant graphique regroupant tous les items utilisés
  * pour gérer la vitesse de la simulation.
- * 
+ *
  * @author Alexis Brenon
  * @author Cécilia Martin
  * @author Luc Chante
@@ -38,7 +38,7 @@ public class VitessePanel extends javax.swing.JPanel {
 	private void initComponents() {
 
 		titreLabel = new javax.swing.JLabel();
-		vitesseSpinner = new javax.swing.JSpinner(new SpinnerNumberModel(1, 1, 100,
+		vitesseSpinner = new javax.swing.JSpinner(new SpinnerNumberModel(60, 1, 1000,
 				1));
 		jSeparator1 = new javax.swing.JSeparator();
 

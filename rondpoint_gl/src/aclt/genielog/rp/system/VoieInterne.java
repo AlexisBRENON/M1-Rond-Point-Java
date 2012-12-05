@@ -159,7 +159,7 @@ class VoieInterne extends Voie implements ActionListener {
 	 * @return La voiture qui sort de cette voie pour la voie suivante.
 	 */
 	@Override
-	synchronized Voiture circule() {
+	public	synchronized Voiture circule() {
 		Voiture v;
 		int length = vehicules.length;
 
@@ -227,7 +227,7 @@ class VoieInterne extends Voie implements ActionListener {
 			if (voiture != null) {
 				g2d.transform(new AffineTransform());
 				AffineTransform tx = new AffineTransform();
-				double theta = (3 - id) * Math.PI / 2.0 - 1.0 * (i + percent) / div
+				double theta = (3 - id) * Math.PI / 2.0 - 2.0 * (i + percent) / div
 						* Math.PI;
 
 				tx.translate(420, 270);

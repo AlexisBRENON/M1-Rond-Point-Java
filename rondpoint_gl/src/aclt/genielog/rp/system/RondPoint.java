@@ -108,6 +108,9 @@ public class RondPoint extends Observable {
 		}
 		setChanged();
 		notifyObservers();
+		for (VoieExterne voie : voiesExternes) {
+			voie.postPaint();
+		}
 	}
 
 	/**

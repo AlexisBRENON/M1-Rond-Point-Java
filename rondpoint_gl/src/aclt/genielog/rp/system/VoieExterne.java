@@ -8,8 +8,6 @@ import java.awt.geom.AffineTransform;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import aclt.genielog.rp.system.Voie.Circulable;
-
 /**
  * @author Alexis Brenon
  * @author Cécilia Martin
@@ -20,10 +18,8 @@ class VoieExterne extends Voie implements ActionListener, Circulable {
 
 	private final VoieEnum identifiant;
 
-	private final Circulable bloquee = new VoieArretee();
-	private final Circulable normale = new VoieNormale();
-
-	private Circulable circule;
+	private Circulable circuleTmp = new VoieArretee();
+	private Circulable circule = new VoieNormale();
 
 	private final AtomicBoolean accident = new AtomicBoolean(false);
 
@@ -32,7 +28,7 @@ class VoieExterne extends Voie implements ActionListener, Circulable {
 	 */
 	private VoieInterne interne;
 
-	private Voiture sortie;
+	private Voiture[] sortie = {null, null};
 
 	/**
 	 * File d'attente des voitures.
@@ -49,6 +45,7 @@ class VoieExterne extends Voie implements ActionListener, Circulable {
 		super(id.name());
 		identifiant = id;
 		interne = v;
+
 	}
 
 	/**
@@ -82,7 +79,7 @@ class VoieExterne extends Voie implements ActionListener, Circulable {
 	 */
 	void sort(Voiture v) {
 		v.sengager(this);
-		sortie = v;
+		sortie[0] = v;
 	}
 
 	/**
@@ -141,6 +138,11 @@ class VoieExterne extends Voie implements ActionListener, Circulable {
 		this.percent = percent;
 	}
 
+	public void postPaint() {
+		sortie[1] = sortie[0];
+		sortie[0] = null;
+	}
+
 	/**
 	 * Retourne la tranformation de base pour l'affichage des voitures dans cette
 	 * voie.
@@ -181,15 +183,14 @@ class VoieExterne extends Voie implements ActionListener, Circulable {
 				throw new IllegalArgumentException();
 			}
 
-			g2d.transform(new AffineTransform());
 			AffineTransform tx = new AffineTransform();
 			tx.translate(dx, dy);
 			tx.rotate(theta, 30, 30);
-			g2d.transform(tx);
-			g2d.drawImage(voiture.getPicture(), 0, 0, this);
+			g2d.drawImage(voiture.getPicture(), tx, this);
+			g2d.transform(new AffineTransform());
 		}
 
-		if (sortie != null) {
+		if (sortie[1] != null) {
 			switch (identifiant) {
 			case NORD:
 				dx = 290;
@@ -218,20 +219,15 @@ class VoieExterne extends Voie implements ActionListener, Circulable {
 			AffineTransform tx = new AffineTransform();
 			tx.translate(dx, dy);
 			tx.rotate(theta, 30, 30);
-			g2d.drawImage(sortie.getPicture(), tx, this);
-			sortie = null;
+			g2d.drawImage(sortie[1].getPicture(), tx, this);
 		}
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		System.out.println("Circule " + circule);
-		if (circule instanceof VoieArretee) {
-			circule = normale;
-		}
-		else {
-			circule = bloquee;
-		}
+		Circulable swap = circule;
+		circule = circuleTmp;
+		circuleTmp = swap;
 	}
 
 	class VoieArretee implements Circulable {

@@ -13,7 +13,7 @@ import java.util.Observer;
 import javax.swing.JComponent;
 
 /**
- * 
+ *
  * @author Alexis Brenon
  * @author Cécilia Martin
  * @author Luc Chante
@@ -25,7 +25,7 @@ public class RondPointPanel extends javax.swing.JPanel implements Observer {
 
 	/**
 	 * Creates new form RondPointPanel
-	 * 
+	 *
 	 * @throws URISyntaxException
 	 */
 	public RondPointPanel() {
@@ -35,7 +35,6 @@ public class RondPointPanel extends javax.swing.JPanel implements Observer {
 
 	public void ajouterVoie(JComponent voie) {
 		voies.add(voie);
-		getRootPane().add(voie);
 	}
 
 	@Override
