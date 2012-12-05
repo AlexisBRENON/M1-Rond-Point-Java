@@ -28,7 +28,15 @@ class VoieExterne extends Voie implements ActionListener, Circulable {
 	 */
 	private VoieInterne interne;
 
-	private Voiture[] sortie = {null, null};
+	/**
+	 * Variable de sauvegarde temporaire utile à l'affichage
+	 */
+	private Voiture[] paintSortie = {null, null};
+
+	/**
+	 * Variable de sauvegarde temporaire utile à l'affichage
+	 */
+	private Voiture paintTete = null;
 
 	/**
 	 * File d'attente des voitures.
@@ -79,7 +87,7 @@ class VoieExterne extends Voie implements ActionListener, Circulable {
 	 */
 	void sort(Voiture v) {
 		v.sengager(this);
-		sortie[0] = v;
+		paintSortie[0] = v;
 	}
 
 	/**
@@ -88,6 +96,7 @@ class VoieExterne extends Voie implements ActionListener, Circulable {
 	@Override
 	void quitter(Voiture v) {
 		voitures.remove(v);
+		paintTete = null;
 	}
 
 	/**
@@ -135,20 +144,15 @@ class VoieExterne extends Voie implements ActionListener, Circulable {
 	 */
 	@Override
 	public void prePaint(double percent) {
-		if (circule instanceof VoieArretee) {
-			this.percent = 1.0;
-		}
-		else {
-			this.percent = percent;
-		}
+		this.percent = percent;
 	}
 
 	/**
 	 * Exécuté à la fin d'un tour complet d'affichage.
 	 */
 	public void postPaint() {
-		sortie[1] = sortie[0];
-		sortie[0] = null;
+		paintSortie[1] = paintSortie[0];
+		paintSortie[0] = null;
 	}
 
 	/**
@@ -166,6 +170,9 @@ class VoieExterne extends Voie implements ActionListener, Circulable {
 
 		Voiture voiture = voitures.peek();
 		if (voiture != null) {
+			if (circule instanceof VoieArretee || paintTete == voiture) {
+				percent = 1.0;
+			}
 			switch (identifiant) {
 			case NORD:
 				dx = 240;
@@ -196,9 +203,12 @@ class VoieExterne extends Voie implements ActionListener, Circulable {
 			tx.rotate(theta, 30, 30);
 			g2d.drawImage(voiture.getPicture(), tx, this);
 			g2d.transform(new AffineTransform());
+			if (percent == 1.0) {
+				paintTete = voiture;
+			}
 		}
 
-		if (sortie[1] != null) {
+		if (paintSortie[1] != null) {
 			switch (identifiant) {
 			case NORD:
 				dx = 290;
@@ -227,7 +237,7 @@ class VoieExterne extends Voie implements ActionListener, Circulable {
 			AffineTransform tx = new AffineTransform();
 			tx.translate(dx, dy);
 			tx.rotate(theta, 30, 30);
-			g2d.drawImage(sortie[1].getPicture(), tx, this);
+			g2d.drawImage(paintSortie[1].getPicture(), tx, this);
 		}
 	}
 
