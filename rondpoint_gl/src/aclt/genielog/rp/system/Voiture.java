@@ -1,11 +1,10 @@
 package aclt.genielog.rp.system;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.io.File;
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.Observable;
-import java.util.Random;
 
 import javax.imageio.ImageIO;
 
@@ -22,31 +21,13 @@ class Voiture extends Observable {
 
 	private static int ID = 0;
 
-	private static Image rouge = null;
-	private static Image noire = null;
-	private static Image verte = null;
-	private static Image jaune = null;
+	private static String[] images = { null, null, null, null };
 
 	static {
-		Class<Voiture> cv = Voiture.class;
-		String path = "/aclt/genielog/rp/ihm/img/rouge.png";
-		try {
-			path = cv.getResource(path).toURI().getPath();
-			rouge = ImageIO.read(new File(path));
-			path = "/aclt/genielog/rp/ihm/img/noire.png";
-			path = cv.getResource(path).toURI().getPath();
-			noire = ImageIO.read(new File(path));
-			path = "/aclt/genielog/rp/ihm/img/verte.png";
-			path = cv.getResource(path).toURI().getPath();
-			verte = ImageIO.read(new File(path));
-			path = "/aclt/genielog/rp/ihm/img/jaune.png";
-			path = cv.getResource(path).toURI().getPath();
-			jaune = ImageIO.read(new File(path));
-		} catch (URISyntaxException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		images[0] = "/aclt/genielog/rp/ihm/img/noire.png";
+		images[1] = "/aclt/genielog/rp/ihm/img/verte.png";
+		images[2] = "/aclt/genielog/rp/ihm/img/jaune.png";
+		images[3] = "/aclt/genielog/rp/ihm/img/rouge.png";
 	}
 
 	/**
@@ -76,23 +57,23 @@ class Voiture extends Observable {
 	Voiture(VoieExterne dest) {
 		name = "Voiture#" + (ID++);
 		destination = dest;
-		switch (new Random().nextInt(4)) {
-		case 0:
-			picture = rouge;
-			break;
-		case 1:
-			picture = noire;
-			break;
-		case 2:
-			picture = verte;
-			break;
-		case 3:
-		default:
-			picture = jaune;
-		}
 	}
 
 	void sengager(VoieExterne voie) {
+		if (picture == null) {
+			try {
+				int ord = voie.getEnum().ordinal();
+				String path = getClass().getResource(images[ord]).toURI().getPath();
+				picture = ImageIO.read(new File(path));
+				char[] sortie = destination.getEnum().toString().toCharArray();
+				Graphics2D g2d = (Graphics2D) picture.getGraphics();
+				g2d.setColor(Color.BLACK);
+				g2d.rotate(-Math.PI / 2.0, 30, 30);
+				g2d.drawChars(sortie, 0, 1, 28, 30);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		majVoieSuivante(voie);
 	}
 
