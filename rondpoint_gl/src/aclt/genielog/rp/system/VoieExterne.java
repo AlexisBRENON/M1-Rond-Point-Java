@@ -212,21 +212,21 @@ class VoieExterne extends Voie implements ActionListener, Circulable {
 			switch (identifiant) {
 			case NORD:
 				dx = 290;
-				dy = 30 - (int)Math.round(90.0 * percent);
+				dy = (int) Math.round(30.0 - 90.0 * percent);
 				theta = -Math.PI / 2.0;
 				break;
 			case OUEST:
-				dx = 30 - (int)Math.round(90.0 * percent);
+				dx = (int) Math.round(30 - 90.0 * percent);
 				dy = 240;
 				theta = -Math.PI;
 				break;
 			case SUD:
 				dx = 240;
-				dy = 510 + (int)Math.round(90.0 * percent);
+				dy = (int) Math.round(510 + 90.0 * percent);
 				theta = Math.PI / 2.0;
 				break;
 			case EST:
-				dx = 510 + (int)Math.round(90.0 * percent);
+				dx = (int) Math.round(510 + 90.0 * percent);
 				dy = 290;
 				theta = 0.0;
 				break;
