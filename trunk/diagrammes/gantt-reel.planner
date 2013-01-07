@@ -28,23 +28,27 @@
         </predecessors>
       </task>
     </task>
-    <task id="4" name="Diagramme de s&#xE9;quence" note="" work="154800" duration="154800" start="20121114T113000Z" end="20121121T153000Z" work-start="20121114T113000Z" percent-complete="99" priority="0" type="normal" scheduling="fixed-duration">
+    <task id="4" name="Diagrammes" note="" work="309600" start="20121114T113000Z" end="20121121T153000Z" work-start="20121114T113000Z" percent-complete="100" priority="0" type="normal" scheduling="fixed-work">
       <predecessors>
         <predecessor id="1" predecessor-id="1" type="FS"/>
       </predecessors>
+      <task id="5" name="Diagrammes de s&#xE9;quences" note="" work="154800" start="20121114T113000Z" end="20121121T153000Z" work-start="20121114T113000Z" percent-complete="100" priority="0" type="normal" scheduling="fixed-work"/>
+      <task id="6" name="Diagramme de classes" note="" work="154800" start="20121114T113000Z" end="20121121T153000Z" work-start="20121114T113000Z" percent-complete="100" priority="0" type="normal" scheduling="fixed-work"/>
     </task>
-    <task id="5" name="Diagramme de classes" note="" work="154800" duration="154800" start="20121121T153000Z" end="20121129T093000Z" work-start="20121121T153000Z" percent-complete="70" priority="0" type="normal" scheduling="fixed-duration">
+    <task id="7" name="D&#xE9;veloppement" note="" work="280800" start="20121121T153000Z" end="20121205T133000Z" work-start="20121121T153000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
       <predecessors>
         <predecessor id="1" predecessor-id="4" type="FS"/>
       </predecessors>
+      <task id="8" name="D&#xE9;veloppement" note="" work="280800" start="20121121T153000Z" end="20121205T133000Z" work-start="20121121T153000Z" percent-complete="100" priority="0" type="normal" scheduling="fixed-work"/>
     </task>
-    <task id="6" name="D&#xE9;veloppement" note="" work="109800" start="20121129T093000Z" end="20121204T170000Z" work-start="20121129T093000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+    <task id="9" name="Modification des diagrammes" note="" work="115200" start="20121122T000000Z" end="20121127T170000Z" work-start="20121122T080000Z" percent-complete="100" priority="0" type="normal" scheduling="fixed-work">
+      <constraint type="must-start-on" time="20121122T000000Z"/>
+    </task>
+    <task id="10" name="Rendu du projet" note="" work="0" start="20121205T133000Z" end="20121205T133000Z" work-start="20121205T133000Z" percent-complete="0" priority="0" type="milestone" scheduling="fixed-work">
+      <constraint type="start-no-earlier-than" time="20121205T000000Z"/>
       <predecessors>
-        <predecessor id="1" predecessor-id="5" type="FS"/>
+        <predecessor id="1" predecessor-id="8" type="FS"/>
       </predecessors>
-    </task>
-    <task id="7" name="Rendu de projet" note="" work="0" start="20121205T000000Z" end="20121205T000000Z" work-start="20121205T080000Z" percent-complete="0" priority="0" type="milestone" scheduling="fixed-work">
-      <constraint type="must-start-on" time="20121205T000000Z"/>
     </task>
   </tasks>
   <resource-groups/>
